@@ -1,67 +1,108 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ExternalLink, Github, Folder, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, Github, Folder, Star, Filter, Search } from 'lucide-react';
 
 const Projects = () => {
+  const [filter, setFilter] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('');
+
   const projects = [
     {
       id: 1,
       title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      github: '#',
-      live: '#',
+      description: 'A full-stack e-commerce solution with real-time inventory, payment processing, admin dashboard, and analytics. Built with modern technologies for scalability.',
+      longDescription: 'Complete e-commerce platform featuring user authentication, product catalog, shopping cart, payment integration with Stripe, order management, and comprehensive admin dashboard with analytics.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Redis', 'AWS'],
+      github: 'https://github.com/yourusername/ecommerce',
+      live: 'https://ecommerce-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: true,
+      category: 'fullstack',
+      status: 'completed'
     },
     {
       id: 2,
       title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      tech: ['React', 'TypeScript', 'Socket.io', 'PostgreSQL'],
-      github: '#',
-      live: '#',
+      description: 'Collaborative task management with real-time updates, drag-and-drop, team collaboration, and advanced project tracking features.',
+      longDescription: 'Advanced project management tool with real-time collaboration, drag-and-drop task organization, team chat, file sharing, time tracking, and detailed project analytics.',
+      tech: ['React', 'TypeScript', 'Socket.io', 'PostgreSQL', 'Docker'],
+      github: 'https://github.com/yourusername/taskmanager',
+      live: 'https://taskmanager-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: true,
+      category: 'fullstack',
+      status: 'completed'
     },
     {
       id: 3,
-      title: 'Weather Dashboard',
-      description: 'A responsive weather dashboard that displays current weather conditions and forecasts using OpenWeatherMap API.',
-      tech: ['React', 'API Integration', 'Chart.js', 'CSS3'],
-      github: '#',
-      live: '#',
-      featured: false,
+      title: 'AI Chat Assistant',
+      description: 'Intelligent chatbot with natural language processing, context awareness, and integration with multiple AI models for enhanced conversations.',
+      longDescription: 'Advanced AI-powered chat assistant featuring natural language processing, context-aware conversations, multi-model AI integration, and customizable personality settings.',
+      tech: ['Next.js', 'OpenAI API', 'Prisma', 'Tailwind CSS', 'Vercel'],
+      github: 'https://github.com/yourusername/ai-chat',
+      live: 'https://ai-chat-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
+      featured: true,
+      category: 'ai',
+      status: 'completed'
     },
     {
       id: 4,
-      title: 'Blog Platform',
-      description: 'A modern blog platform with markdown support, comment system, and SEO optimization.',
-      tech: ['Next.js', 'MDX', 'Prisma', 'Tailwind CSS'],
-      github: '#',
-      live: '#',
+      title: 'Weather Dashboard',
+      description: 'Responsive weather dashboard with forecasts, interactive maps, weather alerts, and historical data visualization.',
+      longDescription: 'Comprehensive weather application with current conditions, 7-day forecasts, interactive weather maps, severe weather alerts, and historical weather data analysis.',
+      tech: ['React', 'Chart.js', 'OpenWeather API', 'Mapbox', 'PWA'],
+      github: 'https://github.com/yourusername/weather-app',
+      live: 'https://weather-dashboard-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
+      category: 'frontend',
+      status: 'completed'
     },
     {
       id: 5,
-      title: 'Portfolio Website',
-      description: 'A responsive portfolio website showcasing projects and skills with smooth animations and modern design.',
-      tech: ['React', 'Framer Motion', 'Tailwind CSS', 'Vite'],
-      github: '#',
-      live: '#',
+      title: 'Crypto Portfolio Tracker',
+      description: 'Real-time cryptocurrency portfolio tracking with price alerts, market analysis, and trading insights.',
+      longDescription: 'Advanced crypto portfolio management tool with real-time price tracking, portfolio analytics, price alerts, market news integration, and trading performance analysis.',
+      tech: ['Vue.js', 'Node.js', 'CoinGecko API', 'Chart.js', 'WebSocket'],
+      github: 'https://github.com/yourusername/crypto-tracker',
+      live: 'https://crypto-tracker-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
+      category: 'frontend',
+      status: 'completed'
     },
     {
       id: 6,
-      title: 'Chat Application',
-      description: 'Real-time chat application with private messaging, group chats, and file sharing capabilities.',
-      tech: ['React', 'Socket.io', 'Express', 'MongoDB'],
-      github: '#',
-      live: '#',
+      title: 'Social Media Analytics',
+      description: 'Comprehensive social media analytics platform with engagement tracking, audience insights, and content performance metrics.',
+      longDescription: 'Professional social media analytics dashboard providing detailed insights into engagement rates, audience demographics, content performance, and competitor analysis.',
+      tech: ['React', 'D3.js', 'Express', 'MongoDB', 'Social APIs'],
+      github: 'https://github.com/yourusername/social-analytics',
+      live: 'https://social-analytics-demo.vercel.app',
+      image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
+      category: 'fullstack',
+      status: 'in-progress'
     },
   ];
 
-  const featuredProjects = projects.filter(project => project.featured);
-  const otherProjects = projects.filter(project => !project.featured);
+  const categories = [
+    { id: 'all', label: 'All Projects' },
+    { id: 'fullstack', label: 'Full Stack' },
+    { id: 'frontend', label: 'Frontend' },
+    { id: 'ai', label: 'AI/ML' },
+  ];
+
+  const filteredProjects = projects.filter(project => {
+    const matchesFilter = filter === 'all' || project.category === filter;
+    const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         project.tech.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+    return matchesFilter && matchesSearch;
+  });
+
+  const featuredProjects = filteredProjects.filter(project => project.featured);
+  const otherProjects = filteredProjects.filter(project => !project.featured);
 
   return (
     <div className="min-h-screen py-20 px-4">
@@ -73,152 +114,239 @@ const Projects = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="mb-6 p-3 bg-dark-card border border-neon-green/30 rounded-lg"
+          <motion.div
+            whileHover={{ scale: 1.1, rotate: 360 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 p-4 bg-dark-card border border-neon-green/30 rounded-full w-20 h-20 mx-auto flex items-center justify-center"
           >
-            <Folder className="text-neon-green" size={24} />
-          </motion.button>
+            <Folder className="text-neon-green" size={32} />
+          </motion.div>
           <h1 className="text-3xl md:text-4xl font-display font-bold">
-            <span className="text-neon-green">&lt;</span>
+            <span className="text-neon-green"><</span>
             Projects
-            <span className="text-neon-green">/&gt;</span>
+            <span className="text-neon-green">/></span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            Some things I've built
+            Some things I've built with passion and code
           </p>
         </motion.div>
 
-        {/* Featured Projects */}
+        {/* Filters and Search */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-16"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-12"
         >
-          <div className="flex items-center gap-3 mb-8">
-            <Star className="text-neon-green" size={20} />
-            <h2 className="text-2xl font-display font-semibold">Featured Projects</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {featuredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
-                whileHover={{ y: -5 }}
-                className="bg-dark-card border border-neon-green/20 rounded-lg p-6 hover:border-neon-green/40 transition-all duration-300"
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <Folder className="text-neon-green" size={24} />
-                  <div className="flex gap-3">
-                    <motion.a
-                      href={project.github}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-400 hover:text-neon-green transition-colors"
-                    >
-                      <Github size={20} />
-                    </motion.a>
-                    <motion.a
-                      href={project.live}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-400 hover:text-neon-green transition-colors"
-                    >
-                      <ExternalLink size={20} />
-                    </motion.a>
-                  </div>
-                </div>
-                
-                <h3 className="text-xl font-display font-semibold mb-3 text-neon-green">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded-full border border-neon-green/20"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Category Filters */}
+            <div className="flex items-center gap-2">
+              <Filter className="text-neon-green" size={20} />
+              <div className="flex gap-2">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setFilter(category.id)}
+                    className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
+                      filter === category.id
+                        ? 'bg-neon-green text-dark-bg'
+                        : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                    }`}
+                  >
+                    {category.label}
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+
+            {/* Search */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+              <input
+                type="text"
+                placeholder="Search projects..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 pr-4 py-2 bg-dark-card border border-gray-700 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm w-64"
+              />
+            </div>
           </div>
         </motion.div>
 
+        {/* Featured Projects */}
+        <AnimatePresence>
+          {featuredProjects.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="mb-16"
+            >
+              <div className="flex items-center gap-3 mb-8">
+                <Star className="text-neon-green" size={24} />
+                <h2 className="text-2xl font-display font-semibold">Featured Projects</h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {featuredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 + index * 0.2 }}
+                    whileHover={{ y: -10 }}
+                    className="group bg-dark-card border border-neon-green/20 rounded-lg overflow-hidden hover:border-neon-green/40 transition-all duration-300"
+                  >
+                    <div className="relative overflow-hidden">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 to-transparent" />
+                      <div className="absolute top-4 right-4 flex gap-2">
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <Github size={16} />
+                        </motion.a>
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <ExternalLink size={16} />
+                        </motion.a>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <h3 className="text-xl font-display font-semibold mb-3 text-neon-green">
+                        {project.title}
+                      </h3>
+                      
+                      <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
+                        {project.description}
+                      </p>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded border border-neon-green/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Other Projects */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {otherProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                whileHover={{ y: -3 }}
-                className="bg-dark-card border border-gray-700 rounded-lg p-5 hover:border-neon-green/30 transition-all duration-300"
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <Folder className="text-neon-green" size={20} />
-                  <div className="flex gap-2">
-                    <motion.a
-                      href={project.github}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-400 hover:text-neon-green transition-colors"
-                    >
-                      <Github size={16} />
-                    </motion.a>
-                    <motion.a
-                      href={project.live}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-400 hover:text-neon-green transition-colors"
-                    >
-                      <ExternalLink size={16} />
-                    </motion.a>
-                  </div>
-                </div>
-                
-                <h3 className="text-lg font-display font-semibold mb-2 text-white">
-                  {project.title}
-                </h3>
-                
-                <p className="text-gray-400 text-xs font-mono leading-relaxed mb-4">
-                  {project.description}
-                </p>
-                
-                <div className="flex flex-wrap gap-1">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 text-xs font-mono text-gray-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+        <AnimatePresence>
+          {otherProjects.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {otherProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                    whileHover={{ y: -5 }}
+                    className="bg-dark-card border border-gray-700 rounded-lg p-6 hover:border-neon-green/30 transition-all duration-300"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <Folder className="text-neon-green" size={24} />
+                      <div className="flex gap-2">
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <Github size={18} />
+                        </motion.a>
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <ExternalLink size={18} />
+                        </motion.a>
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-lg font-display font-semibold mb-2 text-white">
+                      {project.title}
+                    </h3>
+                    
+                    <p className="text-gray-400 text-sm font-mono leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-1">
+                      {project.tech.slice(0, 4).map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-1 text-xs font-mono text-gray-400"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.tech.length > 4 && (
+                        <span className="px-2 py-1 text-xs font-mono text-gray-500">
+                          +{project.tech.length - 4} more
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* No Results */}
+        {filteredProjects.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-16"
+          >
+            <p className="text-gray-400 font-mono text-lg">
+              No projects found matching your criteria.
+            </p>
+          </motion.div>
+        )}
 
         {/* GitHub CTA */}
         <motion.div

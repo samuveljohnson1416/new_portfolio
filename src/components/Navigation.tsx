@@ -1,105 +1,267 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, User, Folder, FileText, Mail, Move } from 'lucide-react';
+import { Home, User, Folder, FileText, Mail, Menu, X, Code } from 'lucide-react';
 
 const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isDragging, setIsDragging] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   const navItems = [
-    { path: '/', icon: Home, label: 'Home' },
-    { path: '/about', icon: User, label: 'About' },
-    { path: '/projects', icon: Folder, label: 'Projects' },
-    { path: '/resume', icon: FileText, label: 'Resume' },
-    { path: '/contact', icon: Mail, label: 'Contact' },
+    { path: '/', icon: Home, label: 'Home', color: 'text-neon-green' },
+    { path: '/about', icon: User, label: 'About', color: 'text-neon-blue' },
+    { path: '/projects', icon: Folder, label: 'Projects', color: 'text-neon-pink' },
+    { path: '/resume', icon: FileText, label: 'Resume', color: 'text-neon-green' },
+    { path: '/contact', icon: Mail, label: 'Contact', color: 'text-neon-blue' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearInterval(timer);
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+  };
+
+  const getPageTitle = () => {
+    const currentPage = navItems.find(item => item.path === location.pathname);
+    return currentPage ? currentPage.label : 'Portfolio';
+  };
+
   return (
-    <motion.nav
-      drag
-      dragMomentum={false}
-      dragElastic={0.1}
-      onDragStart={() => setIsDragging(true)}
-      onDragEnd={() => setIsDragging(false)}
-      whileDrag={{ scale: 1.05, cursor: 'grabbing' }}
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.5 }}
-      className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 ${
-        isDragging ? 'cursor-grabbing' : 'cursor-grab'
-      }`}
-      style={{ touchAction: 'none' }}
-    >
-      <div className="bg-dark-card/90 backdrop-blur-md border border-neon-green/20 rounded-full px-6 py-3 shadow-lg">
-        <div className="flex items-center gap-2">
-          {/* Drag Handle */}
-          <motion.div
-            className="p-2 text-gray-400 hover:text-neon-green transition-colors cursor-grab active:cursor-grabbing"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Move size={16} />
-          </motion.div>
-
-          {/* Separator */}
-          <div className="w-px h-6 bg-gray-600"></div>
-
-          {/* Navigation Items */}
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            const Icon = item.icon;
-            
-            return (
-              <motion.button
-                key={item.path}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (!isDragging) {
-                    navigate(item.path);
-                  }
-                }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className={`relative p-3 rounded-full transition-all duration-300 ${
-                  isActive
-                    ? 'bg-neon-green text-dark-bg'
-                    : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/10'
-                }`}
-                style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
-              >
-                <Icon size={20} />
-                
-                {/* Tooltip */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-dark-bg border border-neon-green/30 rounded-lg px-3 py-1 pointer-events-none"
-                >
-                  <span className="text-xs font-mono text-neon-green whitespace-nowrap">
-                    {item.label}
-                  </span>
-                  <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-green/30"></div>
-                </motion.div>
-              </motion.button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Drag Instructions (shows on first hover) */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        whileHover={{ opacity: 1, scale: 1 }}
-        className="absolute -top-16 left-1/2 transform -translate-x-1/2 bg-dark-card/90 border border-neon-green/20 rounded-lg px-3 py-2 pointer-events-none"
+    <>
+      {/* Desktop Navigation */}
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled 
+            ? 'bg-dark-card/95 backdrop-blur-md border-b border-neon-green/20 shadow-lg' 
+            : 'bg-transparent'
+        }`}
       >
-        <span className="text-xs font-mono text-gray-300 whitespace-nowrap">
-          Drag to move • Click to navigate
-        </span>
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neon-green/20"></div>
-      </motion.div>
-    </motion.nav>
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo with Animation */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center gap-3 cursor-pointer"
+              onClick={() => handleNavigation('/')}
+            >
+              <motion.div 
+                className="w-10 h-10 bg-gradient-to-br from-neon-green to-neon-blue rounded-lg flex items-center justify-center"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Code className="text-dark-bg" size={20} />
+              </motion.div>
+              <div className="hidden sm:block">
+                <span className="font-display font-bold text-lg">
+                  <span className="text-neon-green"><</span>
+                  Alex
+                  <span className="text-neon-green">/></span>
+                </span>
+                <div className="text-xs font-mono text-gray-400">
+                  {getPageTitle()}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Center - Current Time & Status */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="hidden lg:flex items-center gap-4 bg-dark-card/50 px-4 py-2 rounded-lg border border-neon-green/20"
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                <span className="text-xs font-mono text-gray-300">Available for work</span>
+              </div>
+              <div className="w-px h-4 bg-gray-600"></div>
+              <span className="text-xs font-mono text-neon-green">
+                {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </motion.div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-2">
+              {navItems.map((item, index) => {
+                const isActive = location.pathname === item.path;
+                const Icon = item.icon;
+                
+                return (
+                  <motion.button
+                    key={item.path}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * index }}
+                    onClick={() => handleNavigation(item.path)}
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`relative flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
+                      isActive
+                        ? `${item.color} bg-gradient-to-r from-neon-green/10 to-neon-blue/10 border border-neon-green/30`
+                        : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/5'
+                    }`}
+                  >
+                    <Icon size={16} />
+                    <span className="hidden lg:block">{item.label}</span>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeIndicator"
+                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-neon-green rounded-full"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+
+            {/* Mobile Menu Button */}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleMenu}
+              className="md:hidden p-2 text-gray-400 hover:text-neon-green transition-colors relative"
+            >
+              <AnimatePresence mode="wait">
+                {isOpen ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <X size={24} />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="menu"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Menu size={24} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </div>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 md:hidden"
+          >
+            <motion.div 
+              className="absolute inset-0 bg-dark-bg/95 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="absolute right-0 top-0 h-full w-80 bg-dark-card border-l border-neon-green/20 p-6"
+            >
+              <div className="flex items-center justify-between mb-8 mt-16">
+                <h2 className="text-xl font-display font-bold text-neon-green">Navigation</h2>
+                <div className="text-xs font-mono text-gray-400">
+                  {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                {navItems.map((item, index) => {
+                  const isActive = location.pathname === item.path;
+                  const Icon = item.icon;
+                  
+                  return (
+                    <motion.button
+                      key={item.path}
+                      initial={{ opacity: 0, x: 50 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onClick={() => handleNavigation(item.path)}
+                      whileHover={{ x: 5, scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg font-mono transition-all duration-300 ${
+                        isActive
+                          ? `${item.color} bg-gradient-to-r from-neon-green/10 to-neon-blue/10 border border-neon-green/20`
+                          : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/5'
+                      }`}
+                    >
+                      <Icon size={20} />
+                      <span>{item.label}</span>
+                      {isActive && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="ml-auto w-2 h-2 bg-neon-green rounded-full"
+                        />
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Mobile Status */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+                className="mt-8 p-4 bg-dark-bg rounded-lg border border-neon-green/20"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                  <span className="text-sm font-mono text-neon-green">Available for work</span>
+                </div>
+                <p className="text-xs font-mono text-gray-400">
+                  Open to new opportunities and collaborations
+                </p>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Spacer for fixed navigation */}
+      <div className="h-16" />
+    </>
   );
 };
 

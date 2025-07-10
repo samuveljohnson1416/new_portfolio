@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,41 +9,82 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
+    if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    else if (formData.message.length < 10) newErrors.message = 'Message must be at least 10 characters';
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    
+    if (!validateForm()) return;
+    
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // In a real app, you would send the data to your backend
+      console.log('Form submitted:', formData);
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'your.email@example.com',
-      href: 'mailto:your.email@example.com',
-      color: 'text-neon-green'
+      value: 'alex.johnson@example.com',
+      href: 'mailto:alex.johnson@example.com',
+      color: 'text-neon-green',
+      description: 'Best way to reach me'
     },
     {
       icon: Phone,
       label: 'Phone',
       value: '+1 (555) 123-4567',
       href: 'tel:+15551234567',
-      color: 'text-neon-blue'
+      color: 'text-neon-blue',
+      description: 'Available Mon-Fri, 9AM-6PM PST'
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Your City, Country',
+      value: 'San Francisco, CA',
       href: '#',
-      color: 'text-neon-pink'
+      color: 'text-neon-pink',
+      description: 'Open to remote opportunities'
     }
   ];
 
@@ -52,20 +93,32 @@ const Contact = () => {
       icon: Github,
       label: 'GitHub',
       href: 'https://github.com/yourusername',
-      color: 'hover:text-neon-green'
+      color: 'hover:text-neon-green',
+      username: '@yourusername'
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
       href: 'https://linkedin.com/in/yourusername',
-      color: 'hover:text-neon-blue'
+      color: 'hover:text-neon-blue',
+      username: '/in/yourusername'
     },
     {
       icon: Twitter,
       label: 'Twitter',
       href: 'https://twitter.com/yourusername',
-      color: 'hover:text-neon-pink'
+      color: 'hover:text-neon-pink',
+      username: '@yourusername'
     }
+  ];
+
+  const quickTopics = [
+    'Freelance Project',
+    'Full-time Opportunity',
+    'Collaboration',
+    'Mentorship',
+    'Speaking Engagement',
+    'Other'
   ];
 
   return (
@@ -78,17 +131,17 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="mb-6 p-3 bg-dark-card border border-neon-green/30 rounded-lg"
+          <motion.div
+            whileHover={{ scale: 1.1, rotate: 360 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 p-4 bg-dark-card border border-neon-green/30 rounded-full w-20 h-20 mx-auto flex items-center justify-center"
           >
-            <Mail className="text-neon-green" size={24} />
-          </motion.button>
+            <Mail className="text-neon-green" size={32} />
+          </motion.div>
           <h1 className="text-3xl md:text-4xl font-display font-bold">
-            <span className="text-neon-green">&lt;</span>
+            <span className="text-neon-green"><</span>
             Contact
-            <span className="text-neon-green">/&gt;</span>
+            <span className="text-neon-green">/></span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
             Let's build something amazing together
@@ -103,15 +156,40 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="bg-dark-card border border-neon-green/20 rounded-lg p-8">
-              <h2 className="text-2xl font-display font-semibold mb-6">
-                Send me a message
-              </h2>
+              <div className="flex items-center gap-3 mb-6">
+                <MessageCircle className="text-neon-green" size={24} />
+                <h2 className="text-2xl font-display font-semibold">Send me a message</h2>
+              </div>
+
+              {/* Quick Topic Selection */}
+              <div className="mb-6">
+                <label className="block text-sm font-mono text-gray-300 mb-3">
+                  What's this about? (Optional)
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {quickTopics.map((topic) => (
+                    <motion.button
+                      key={topic}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setFormData(prev => ({ ...prev, subject: topic }))}
+                      className={`px-3 py-1 text-xs font-mono rounded-full border transition-all duration-300 ${
+                        formData.subject === topic
+                          ? 'bg-neon-green/20 text-neon-green border-neon-green/40'
+                          : 'bg-gray-800 text-gray-400 border-gray-600 hover:border-neon-green/30'
+                      }`}
+                    >
+                      {topic}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-mono text-gray-300 mb-2">
-                      Name
+                      Name *
                     </label>
                     <input
                       type="text"
@@ -119,14 +197,20 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm"
+                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
+                        errors.name 
+                          ? 'border-red-500 focus:border-red-400' 
+                          : 'border-gray-600 focus:border-neon-green'
+                      }`}
                       placeholder="Your name"
                     />
+                    {errors.name && (
+                      <p className="text-red-400 text-xs font-mono mt-1">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-mono text-gray-300 mb-2">
-                      Email
+                      Email *
                     </label>
                     <input
                       type="email"
@@ -134,16 +218,22 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm"
+                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
+                        errors.email 
+                          ? 'border-red-500 focus:border-red-400' 
+                          : 'border-gray-600 focus:border-neon-green'
+                      }`}
                       placeholder="your.email@example.com"
                     />
+                    {errors.email && (
+                      <p className="text-red-400 text-xs font-mono mt-1">{errors.email}</p>
+                    )}
                   </div>
                 </div>
                 
                 <div>
                   <label htmlFor="subject" className="block text-sm font-mono text-gray-300 mb-2">
-                    Subject
+                    Subject *
                   </label>
                   <input
                     type="text"
@@ -151,37 +241,97 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm"
+                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
+                      errors.subject 
+                        ? 'border-red-500 focus:border-red-400' 
+                        : 'border-gray-600 focus:border-neon-green'
+                    }`}
                     placeholder="What's this about?"
                   />
+                  {errors.subject && (
+                    <p className="text-red-400 text-xs font-mono mt-1">{errors.subject}</p>
+                  )}
                 </div>
                 
                 <div>
                   <label htmlFor="message" className="block text-sm font-mono text-gray-300 mb-2">
-                    Message
+                    Message *
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     rows={6}
-                    className="w-full px-4 py-3 bg-dark-bg border border-gray-600 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm resize-none"
-                    placeholder="Tell me about your project..."
+                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm resize-none ${
+                      errors.message 
+                        ? 'border-red-500 focus:border-red-400' 
+                        : 'border-gray-600 focus:border-neon-green'
+                    }`}
+                    placeholder="Tell me about your project or idea..."
                   />
+                  {errors.message && (
+                    <p className="text-red-400 text-xs font-mono mt-1">{errors.message}</p>
+                  )}
+                  <p className="text-gray-500 text-xs font-mono mt-1">
+                    {formData.message.length}/500 characters
+                  </p>
                 </div>
                 
                 <motion.button
                   type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full bg-neon-green text-dark-bg px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300 flex items-center justify-center gap-3"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                  whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  className={`w-full px-6 py-3 rounded-lg font-mono font-semibold transition-all duration-300 flex items-center justify-center gap-3 ${
+                    isSubmitting
+                      ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                      : 'bg-neon-green text-dark-bg hover:bg-neon-green/90'
+                  }`}
                 >
-                  <Send size={20} />
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full"
+                      />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={20} />
+                      Send Message
+                    </>
+                  )}
                 </motion.button>
+
+                {/* Status Messages */}
+                <AnimatePresence>
+                  {submitStatus === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400"
+                    >
+                      <CheckCircle size={16} />
+                      <span className="font-mono text-sm">Message sent successfully! I'll get back to you soon.</span>
+                    </motion.div>
+                  )}
+                  
+                  {submitStatus === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400"
+                    >
+                      <AlertCircle size={16} />
+                      <span className="font-mono text-sm">Failed to send message. Please try again.</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </form>
             </div>
           </motion.div>
@@ -208,14 +358,15 @@ const Contact = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
                     whileHover={{ x: 5 }}
-                    className="flex items-center gap-4 p-4 bg-dark-bg rounded-lg hover:bg-gray-800/50 transition-all duration-300 group"
+                    className="flex items-start gap-4 p-4 bg-dark-bg rounded-lg hover:bg-gray-800/50 transition-all duration-300 group"
                   >
                     <div className={`p-3 rounded-lg bg-gray-800 ${info.color} group-hover:scale-110 transition-transform`}>
                       <info.icon size={20} />
                     </div>
-                    <div>
+                    <div className="flex-1">
                       <p className="text-sm font-mono text-gray-400">{info.label}</p>
-                      <p className="font-mono text-white">{info.value}</p>
+                      <p className="font-mono text-white mb-1">{info.value}</p>
+                      <p className="text-xs font-mono text-gray-500">{info.description}</p>
                     </div>
                   </motion.a>
                 ))}
@@ -225,10 +376,10 @@ const Contact = () => {
             {/* Social Links */}
             <div className="bg-dark-card border border-neon-green/20 rounded-lg p-8">
               <h2 className="text-2xl font-display font-semibold mb-6">
-                Follow me
+                Connect with me
               </h2>
               
-              <div className="flex gap-4">
+              <div className="space-y-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
@@ -238,11 +389,15 @@ const Contact = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    className={`p-4 bg-dark-bg rounded-lg text-gray-400 ${social.color} transition-all duration-300 hover:shadow-lg`}
+                    whileHover={{ scale: 1.02, x: 5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`flex items-center gap-4 p-4 bg-dark-bg rounded-lg text-gray-400 ${social.color} transition-all duration-300 hover:shadow-lg group`}
                   >
-                    <social.icon size={24} />
+                    <social.icon size={24} className="group-hover:scale-110 transition-transform" />
+                    <div>
+                      <p className="font-mono font-semibold">{social.label}</p>
+                      <p className="text-sm font-mono text-gray-500">{social.username}</p>
+                    </div>
                   </motion.a>
                 ))}
               </div>
@@ -259,10 +414,15 @@ const Contact = () => {
                 <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse"></div>
                 <h3 className="text-lg font-display font-semibold">Available for work</h3>
               </div>
-              <p className="text-gray-300 font-mono text-sm leading-relaxed">
+              <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
                 I'm currently available for freelance projects and full-time opportunities. 
-                Let's discuss how we can work together!
+                Let's discuss how we can work together to bring your ideas to life!
               </p>
+              
+              <div className="flex items-center gap-2 text-sm font-mono text-gray-400">
+                <Clock size={16} />
+                <span>Usually responds within 24 hours</span>
+              </div>
             </motion.div>
           </motion.div>
         </div>
