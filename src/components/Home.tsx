@@ -165,7 +165,7 @@ const Home = () => {
           className="mb-6"
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-4">
-            <span className="text-neon-green"><</span>
+            <span className="text-neon-green">{'<'}</span>
             <motion.span
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -174,7 +174,7 @@ const Home = () => {
             >
               Alex Johnson
             </motion.span>
-            <span className="text-neon-green">/></span>
+            <span className="text-neon-green">{'/>'}</span>
           </h1>
           
           <motion.p
