@@ -139,9 +139,9 @@ const Contact = () => {
             <Mail className="text-neon-green" size={32} />
           </motion.div>
           <h1 className="text-3xl md:text-4xl font-display font-bold">
-            <span className="text-neon-green"><</span>
+            <span className="text-neon-green">{'<'}</span>
             Contact
-            <span className="text-neon-green">/></span>
+            <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
             Let's build something amazing together
