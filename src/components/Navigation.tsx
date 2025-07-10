@@ -78,9 +78,9 @@ const Navigation = () => {
               </motion.div>
               <div className="hidden sm:block">
                 <span className="font-display font-bold text-lg">
-                  <span className="text-neon-green"><</span>
+                  <span className="text-neon-green">{'<'}</span>
                   Alex
-                  <span className="text-neon-green">/></span>
+                  <span className="text-neon-green">{'/>'}</span>
                 </span>
                 <div className="text-xs font-mono text-gray-400">
                   {getPageTitle()}
