@@ -4,28 +4,28 @@ import { User, Code2, Lightbulb, Target, Coffee, Clock, Award, Heart } from 'luc
 
 const About = () => {
   const skills = [
-    { name: 'React/Next.js', level: 95, color: 'from-neon-green to-neon-blue' },
-    { name: 'TypeScript', level: 90, color: 'from-neon-blue to-neon-pink' },
-    { name: 'Node.js/Express', level: 85, color: 'from-neon-pink to-neon-green' },
-    { name: 'Python/Django', level: 80, color: 'from-neon-green to-neon-blue' },
-    { name: 'AWS/Cloud', level: 75, color: 'from-neon-blue to-neon-pink' },
-    { name: 'UI/UX Design', level: 85, color: 'from-neon-pink to-neon-green' },
+    { name: 'React/Next.js', level: 90, color: 'from-neon-green to-neon-blue' },
+    { name: 'JavaScript/TypeScript', level: 85, color: 'from-neon-blue to-neon-pink' },
+    { name: 'Node.js/Express', level: 88, color: 'from-neon-pink to-neon-green' },
+    { name: 'MongoDB/MySQL', level: 80, color: 'from-neon-green to-neon-blue' },
+    { name: 'HTML/CSS', level: 92, color: 'from-neon-blue to-neon-pink' },
+    { name: 'Git/GitHub', level: 85, color: 'from-neon-pink to-neon-green' },
   ];
 
   const stats = [
-    { icon: Coffee, label: 'Coffee Cups', value: '2,847', color: 'text-neon-green' },
-    { icon: Code2, label: 'Lines of Code', value: '100K+', color: 'text-neon-blue' },
-    { icon: Clock, label: 'Hours Coding', value: '5,000+', color: 'text-neon-pink' },
-    { icon: Award, label: 'Projects Done', value: '50+', color: 'text-neon-green' },
+    { icon: Coffee, label: 'Coffee Cups', value: '1,200+', color: 'text-neon-green' },
+    { icon: Code2, label: 'Lines of Code', value: '50K+', color: 'text-neon-blue' },
+    { icon: Clock, label: 'Hours Coding', value: '2,000+', color: 'text-neon-pink' },
+    { icon: Award, label: 'Projects Done', value: '15+', color: 'text-neon-green' },
   ];
 
   const interests = [
-    'Open Source Contributing',
-    'Machine Learning',
-    'Photography',
-    'Rock Climbing',
-    'Chess',
-    'Cooking'
+    'Web Development',
+    'Mobile Development',
+    'Cloud Computing',
+    'Problem Solving',
+    'Learning New Tech',
+    'Team Collaboration'
   ];
 
   return (
@@ -69,11 +69,11 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Journey</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I'm a passionate full-stack developer with over 4 years of experience 
+                I'm a passionate full-stack developer with over 2 years of experience 
                 building scalable web applications. My journey started with a simple 
                 "Hello World" and evolved into creating complex, user-centric solutions 
-                that solve real-world problems. I believe in writing clean, maintainable 
-                code and staying up-to-date with the latest technologies.
+                that solve real-world problems. I specialize in React, Node.js, and modern 
+                web technologies, with a strong focus on creating efficient and scalable solutions.
               </p>
             </div>
 
@@ -83,11 +83,10 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">What I Do</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I specialize in creating responsive, accessible web applications using 
-                modern technologies like React, TypeScript, and Node.js. I'm passionate 
-                about user experience, performance optimization, and building scalable 
-                architectures. I also enjoy mentoring junior developers and contributing 
-                to open-source projects.
+                I specialize in full-stack development using React, Node.js, Express, 
+                and MongoDB. I'm passionate about creating responsive, user-friendly 
+                applications and have experience with both frontend and backend development. 
+                I enjoy working with modern JavaScript frameworks and building efficient APIs.
               </p>
             </div>
 
@@ -98,9 +97,9 @@ const About = () => {
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
                 I'm constantly learning and exploring new technologies. Currently, I'm 
-                diving deeper into AI/ML integration in web applications, exploring 
-                Web3 technologies, and improving my system design skills. My goal is 
-                to build products that make a positive impact on people's lives.
+                expanding my knowledge in cloud technologies, microservices architecture, 
+                and advanced React patterns. My goal is to build scalable applications 
+                that provide excellent user experiences and solve real-world problems.
               </p>
             </div>
           </motion.div>

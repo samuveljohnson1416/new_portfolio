@@ -9,12 +9,12 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution with real-time inventory, payment processing, admin dashboard, and analytics. Built with modern technologies for scalability.',
-      longDescription: 'Complete e-commerce platform featuring user authentication, product catalog, shopping cart, payment integration with Stripe, order management, and comprehensive admin dashboard with analytics.',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe', 'Redis', 'AWS'],
-      github: 'https://github.com/yourusername/ecommerce',
-      live: 'https://ecommerce-demo.vercel.app',
+      title: 'Full Stack E-Commerce App',
+      description: 'A complete e-commerce application with user authentication, product catalog, shopping cart, and order management. Built with React and Node.js.',
+      longDescription: 'Full-featured e-commerce platform with user registration/login, product browsing, cart functionality, order processing, and admin panel for product management.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'CSS3'],
+      github: 'https://github.com/samuveljohnson1416/ecommerce-app',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: true,
       category: 'fullstack',
@@ -22,12 +22,12 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: 'Task Management App',
-      description: 'Collaborative task management with real-time updates, drag-and-drop, team collaboration, and advanced project tracking features.',
-      longDescription: 'Advanced project management tool with real-time collaboration, drag-and-drop task organization, team chat, file sharing, time tracking, and detailed project analytics.',
-      tech: ['React', 'TypeScript', 'Socket.io', 'PostgreSQL', 'Docker'],
-      github: 'https://github.com/yourusername/taskmanager',
-      live: 'https://taskmanager-demo.vercel.app',
+      title: 'Todo List Application',
+      description: 'A responsive todo list application with CRUD operations, local storage, and clean user interface. Built with React and modern CSS.',
+      longDescription: 'Interactive todo application featuring add, edit, delete, and mark complete functionality with persistent storage and responsive design.',
+      tech: ['React', 'JavaScript', 'CSS3', 'Local Storage', 'Responsive Design'],
+      github: 'https://github.com/samuveljohnson1416/todo-app',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: true,
       category: 'fullstack',
@@ -35,25 +35,25 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: 'AI Chat Assistant',
-      description: 'Intelligent chatbot with natural language processing, context awareness, and integration with multiple AI models for enhanced conversations.',
-      longDescription: 'Advanced AI-powered chat assistant featuring natural language processing, context-aware conversations, multi-model AI integration, and customizable personality settings.',
-      tech: ['Next.js', 'OpenAI API', 'Prisma', 'Tailwind CSS', 'Vercel'],
-      github: 'https://github.com/yourusername/ai-chat',
-      live: 'https://ai-chat-demo.vercel.app',
+      title: 'Weather Dashboard',
+      description: 'A weather application that displays current weather and forecast data using external APIs. Features location search and responsive design.',
+      longDescription: 'Weather dashboard with current conditions, 5-day forecast, location search functionality, and clean, responsive user interface.',
+      tech: ['React', 'JavaScript', 'Weather API', 'CSS3', 'Responsive Design'],
+      github: 'https://github.com/samuveljohnson1416/weather-app',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: true,
-      category: 'ai',
+      category: 'frontend',
       status: 'completed'
     },
     {
       id: 4,
-      title: 'Weather Dashboard',
-      description: 'Responsive weather dashboard with forecasts, interactive maps, weather alerts, and historical data visualization.',
-      longDescription: 'Comprehensive weather application with current conditions, 7-day forecasts, interactive weather maps, severe weather alerts, and historical weather data analysis.',
-      tech: ['React', 'Chart.js', 'OpenWeather API', 'Mapbox', 'PWA'],
-      github: 'https://github.com/yourusername/weather-app',
-      live: 'https://weather-dashboard-demo.vercel.app',
+      title: 'Portfolio Website',
+      description: 'Personal portfolio website showcasing projects, skills, and experience. Built with React and modern design principles.',
+      longDescription: 'Responsive portfolio website featuring project showcase, about section, contact form, and smooth animations with modern design.',
+      tech: ['React', 'CSS3', 'JavaScript', 'Responsive Design', 'Animations'],
+      github: 'https://github.com/samuveljohnson1416/portfolio',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
       category: 'frontend',
@@ -61,12 +61,12 @@ const Projects = () => {
     },
     {
       id: 5,
-      title: 'Crypto Portfolio Tracker',
-      description: 'Real-time cryptocurrency portfolio tracking with price alerts, market analysis, and trading insights.',
-      longDescription: 'Advanced crypto portfolio management tool with real-time price tracking, portfolio analytics, price alerts, market news integration, and trading performance analysis.',
-      tech: ['Vue.js', 'Node.js', 'CoinGecko API', 'Chart.js', 'WebSocket'],
-      github: 'https://github.com/yourusername/crypto-tracker',
-      live: 'https://crypto-tracker-demo.vercel.app',
+      title: 'Restaurant Website',
+      description: 'A responsive restaurant website with menu display, contact information, and reservation system. Clean and modern design.',
+      longDescription: 'Restaurant website featuring menu showcase, about section, contact details, and responsive design optimized for all devices.',
+      tech: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Bootstrap'],
+      github: 'https://github.com/samuveljohnson1416/restaurant-website',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
       category: 'frontend',
@@ -74,12 +74,12 @@ const Projects = () => {
     },
     {
       id: 6,
-      title: 'Social Media Analytics',
-      description: 'Comprehensive social media analytics platform with engagement tracking, audience insights, and content performance metrics.',
-      longDescription: 'Professional social media analytics dashboard providing detailed insights into engagement rates, audience demographics, content performance, and competitor analysis.',
-      tech: ['React', 'D3.js', 'Express', 'MongoDB', 'Social APIs'],
-      github: 'https://github.com/yourusername/social-analytics',
-      live: 'https://social-analytics-demo.vercel.app',
+      title: 'Blog Application',
+      description: 'A full-stack blog application with user authentication, post creation, editing, and commenting system. Built with MERN stack.',
+      longDescription: 'Complete blogging platform with user registration, post management, commenting system, and admin functionality for content moderation.',
+      tech: ['React', 'Node.js', 'Express', 'MongoDB', 'JWT', 'CSS3'],
+      github: 'https://github.com/samuveljohnson1416/blog-app',
+      live: 'https://samjportfolio.netlify.app',
       image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=800',
       featured: false,
       category: 'fullstack',
@@ -91,7 +91,6 @@ const Projects = () => {
     { id: 'all', label: 'All Projects' },
     { id: 'fullstack', label: 'Full Stack' },
     { id: 'frontend', label: 'Frontend' },
-    { id: 'ai', label: 'AI/ML' },
   ];
 
   const filteredProjects = projects.filter(project => {
@@ -359,7 +358,7 @@ const Projects = () => {
             Want to see more of my work?
           </p>
           <motion.a
-            href="https://github.com/yourusername"
+            href="https://github.com/samuveljohnson1416"
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}

@@ -65,23 +65,23 @@ const Contact = () => {
     {
       icon: Mail,
       label: 'Email',
-      value: 'alex.johnson@example.com',
-      href: 'mailto:alex.johnson@example.com',
+      value: 'samuveljohnson.cv@gmail.com',
+      href: 'mailto:samuveljohnson.cv@gmail.com',
       color: 'text-neon-green',
       description: 'Best way to reach me'
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+91 9489322076',
+      href: 'tel:+919489322076',
       color: 'text-neon-blue',
-      description: 'Available Mon-Fri, 9AM-6PM PST'
+      description: 'Available Mon-Fri, 9AM-6PM IST'
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Tamil Nadu, India',
       href: '#',
       color: 'text-neon-pink',
       description: 'Open to remote opportunities'
@@ -92,23 +92,23 @@ const Contact = () => {
     {
       icon: Github,
       label: 'GitHub',
-      href: 'https://github.com/yourusername',
+      href: 'https://github.com/samuveljohnson1416',
       color: 'hover:text-neon-green',
-      username: '@yourusername'
+      username: '@samuveljohnson1416'
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
-      href: 'https://linkedin.com/in/yourusername',
+      href: 'https://www.linkedin.com/in/samuvel-johnson',
       color: 'hover:text-neon-blue',
-      username: '/in/yourusername'
+      username: '/in/samuvel-johnson'
     },
     {
       icon: Twitter,
       label: 'Twitter',
-      href: 'https://twitter.com/yourusername',
+      href: 'https://samjportfolio.netlify.app/',
       color: 'hover:text-neon-pink',
-      username: '@yourusername'
+      username: 'Portfolio Website'
     }
   ];
 

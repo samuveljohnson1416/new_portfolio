@@ -7,105 +7,91 @@ const Resume = () => {
 
   const experience = [
     {
-      title: 'Senior Full Stack Developer',
-      company: 'TechCorp Solutions',
-      period: '2023 - Present',
-      location: 'San Francisco, CA',
-      description: 'Leading a team of 5 developers in building scalable web applications. Architected microservices infrastructure that improved system performance by 40%. Mentored junior developers and established coding standards.',
-      achievements: [
-        'Reduced application load time by 60% through optimization',
-        'Led migration to cloud infrastructure (AWS)',
-        'Implemented CI/CD pipeline reducing deployment time by 80%',
-        'Mentored 3 junior developers who were promoted'
-      ],
-      technologies: ['React', 'TypeScript', 'Node.js', 'AWS', 'Docker', 'PostgreSQL']
-    },
-    {
       title: 'Full Stack Developer',
-      company: 'Digital Innovations Inc.',
-      period: '2021 - 2023',
+      company: 'Freelance',
+      period: '2022 - Present',
       location: 'Remote',
-      description: 'Developed and maintained multiple client projects using modern web technologies. Collaborated with design teams to implement pixel-perfect interfaces and optimized user experiences.',
+      description: 'Developing full-stack web applications using modern technologies. Creating responsive user interfaces and robust backend APIs. Working with clients to deliver custom solutions.',
       achievements: [
         'Built 15+ responsive web applications',
-        'Improved client satisfaction scores by 25%',
-        'Reduced bug reports by 45% through comprehensive testing',
-        'Implemented real-time features using WebSocket'
+        'Implemented RESTful APIs with Node.js and Express',
+        'Developed interactive UIs using React and modern CSS',
+        'Integrated databases with MongoDB and MySQL'
       ],
-      technologies: ['React', 'Vue.js', 'Node.js', 'MongoDB', 'Socket.io', 'SASS']
+      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript', 'HTML/CSS']
     },
     {
-      title: 'Frontend Developer',
-      company: 'StartUp Ventures',
-      period: '2020 - 2021',
-      location: 'New York, NY',
-      description: 'Focused on creating engaging user interfaces and improving user experience. Worked closely with UX designers to implement responsive designs and interactive features.',
+      title: 'Web Developer Intern',
+      company: 'Tech Startup',
+      period: '2021 - 2022',
+      location: 'Remote',
+      description: 'Assisted in developing web applications and learned modern development practices. Worked on frontend components and basic backend functionality.',
       achievements: [
-        'Increased user engagement by 35%',
-        'Reduced bounce rate by 28%',
-        'Implemented accessibility standards (WCAG 2.1)',
-        'Built component library used across 5 projects'
+        'Contributed to 5+ web development projects',
+        'Learned React, Node.js, and database management',
+        'Collaborated with senior developers on code reviews',
+        'Implemented responsive design principles'
       ],
-      technologies: ['React', 'JavaScript', 'CSS3', 'Webpack', 'Jest', 'Figma']
+      technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Git', 'GitHub']
     }
   ];
 
   const education = [
     {
-      degree: 'Bachelor of Science in Computer Science',
-      school: 'University of California, Berkeley',
-      period: '2016 - 2020',
-      location: 'Berkeley, CA',
-      gpa: '3.8/4.0',
-      description: 'Graduated Magna Cum Laude. Focused on software engineering, algorithms, and web development. Active member of the Computer Science Society.',
+      degree: 'Bachelor of Engineering in Computer Science',
+      school: 'Anna University',
+      period: '2018 - 2022',
+      location: 'Tamil Nadu, India',
+      gpa: '8.2/10.0',
+      description: 'Focused on software engineering, web development, and computer programming. Completed various projects in full-stack development.',
       coursework: [
         'Data Structures & Algorithms',
         'Software Engineering',
         'Database Systems',
-        'Computer Networks',
-        'Machine Learning',
-        'Web Development'
+        'Web Technologies',
+        'Object Oriented Programming',
+        'Operating Systems'
       ]
     }
   ];
 
   const certifications = [
     {
-      name: 'AWS Certified Solutions Architect',
-      issuer: 'Amazon Web Services',
+      name: 'Full Stack Web Development',
+      issuer: 'Online Course Platform',
       date: '2023',
-      credentialId: 'AWS-CSA-2023-001',
+      credentialId: 'FSWD-2023-001',
       link: '#'
     },
     {
-      name: 'React Developer Certification',
-      issuer: 'Meta',
+      name: 'JavaScript Algorithms and Data Structures',
+      issuer: 'FreeCodeCamp',
       date: '2022',
-      credentialId: 'META-REACT-2022-456',
+      credentialId: 'FCC-JS-2022-456',
       link: '#'
     },
     {
-      name: 'Node.js Application Developer',
-      issuer: 'OpenJS Foundation',
+      name: 'Responsive Web Design',
+      issuer: 'FreeCodeCamp',
       date: '2022',
-      credentialId: 'NODEJS-DEV-2022-789',
+      credentialId: 'FCC-RWD-2022-789',
       link: '#'
     },
     {
-      name: 'MongoDB Certified Developer',
-      issuer: 'MongoDB Inc.',
+      name: 'React Development',
+      issuer: 'Online Learning Platform',
       date: '2021',
-      credentialId: 'MONGO-DEV-2021-123',
+      credentialId: 'REACT-DEV-2021-123',
       link: '#'
     }
   ];
 
   const skills = {
-    'Frontend': ['React', 'TypeScript', 'Next.js', 'Vue.js', 'Tailwind CSS', 'SASS'],
-    'Backend': ['Node.js', 'Express', 'Python', 'Django', 'GraphQL', 'REST APIs'],
-    'Database': ['PostgreSQL', 'MongoDB', 'Redis', 'MySQL', 'Prisma', 'Supabase'],
-    'DevOps': ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Terraform', 'Nginx'],
-    'Tools': ['Git', 'VS Code', 'Figma', 'Postman', 'Jest', 'Cypress']
+    'Frontend': ['React', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Responsive Design'],
+    'Backend': ['Node.js', 'Express.js', 'REST APIs', 'Authentication', 'Middleware'],
+    'Database': ['MongoDB', 'MySQL', 'Database Design', 'Mongoose', 'SQL'],
+    'Tools': ['Git', 'GitHub', 'VS Code', 'Postman', 'npm', 'Webpack'],
+    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing']
   };
 
   const sections = [

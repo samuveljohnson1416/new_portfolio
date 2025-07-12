@@ -34,10 +34,10 @@ const Home = () => {
   };
 
   const quickStats = [
-    { label: 'Years Experience', value: '4+' },
-    { label: 'Projects Completed', value: '50+' },
-    { label: 'Happy Clients', value: '25+' },
-    { label: 'Code Commits', value: '2K+' }
+    { label: 'Years Experience', value: '2+' },
+    { label: 'Projects Completed', value: '15+' },
+    { label: 'Technologies', value: '10+' },
+    { label: 'Code Commits', value: '1K+' }
   ];
 
   return (
@@ -172,7 +172,7 @@ const Home = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="bg-gradient-to-r from-white via-neon-green to-neon-blue bg-clip-text text-transparent"
             >
-              Alex Johnson
+              Samuvel Johnson
             </motion.span>
             <span className="text-neon-green">{'/>'}</span>
           </h1>
@@ -183,7 +183,7 @@ const Home = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="text-xl md:text-2xl text-gray-300 font-mono max-w-3xl mx-auto leading-relaxed"
           >
-            Crafting digital experiences with{' '}
+            Full Stack Developer crafting digital experiences with{' '}
             <span className="text-neon-green">clean code</span> and{' '}
             <span className="text-neon-blue">creative solutions</span>
           </motion.p>
@@ -289,9 +289,9 @@ const Home = () => {
           className="flex justify-center gap-6"
         >
           {[
-            { icon: Github, href: 'https://github.com/yourusername', color: 'hover:text-neon-green', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://linkedin.com/in/yourusername', color: 'hover:text-neon-blue', label: 'LinkedIn' },
-            { icon: Mail, href: 'mailto:alex.johnson@example.com', color: 'hover:text-neon-pink', label: 'Email' },
+            { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn' },
+            { icon: Mail, href: 'mailto:samuveljohnson.cv@gmail.com', color: 'hover:text-neon-pink', label: 'Email' },
           ].map((social, index) => (
             <motion.a
               key={index}
