@@ -7,89 +7,214 @@ const Resume = () => {
 
   const experience = [
     {
-      title: 'Full Stack Developer',
-      company: 'Freelance',
-      period: '2022 - Present',
-      location: 'Remote',
-      description: 'Developing full-stack web applications using modern technologies. Creating responsive user interfaces and robust backend APIs. Working with clients to deliver custom solutions.',
+      title: 'Software Developer Intern',
+      company: 'Bluestock Fintech',
+      period: '01-07-2025 to 31-08-2025',
+      location: 'virtual',
+      description: 'Developing full-stack IPO web applications using modern technologies. Creating responsive user interfaces and robust backend Rest APIs. Working with clients to deliver custom solutions.',
       achievements: [
-        'Built 15+ responsive web applications',
-        'Implemented RESTful APIs with Node.js and Express',
+        'Built responsive IPO web applications',
+        'Implemented RESTful APIs with Node.js and Python Django',
         'Developed interactive UIs using React and modern CSS',
-        'Integrated databases with MongoDB and MySQL'
+        'Integrated databases with PostgreSQL',
       ],
-      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'JavaScript', 'HTML/CSS']
+      technologies: ['React', 'Node.js', 'Express', 'PostgreSQL', 'JavaScript', 'HTML/CSS']
     },
     {
-      title: 'Web Developer Intern',
-      company: 'Tech Startup',
-      period: '2021 - 2022',
-      location: 'Remote',
-      description: 'Assisted in developing web applications and learned modern development practices. Worked on frontend components and basic backend functionality.',
+      title: 'Inplant Trainee',
+      company: 'Tamilnadu Co Operative Milk Producers Federation Ltd',
+      period: '15-07-2024 to 22-07-2024',
+      location: 'On-site',
+      description: 'Gained knowledge about how the industry works and practical knowledge about how dairy products are manufactured.',
       achievements: [
-        'Contributed to 5+ web development projects',
-        'Learned React, Node.js, and database management',
-        'Collaborated with senior developers on code reviews',
-        'Implemented responsive design principles'
+        'Learned about dairy production processes',
+        'Bridged theoretical knowledge with real-world production practices.',
+        'Gained comprehensive insight into the functioning of the dairy industry.'
       ],
-      technologies: ['HTML', 'CSS', 'JavaScript', 'React', 'Git', 'GitHub']
+      technologies: ['Industrial Training', 'Dairy Production', 'Quality Control', 'Process Management']
     }
   ];
 
   const education = [
     {
-      degree: 'Bachelor of Engineering in Computer Science',
-      school: 'Anna University',
-      period: '2018 - 2022',
-      location: 'Tamil Nadu, India',
-      gpa: '8.2/10.0',
+      degree: 'Bachelor of Engineering in Information Technology',
+      school: 'Loyola ICAM college of Engineering and Technology',
+      period: '2023 - 2027',
+      location: 'Nungambakkam,chennai,Tamil Nadu, India',
+      gpa: '8.6/10.0',
       description: 'Focused on software engineering, web development, and computer programming. Completed various projects in full-stack development.',
       coursework: [
         'Data Structures & Algorithms',
         'Software Engineering',
-        'Database Systems',
         'Web Technologies',
         'Object Oriented Programming',
-        'Operating Systems'
+        'Operating Systems',
+        'Computer Networks',
+        'Database Management Systems',
+        'Operating Systems',
+        'OOPs',
+        'Theory of Computation',
+        'Artificial Intelligence and Machine Learning',
+      ]
+    },
+    {
+      degree: 'Higher Secondary Education (Pre-KG to 12th)',
+      school: 'St.Antony\'s Matriculation Higher Sec School',
+      period: 'Pre-KG - 2023',
+      location: 'block-29,Neyveli,Cuddalore, Tamil Nadu, India',
+      gpa: '89%',
+      description: 'Completed comprehensive schooling from Pre-Kindergarten through 12th grade, building strong foundational knowledge across all core subjects.',
+      coursework: [
+        'Mathematics',
+        'Physics',
+        'Chemistry',
+        'Biology',
+        'English ',
+        'Science',
+        'Social Studies'
       ]
     }
   ];
 
   const certifications = [
+    
     {
-      name: 'Full Stack Web Development',
-      issuer: 'Online Course Platform',
-      date: '2023',
-      credentialId: 'FSWD-2023-001',
-      link: '#'
+      name: 'Artificial Intelligence Primer Certification',
+      issuer: 'Infosys SpringBoard',
+      date: 'June 17, 2025',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/17STOj1ziK-ih7cqdfrac2J5UJjujEGgG/view?usp=drive_link'
     },
     {
-      name: 'JavaScript Algorithms and Data Structures',
-      issuer: 'FreeCodeCamp',
-      date: '2022',
-      credentialId: 'FCC-JS-2022-456',
-      link: '#'
+      name: 'MatLab Onramp',
+      issuer: 'Infosys SpringBoard',
+      date: 'November 20, 2023',
+      credentialId: 'N/A',
+      link: 'https://drive.google.com/file/d/13zy-txFYb37SMjl-7m9jViKoXZ3-2EGA/view?usp=drive_link'
     },
     {
-      name: 'Responsive Web Design',
-      issuer: 'FreeCodeCamp',
-      date: '2022',
-      credentialId: 'FCC-RWD-2022-789',
-      link: '#'
+      name: 'Introduction to Data Science',
+      issuer: 'Infosys SpringBoard',
+      date: 'June 15, 2025',
+      credentialId: 'N/A',
+      link: 'https://drive.google.com/file/d/1vxeqSmtN-Hp0eadKrMeAEPyh9CwJypvp/view?usp=sharing'
+    },
+    
+    {
+      name: 'Prompt Engineering',
+      issuer: 'Infosys SpringBoard',
+      date: 'June 6, 2025',
+      credentialId: 'N/A',
+      link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=drive_link'
+    },
+    
+    {
+      name: 'Introduction to OpenAI GPT Models',
+      issuer: 'Infosys SpringBoard',
+      date: 'June 16, 2025',
+      credentialId: 'N/A',
+      link: 'https://drive.google.com/file/d/1lgokzaYH158hTx_c9JAmL1ZcCtJWzH43/view?usp=sharing'
     },
     {
-      name: 'React Development',
-      issuer: 'Online Learning Platform',
-      date: '2021',
-      credentialId: 'REACT-DEV-2021-123',
-      link: '#'
+      name: 'GitHub Foundations',
+      issuer: 'GitHub',
+      date: 'June 1, 2025',
+      credentialId: 'Verified at Credly',
+      link: 'https://www.credly.com/badges/e83c4d6a-d6db-4cef-a9d6-399fa77abf39/linked_in?t=sx6a4v'
+    },
+    {
+      name: 'IOT WorkShop',
+      issuer: 'LICET',
+      date: 'December 9, 202',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1r8d0Vq3xj2y9c6j1m5h8l4Y2Z7eX5JbN/view?usp=drive_link'
+    },
+    {
+      name: 'Artificial Intelligence Primer Certification',
+      issuer: 'Infosys SpringBoard',
+      date: 'June 17, 2025',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/17STOj1ziK-ih7cqdfrac2J5UJjujEGgG/view?usp=drive_link'
+    },
+      
+      {
+        name: 'Python 3.0',
+        issuer: 'SkillRack',
+        date: 'August 30, 2024',
+        credentialId: 'N/A',
+        link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
+      },
+      {
+        name: 'Introduction to Data Science',
+        issuer: 'Infosys SpringBoard',
+        date: 'June 15, 2025',
+        credentialId: 'N/A',
+        link: 'https://drive.google.com/file/d/1vxeqSmtN-Hp0eadKrMeAEPyh9CwJypvp/view?usp=sharing'
+      },
+      
+      {
+        name: 'Prompt Engineering',
+        issuer: 'Infosys SpringBoard',
+        date: 'June 6, 2025',
+        credentialId: 'N/A',
+        link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=drive_link'
+      },
+      
+      {
+        name: 'Introduction to OpenAI GPT Models',
+        issuer: 'Infosys SpringBoard',
+        date: 'June 16, 2025',
+        credentialId: 'N/A',
+        link: 'https://drive.google.com/file/d/1lgokzaYH158hTx_c9JAmL1ZcCtJWzH43/view?usp=sharing'
+      },
+      {
+        name: 'GitHub Foundations',
+        issuer: 'GitHub',
+        date: 'June 1, 2025',
+        credentialId: 'Verified at Credly',
+        link: 'https://www.credly.com/badges/e83c4d6a-d6db-4cef-a9d6-399fa77abf39/linked_in?t=sx6a4v'
+      },
+      {
+      name: 'Techathon\'24',
+      issuer: 'MADCLUB - LICET',
+      date: 'November 13, 2024',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
+    },
+    {
+      name: 'Fundamentals of Statistics and Visualization in Python',
+      issuer: 'Infosys SpringBoard',
+      date: 'August 27, 2025',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
+    },
+    {
+      name: 'C Programming',
+      issuer: 'SkillRack',
+      date: 'October 23, 2024',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
+    },
+    {
+      name: 'ThinkUp Ideathon',
+      issuer: 'VIT Chennai',
+      date: 'September 12, 2024',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
+    },
+    {
+      name: 'Drone Workshop',
+      issuer: 'Entrench Electricals',
+      date: 'February 23, 2025',
+      credentialId: '',
+      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharingq'
     }
   ];
 
   const skills = {
-    'Frontend': ['React', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Responsive Design'],
-    'Backend': ['Node.js', 'Express.js', 'REST APIs', 'Authentication', 'Middleware'],
-    'Database': ['MongoDB', 'MySQL', 'Database Design', 'Mongoose', 'SQL'],
+    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design'],
+    'Backend': ['Node.js', 'REST APIs', 'Django','Python'],
+    'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL'],
     'Tools': ['Git', 'GitHub', 'VS Code', 'Postman', 'npm', 'Webpack'],
     'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing']
   };
@@ -102,11 +227,21 @@ const Resume = () => {
   ];
 
   const downloadResume = () => {
-    // In a real application, this would download the actual PDF
-    const link = document.createElement('a');
-    link.href = '/resume.pdf'; // This would be your actual resume PDF
-    link.download = 'Alex_Johnson_Resume.pdf';
-    link.click();
+    // For now, we'll open the PDF in a new tab
+    // In production, you should move SJ_resume.pdf to the public folder
+    try {
+      const link = document.createElement('a');
+      link.href = 'src/assets/SJ_resume.pdf'; // This assumes the PDF is in the public folder
+      link.download = 'Samuvel_Johnson_Resume.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      // Fallback: just alert the user
+      alert('Resume download is currently unavailable. Please contact me directly for my resume.');
+    }
   };
 
   return (
@@ -228,16 +363,18 @@ const Resume = () => {
                     </ul>
                   </div>
                   
-                  <div className="flex flex-wrap gap-2">
-                    {job.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded-full border border-neon-green/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  {job.technologies && (
+                    <div className="flex flex-wrap gap-2">
+                      {job.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded-full border border-neon-green/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </motion.div>
               ))}
             </motion.div>

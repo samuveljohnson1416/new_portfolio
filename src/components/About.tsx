@@ -4,25 +4,24 @@ import { User, Code2, Lightbulb, Target, Coffee, Clock, Award, Heart } from 'luc
 
 const About = () => {
   const skills = [
-    { name: 'React/Next.js', level: 90, color: 'from-neon-green to-neon-blue' },
-    { name: 'JavaScript/TypeScript', level: 85, color: 'from-neon-blue to-neon-pink' },
-    { name: 'Node.js/Express', level: 88, color: 'from-neon-pink to-neon-green' },
-    { name: 'MongoDB/MySQL', level: 80, color: 'from-neon-green to-neon-blue' },
-    { name: 'HTML/CSS', level: 92, color: 'from-neon-blue to-neon-pink' },
-    { name: 'Git/GitHub', level: 85, color: 'from-neon-pink to-neon-green' },
+    { name: 'React.js', level: 70, color: 'from-neon-green to-neon-blue' },
+    { name: 'Java/JavaScript', level: 85, color: 'from-neon-blue to-neon-pink' },
+    { name: 'Node.js', level: 50, color: 'from-neon-pink to-neon-green' },
+    { name: 'MongoDB/MySQL', level: 90, color: 'from-neon-green to-neon-blue' },
+    { name: 'HTML/CSS', level: 97, color: 'from-neon-blue to-neon-pink' },
+    { name: 'Git/GitHub', level: 80, color: 'from-neon-pink to-neon-green' },
   ];
 
   const stats = [
-    { icon: Coffee, label: 'Coffee Cups', value: '1,200+', color: 'text-neon-green' },
-    { icon: Code2, label: 'Lines of Code', value: '50K+', color: 'text-neon-blue' },
-    { icon: Clock, label: 'Hours Coding', value: '2,000+', color: 'text-neon-pink' },
-    { icon: Award, label: 'Projects Done', value: '15+', color: 'text-neon-green' },
+    { icon: Coffee, label: 'Coffee Cups', value: '700+', color: 'text-neon-green' },
+    { icon: Code2, label: 'Lines of Code', value: '30k+', color: 'text-neon-blue' },
+    { icon: Clock, label: 'Hours Coding', value: '200+', color: 'text-neon-pink' },
+    { icon: Award, label: 'Projects Done', value: '7+', color: 'text-neon-green' },
   ];
 
   const interests = [
     'Web Development',
     'Mobile Development',
-    'Cloud Computing',
     'Problem Solving',
     'Learning New Tech',
     'Team Collaboration'
@@ -51,7 +50,7 @@ const About = () => {
             <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            The story behind the code
+            Build not just with code, but with purpose—because every line you write can shape someone’s world.
           </p>
         </motion.div>
 
@@ -69,11 +68,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Journey</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I'm a passionate full-stack developer with over 2 years of experience 
-                building scalable web applications. My journey started with a simple 
-                "Hello World" and evolved into creating complex, user-centric solutions 
-                that solve real-world problems. I specialize in React, Node.js, and modern 
-                web technologies, with a strong focus on creating efficient and scalable solutions.
+                I'm a passionate full-stack developer with over 2 years of hands-on experience building meaningful and scalable web applications. What began as a simple 'Hello World' quickly grew into a deep love for crafting real solutions that people actually use. I specialize in React and Node.js, and I’m driven by the idea of building efficient, user-friendly systems that make a difference. For me, it’s not just about writing code—it’s about building experiences that matter
               </p>
             </div>
 
@@ -96,10 +91,10 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Goals</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I'm constantly learning and exploring new technologies. Currently, I'm 
-                expanding my knowledge in cloud technologies, microservices architecture, 
-                and advanced React patterns. My goal is to build scalable applications 
-                that provide excellent user experiences and solve real-world problems.
+                I’m currently focused on mastering Django, REST APIs, PostgreSQL, and advanced React techniques.
+Exploring full-stack development through real-world fintech projects like IPO web applications.
+I’m passionate about building scalable, user-focused solutions with clean architecture and smart design.
+Every line of code is part of my journey to create impactful and reliable software.
               </p>
             </div>
           </motion.div>

@@ -113,7 +113,7 @@ const Home = () => {
             <div className="w-3 h-3 rounded-full bg-green-500"></div>
             <div className="flex items-center gap-2 ml-auto">
               <Terminal className="text-neon-green" size={16} />
-              <span className="text-xs font-mono text-gray-400">alex@portfolio:~$</span>
+              <span className="text-xs font-mono text-gray-400">sj@portfolio:~$</span>
             </div>
           </div>
           
@@ -139,7 +139,7 @@ const Home = () => {
               transition={{ delay: 1 }}
               className="text-white"
             >
-              React • TypeScript • Node.js • Python • AWS • UI/UX
+              React • Java • Node.js • Python • MySQL • UI/UX  • Figma • Git 
             </motion.div>
             
             <div className="text-neon-green">
@@ -236,7 +236,7 @@ const Home = () => {
             className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-pink/20 hover:border-neon-pink/40 transition-all duration-300"
           >
             <Zap className="text-neon-pink" size={20} />
-            <span className="text-sm font-mono">Cloud Solutions</span>
+            <span className="text-sm font-mono">API's</span>
           </motion.div>
         </motion.div>
 
@@ -289,22 +289,35 @@ const Home = () => {
           className="flex justify-center gap-6"
         >
           {[
-            { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub' },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn' },
-            { icon: Mail, href: 'mailto:samuveljohnson.cv@gmail.com', color: 'hover:text-neon-pink', label: 'Email' },
+            { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub', external: true },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn', external: true },
+            { icon: Mail, href: '/contact', color: 'hover:text-neon-pink', label: 'Email', external: false },
           ].map((social, index) => (
-            <motion.a
-              key={index}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.3, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-              className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
-              title={social.label}
-            >
-              <social.icon size={24} />
-            </motion.a>
+            social.external ? (
+              <motion.a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.3, y: -3 }}
+                whileTap={{ scale: 0.9 }}
+                className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
+                title={social.label}
+              >
+                <social.icon size={24} />
+              </motion.a>
+            ) : (
+              <motion.button
+                key={index}
+                onClick={() => navigate(social.href)}
+                whileHover={{ scale: 1.3, y: -3 }}
+                whileTap={{ scale: 0.9 }}
+                className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
+                title={social.label}
+              >
+                <social.icon size={24} />
+              </motion.button>
+            )
           ))}
         </motion.div>
       </motion.div>

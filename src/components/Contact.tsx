@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import emailjs from '@emailjs/browser';
+import { emailjsConfig } from '../config/emailjs';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -46,15 +48,27 @@ const Contact = () => {
     setSubmitStatus('idle');
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // EmailJS configuration
+      const { serviceId, templateId, publicKey } = emailjsConfig;
       
-      // In a real app, you would send the data to your backend
-      console.log('Form submitted:', formData);
+      // Template parameters for EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        to_name: 'Samuvel Johnson',
+        reply_to: formData.email,
+      };
       
+      // Send email using EmailJS
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
+      console.log('Email sent successfully!');
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
+      console.error('Failed to send email:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -117,7 +131,6 @@ const Contact = () => {
     'Full-time Opportunity',
     'Collaboration',
     'Mentorship',
-    'Speaking Engagement',
     'Other'
   ];
 
