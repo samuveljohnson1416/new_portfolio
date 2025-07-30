@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import { emailjsConfig } from '../config/emailjs';
 
@@ -118,11 +118,11 @@ const Contact = () => {
       username: '/in/samuvel-johnson'
     },
     {
-      icon: Twitter,
-      label: 'Twitter',
-      href: 'https://samjportfolio.netlify.app/',
-      color: 'hover:text-neon-pink',
-      username: 'Portfolio Website'
+      icon: Code, // Using Code icon as LeetCode substitute since lucide-react doesn't have a specific LeetCode icon
+      label: 'LeetCode',
+      href: 'https://leetcode.com/u/Samuvel_Johnson/',
+      color: 'hover:text-yellow-400',
+      username: '/u/Samuvel_Johnson'
     }
   ];
 

@@ -35,9 +35,9 @@ const Home = () => {
 
   const quickStats = [
     { label: 'Years Experience', value: '2+' },
-    { label: 'Projects Completed', value: '15+' },
-    { label: 'Technologies', value: '10+' },
-    { label: 'Code Commits', value: '1K+' }
+    { label: 'Projects Completed', value: '5+' },
+    { label: 'Technologies', value: '7+' },
+    { label: 'Code Commits', value: '3K+' }
   ];
 
   return (

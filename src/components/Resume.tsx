@@ -77,7 +77,6 @@ const Resume = () => {
   ];
 
   const certifications = [
-    
     {
       name: 'Artificial Intelligence Primer Certification',
       issuer: 'Infosys SpringBoard',
@@ -99,7 +98,6 @@ const Resume = () => {
       credentialId: 'N/A',
       link: 'https://drive.google.com/file/d/1vxeqSmtN-Hp0eadKrMeAEPyh9CwJypvp/view?usp=sharing'
     },
-    
     {
       name: 'Prompt Engineering',
       issuer: 'Infosys SpringBoard',
@@ -107,7 +105,6 @@ const Resume = () => {
       credentialId: 'N/A',
       link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=drive_link'
     },
-    
     {
       name: 'Introduction to OpenAI GPT Models',
       issuer: 'Infosys SpringBoard',
@@ -125,56 +122,18 @@ const Resume = () => {
     {
       name: 'IOT WorkShop',
       issuer: 'LICET',
-      date: 'December 9, 202',
+      date: 'December 9, 2024',
       credentialId: '',
       link: 'https://drive.google.com/file/d/1r8d0Vq3xj2y9c6j1m5h8l4Y2Z7eX5JbN/view?usp=drive_link'
     },
     {
-      name: 'Artificial Intelligence Primer Certification',
-      issuer: 'Infosys SpringBoard',
-      date: 'June 17, 2025',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/17STOj1ziK-ih7cqdfrac2J5UJjujEGgG/view?usp=drive_link'
+      name: 'Python 3.0',
+      issuer: 'SkillRack',
+      date: 'August 30, 2024',
+      credentialId: 'N/A',
+      link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
     },
-      
-      {
-        name: 'Python 3.0',
-        issuer: 'SkillRack',
-        date: 'August 30, 2024',
-        credentialId: 'N/A',
-        link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
-      },
-      {
-        name: 'Introduction to Data Science',
-        issuer: 'Infosys SpringBoard',
-        date: 'June 15, 2025',
-        credentialId: 'N/A',
-        link: 'https://drive.google.com/file/d/1vxeqSmtN-Hp0eadKrMeAEPyh9CwJypvp/view?usp=sharing'
-      },
-      
-      {
-        name: 'Prompt Engineering',
-        issuer: 'Infosys SpringBoard',
-        date: 'June 6, 2025',
-        credentialId: 'N/A',
-        link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=drive_link'
-      },
-      
-      {
-        name: 'Introduction to OpenAI GPT Models',
-        issuer: 'Infosys SpringBoard',
-        date: 'June 16, 2025',
-        credentialId: 'N/A',
-        link: 'https://drive.google.com/file/d/1lgokzaYH158hTx_c9JAmL1ZcCtJWzH43/view?usp=sharing'
-      },
-      {
-        name: 'GitHub Foundations',
-        issuer: 'GitHub',
-        date: 'June 1, 2025',
-        credentialId: 'Verified at Credly',
-        link: 'https://www.credly.com/badges/e83c4d6a-d6db-4cef-a9d6-399fa77abf39/linked_in?t=sx6a4v'
-      },
-      {
+    {
       name: 'Techathon\'24',
       issuer: 'MADCLUB - LICET',
       date: 'November 13, 2024',
