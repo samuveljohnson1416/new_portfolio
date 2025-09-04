@@ -56,37 +56,97 @@ const Resume = () => {
         'Theory of Computation',
         'Artificial Intelligence and Machine Learning',
       ]
+    },
+    {
+      degree: 'Higher Secondary Education',
+      school: "St.Antony's Matric Higher Sec School",
+      period: '2009 - 2023',
+      location: 'Neyveli',
+      gpa: '89%',
+      description: 'Completed higher secondary education with strong academic performance, building foundation in mathematics, science, and computer studies.',
+      coursework: [
+        'Mathematics',
+        'Physics',
+        'Chemistry',
+        'Biology',
+        'English',
+        'Tamil'
+      ]
     }
   ];
 
   const certifications = [
     {
-      name: 'Full Stack Web Development',
-      issuer: 'Online Course Platform',
+      name: 'MATLAB Onramp',
+      issuer: 'MathWorks',
+      date: '20 November 2023',
+      credentialId: 'MATLAB-2023-001',
+      link: '#'
+    },
+    {
+      name: 'Simulink Onramp',
+      issuer: 'MathWorks',
+      date: '14 March 2024',
+      credentialId: 'SIMULINK-2024-001',
+      link: '#'
+    },
+    {
+      name: 'Python Basics Program',
+      issuer: 'SkillRack',
       date: '2023',
-      credentialId: 'FSWD-2023-001',
+      credentialId: 'SkillRack-2023',
+      link: '#'
+    },
+    
+   
+    {
+      name: 'Fundamentals of Statistics and Visualization in Python',
+      issuer: 'Infosys Springboard',
+      date: '27 August 2024',
+      credentialId: 'Verify at verify.onwingspan.com',
+      link: 'https://verify.onwingspan.com'
+    },
+    {
+      name: 'Certificate of Appreciation - MAKE A DIFFERENCE CLUB',
+      issuer: 'Loyola-ICAM College of Engineering and Technology (LICET)',
+      date: '6th & 13th November 2024',
+      credentialId: 'TECHATHON2K24',
       link: '#'
     },
     {
-      name: 'JavaScript Algorithms and Data Structures',
-      issuer: 'FreeCodeCamp',
-      date: '2022',
-      credentialId: 'FCC-JS-2022-456',
+      name: 'Two-day Drone Workshop',
+      issuer: 'IIT-Madras in association with Entrench Electronics',
+      date: '22nd & 23rd February 2025',
+      credentialId: 'EWS250',
       link: '#'
     },
     {
-      name: 'Responsive Web Design',
-      issuer: 'FreeCodeCamp',
-      date: '2022',
-      credentialId: 'FCC-RWD-2022-789',
-      link: '#'
+      name: 'AngularJS for Beginners: Getting Started',
+      issuer: 'Coursera Project Network',
+      date: '3 June 2025',
+      credentialId: 'CNFVCT7X4KBZ',
+      link: 'https://coursera.org/verify/CNFVCT7X4KBZ'
     },
     {
-      name: 'React Development',
-      issuer: 'Online Learning Platform',
-      date: '2021',
-      credentialId: 'REACT-DEV-2021-123',
-      link: '#'
+      name: 'GitHub Foundations Badge',
+      issuer: 'GitHub',
+      date: '1 June 2025',
+      credentialId: 'Valid until 1 June 2028',
+      link: 'https://credly.com/go/7hW9nuP3'
+    },
+    {
+      name: 'Prompt Engineering',
+      issuer: 'Infosys Springboard',
+      date: '6 June 2025',
+      credentialId: 'Verify at verify.onwingspan.com',
+      link: 'https://verify.onwingspan.com'
+    },
+    {
+      name: 'Artificial Intelligence Primer Certification',
+      issuer: 'Infosys Springboard',
+      date: '17 June 2025',
+      credentialId: 'Verify at verify.onwingspan.com',
+      link: 'https://verify.onwingspan.com'
     }
   ];
 
