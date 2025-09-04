@@ -31,7 +31,7 @@ const Resume = () => {
         'Bridged theoretical knowledge with real-world production practices.',
         'Gained comprehensive insight into the functioning of the dairy industry.'
       ],
-      technologies: ['Industrial Training', 'Dairy Production', 'Quality Control', 'Process Management']
+      technologies: ['Manufacturing Processes', 'Quality Control', 'Industry Analysis']
     }
   ];
 
@@ -56,124 +56,44 @@ const Resume = () => {
         'Theory of Computation',
         'Artificial Intelligence and Machine Learning',
       ]
-    },
-    {
-      degree: 'Higher Secondary Education (Pre-KG to 12th)',
-      school: 'St.Antony\'s Matriculation Higher Sec School',
-      period: 'Pre-KG - 2023',
-      location: 'block-29,Neyveli,Cuddalore, Tamil Nadu, India',
-      gpa: '89%',
-      description: 'Completed comprehensive schooling from Pre-Kindergarten through 12th grade, building strong foundational knowledge across all core subjects.',
-      coursework: [
-        'Mathematics',
-        'Physics',
-        'Chemistry',
-        'Biology',
-        'English ',
-        'Science',
-        'Social Studies'
-      ]
     }
   ];
 
   const certifications = [
     {
-      name: 'Artificial Intelligence Primer Certification',
-      issuer: 'Infosys SpringBoard',
-      date: 'June 17, 2025',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/17STOj1ziK-ih7cqdfrac2J5UJjujEGgG/view?usp=drive_link'
+      name: 'Full Stack Web Development',
+      issuer: 'Online Course Platform',
+      date: '2023',
+      credentialId: 'FSWD-2023-001',
+      link: '#'
     },
     {
-      name: 'MatLab Onramp',
-      issuer: 'Infosys SpringBoard',
-      date: 'November 20, 2023',
-      credentialId: 'N/A',
-      link: 'https://drive.google.com/file/d/13zy-txFYb37SMjl-7m9jViKoXZ3-2EGA/view?usp=drive_link'
+      name: 'JavaScript Algorithms and Data Structures',
+      issuer: 'FreeCodeCamp',
+      date: '2022',
+      credentialId: 'FCC-JS-2022-456',
+      link: '#'
     },
     {
-      name: 'Introduction to Data Science',
-      issuer: 'Infosys SpringBoard',
-      date: 'June 15, 2025',
-      credentialId: 'N/A',
-      link: 'https://drive.google.com/file/d/1vxeqSmtN-Hp0eadKrMeAEPyh9CwJypvp/view?usp=sharing'
+      name: 'Responsive Web Design',
+      issuer: 'FreeCodeCamp',
+      date: '2022',
+      credentialId: 'FCC-RWD-2022-789',
+      link: '#'
     },
     {
-      name: 'Prompt Engineering',
-      issuer: 'Infosys SpringBoard',
-      date: 'June 6, 2025',
-      credentialId: 'N/A',
-      link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=drive_link'
-    },
-    {
-      name: 'Introduction to OpenAI GPT Models',
-      issuer: 'Infosys SpringBoard',
-      date: 'June 16, 2025',
-      credentialId: 'N/A',
-      link: 'https://drive.google.com/file/d/1lgokzaYH158hTx_c9JAmL1ZcCtJWzH43/view?usp=sharing'
-    },
-    {
-      name: 'GitHub Foundations',
-      issuer: 'GitHub',
-      date: 'June 1, 2025',
-      credentialId: 'Verified at Credly',
-      link: 'https://www.credly.com/badges/e83c4d6a-d6db-4cef-a9d6-399fa77abf39/linked_in?t=sx6a4v'
-    },
-    {
-      name: 'IOT WorkShop',
-      issuer: 'LICET',
-      date: 'December 9, 2024',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1r8d0Vq3xj2y9c6j1m5h8l4Y2Z7eX5JbN/view?usp=drive_link'
-    },
-    {
-      name: 'Python 3.0',
-      issuer: 'SkillRack',
-      date: 'August 30, 2024',
-      credentialId: 'N/A',
-      link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
-    },
-    {
-      name: 'Techathon\'24',
-      issuer: 'MADCLUB - LICET',
-      date: 'November 13, 2024',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
-    },
-    {
-      name: 'Fundamentals of Statistics and Visualization in Python',
-      issuer: 'Infosys SpringBoard',
-      date: 'August 27, 2025',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
-    },
-    {
-      name: 'C Programming',
-      issuer: 'SkillRack',
-      date: 'October 23, 2024',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
-    },
-    {
-      name: 'ThinkUp Ideathon',
-      issuer: 'VIT Chennai',
-      date: 'September 12, 2024',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharing'
-    },
-    {
-      name: 'Drone Workshop',
-      issuer: 'Entrench Electricals',
-      date: 'February 23, 2025',
-      credentialId: '',
-      link: 'https://drive.google.com/file/d/1ETiy3yyj0i8DBI-jKadhp5D4L-fxMA9F/view?usp=sharingq'
+      name: 'React Development',
+      issuer: 'Online Learning Platform',
+      date: '2021',
+      credentialId: 'REACT-DEV-2021-123',
+      link: '#'
     }
   ];
 
   const skills = {
-    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design'],
-    'Backend': ['Node.js', 'REST APIs', 'Django','Python'],
-    'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL'],
+    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Bootstrap', 'Responsive Design'],
+    'Backend': ['Node.js', 'REST APIs', 'Authentication', 'Django', 'Angular', 'Python'],
+    'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL', 'SQL'],
     'Tools': ['Git', 'GitHub', 'VS Code', 'Postman', 'npm', 'Webpack'],
     'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing']
   };
@@ -186,25 +106,18 @@ const Resume = () => {
   ];
 
   const downloadResume = () => {
-    // For now, we'll open the PDF in a new tab
-    // In production, you should move SJ_resume.pdf to the public folder
-    try {
-      const link = document.createElement('a');
-      link.href = 'src/assets/SJ_resume.pdf'; // This assumes the PDF is in the public folder
-      link.download = 'Samuvel_Johnson_Resume.pdf';
-      link.target = '_blank';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error downloading resume:', error);
-      // Fallback: just alert the user
-      alert('Resume download is currently unavailable. Please contact me directly for my resume.');
-    }
+    // Download the actual resume PDF from public folder
+    const link = document.createElement('a');
+    link.href = '/SAMUVEL-JOHNSON_resume.pdf';
+    link.download = 'SAMUVEL-JOHNSON_resume.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
-    <div className="min-h-screen py-20 px-4">
+    <div className="min-h-screen bg-dark-bg py-20 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
@@ -322,18 +235,16 @@ const Resume = () => {
                     </ul>
                   </div>
                   
-                  {job.technologies && (
-                    <div className="flex flex-wrap gap-2">
-                      {job.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded-full border border-neon-green/20"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <div className="flex flex-wrap gap-2">
+                    {job.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded-full border border-neon-green/20"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </motion.div>
               ))}
             </motion.div>

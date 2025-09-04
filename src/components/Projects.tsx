@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Folder, Star, Filter, Search } from 'lucide-react';
-import portfolioImage from '../assets/portfoliov1.png';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -16,73 +15,79 @@ const Projects = () => {
       tech: ['Html', 'CSS', 'JavaScript','Google Form'],
       github: 'https://github.com/samuveljohnson1416/my_Portfolio',
       live: 'https://samjportfolio.netlify.app',
-      image: portfolioImage,
-      featured: true,
-      category: 'Webdevelopment',
-      status: 'completed'
-    },
-    {
-      id: 2,
-      title: 'Inventory Management Web Application',
-      description: 'A responsive inventory management application with CRUD operations, local storage, and clean user interface. Built with HTML,CSS, JavaScript, Nodejs, and MySQL.',
-      longDescription: 'Interactive inventory management application featuring add, edit, delete, and mark complete functionality with persistent storage and responsive design.',
-      tech: ['HTML', 'JavaScript', 'CSS', 'MySQL', 'Node.js'],
-      github: 'https://github.com/samuveljohnson1416/inventory-management',
-      image: 'src/assets/Inventory_management.png',
+      image: 'src/assets/portfoliov1.png',
       featured: true,
       category: 'fullstack',
       status: 'completed'
     },
     {
-      id: 3,
-      title: 'Student Enrollment System',
-      description: 'A Java web application for student registration with JDBC connectivity. Built using Java Servlets, JSP, and MySQL database.',
-      longDescription: 'Complete student enrollment system featuring registration forms, database connectivity through JDBC, and dynamic web pages using JSP and Servlets.',
-      tech: ['Java', 'JSP', 'Servlets', 'MySQL', 'JDBC', 'Tomcat', 'HTML'],
-      github: 'https://github.com/samuveljohnson1416/StudentEnrollmentSystem',
-      image: 'https://images.pexels.com/photos/3184416/pexels-photo-3184416.jpeg?auto=compress&cs=tinysrgb&w=800',
+      id: 2,
+      title: 'Todo List Application',
+      description: 'A responsive todo list application with CRUD operations, local storage, and clean user interface. Built with React and modern CSS.',
+      longDescription: 'Interactive todo application featuring add, edit, delete, and mark complete functionality with persistent storage and responsive design.',
+      tech: ['React', 'JavaScript', 'CSS3', 'Local Storage', 'Responsive Design'],
+      github: 'https://github.com/samuveljohnson1416/todo-app',
+      live: 'https://samjportfolio.netlify.app',
+      image: 'src/assets/image.png',
       featured: true,
-      category: 'fullstack & backend',
+      category: 'fullstack',
+      status: 'completed'
+    },
+   
+    
+    
+    {
+      id: 3,
+      title: 'Inventory Management System',
+      description: 'A comprehensive inventory management system built with Node.js and MySQL for tracking inventory items with CRUD operations.',
+      longDescription: 'Full-featured inventory management system with add, edit, delete, and view functionality. Includes MySQL database integration with clean web interface for managing inventory items, categories, and pricing.',
+      tech: ['Node.js', 'Express.js', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
+      github: 'https://github.com/samuveljohnson1416/inventory-management',
+      live: 'https://samjportfolio.netlify.app',
+      image: 'src/assets/INventory_management.png',
+      featured: true,
+      category: 'fullstack',
       status: 'completed'
     },
     {
       id: 4,
-      title: 'Portfolio Website v2.0',
-      description: 'A cutting-edge portfolio website built with React, TypeScript, and Framer Motion. Features cyberpunk-inspired design with neon accents and smooth animations.',
-      longDescription: 'Modern portfolio showcasing advanced React development skills with TypeScript, custom CSS animations, responsive design, and interactive components. Built with Vite for optimal performance.',
-      tech: ['React', 'TypeScript', 'Framer Motion', 'Tailwind CSS', 'Vite', 'Lucide Icons', 'Responsive Design'],
-      github: 'https://github.com/samuveljohnson1416/new_portfolio',
-      live: '#',
-      image: 'src/assets/portfoliov2.png',
-      featured: true,
-      category: 'frontend',
-      status: 'in-progress'
+      title: 'Student Enrollment System',
+      description: 'A Java-based student enrollment system with JDBC connectivity for managing student records and course enrollments.',
+      longDescription: 'Academic project demonstrating JDBC connectivity with Java servlets. Features student registration, course enrollment, and database management using Eclipse IDE and Tomcat server.',
+      tech: ['Java', 'JDBC', 'Servlets', 'Tomcat', 'Eclipse IDE'],
+      github: 'https://github.com/samuveljohnson1416/StudentEnrollmentSystem',
+      live: 'https://samjportfolio.netlify.app',
+      image: 'https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=800',
+      featured: false,
+      category: 'backend',
+      status: 'completed'
     },
     {
       id: 5,
-      title: 'Weather Website',
-      description: 'A basic weather application that provides real-time temperature and humidity data using weather API. Built during first year as a learning project.',
-      longDescription: 'Simple weather website featuring current weather conditions, temperature, humidity, and location-based weather data. Created as an introductory project to learn API integration and basic web development.',
-      tech: ['HTML5', 'CSS3', 'JavaScript', 'Weather API', 'Responsive Design'],
-      github: '',
-      live: '',
-      image: '',
-      featured: false,
+      title: 'Portfolio Website v2.0',
+      description: 'Modern portfolio website built with React, TypeScript and Tailwind CSS featuring animations and responsive design.',
+      longDescription: 'Current portfolio website showcasing projects, skills, and experience. Built with React, TypeScript, Vite, and Tailwind CSS with smooth animations using Framer Motion.',
+      tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Framer Motion'],
+      github: 'https://github.com/samuveljohnson1416/new_portfolio',
+      live: 'https://samjportfolio.netlify.app',
+      image: 'src/assets/portfoliov2.png',
+      featured: true,
       category: 'frontend',
       status: 'completed'
     },
     {
       id: 6,
-      title: 'Java Quiz Game',
-      description: 'A console-based quiz game application built in Java that runs entirely in terminal. Features multiple-choice questions, score tracking, interactive gameplay and with time limits.',
-      longDescription: 'Terminal-based quiz game mini project featuring question management, user input handling, score calculation, and game flow control. Built as a Java learning project to practice OOP concepts and console I/O.',
-      tech: ['Java', 'Console Application', 'OOP', 'File Handling', 'Scanner Class'],
-      github: '',
-      image: '',
-      featured: false,
-      category: 'backend',
+      title: 'Connect4 Game',
+      description: 'Interactive Connect4 game built with vanilla JavaScript, HTML5, and CSS3 featuring game logic, player vs player mode, and responsive design.',
+      longDescription: 'Classic Connect4 game implementation with interactive gameplay, win detection algorithm, player turn management, and clean user interface. Deployed with modern web technologies.',
+      tech: ['JavaScript', 'HTML5', 'CSS3', 'Game Development', 'DOM Manipulation', 'Responsive Design'],
+      github: 'https://github.com/samuveljohnson1416/connect4_game_deployment',
+      live: 'https://www.figma.com/proto/SVg16X7PyJcCPhxQYQMcPF/connect4?node-id=4-2090&t=nGueBZEm7nvNWvyg-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A2090&show-proto-sidebar=1',
+      image: 'src/assets/c4.png',
+      featured: true,
+      category: 'frontend',
       status: 'completed'
-    },
+    }
   ];
 
   const categories = [
@@ -200,54 +205,32 @@ const Projects = () => {
                   >
                     <div className="relative overflow-hidden">
                       <img
-                        src={project.image || 'https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800'}
+                        src={project.image}
                         alt={project.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 to-transparent" />
                       <div className="absolute top-4 right-4 flex gap-2">
-                        {project.github ? (
-                          <motion.a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <Github size={16} />
-                          </motion.a>
-                        ) : (
-                          <motion.div
-                            className="relative p-2 bg-dark-bg/80 rounded-full text-gray-600 cursor-not-allowed group"
-                          >
-                            <Github size={16} />
-                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                              Files not uploaded
-                            </div>
-                          </motion.div>
-                        )}
-                        {project.live ? (
-                          <motion.a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <ExternalLink size={16} />
-                          </motion.a>
-                        ) : (
-                          <motion.div
-                            className="relative p-2 bg-dark-bg/80 rounded-full text-gray-600 cursor-not-allowed group"
-                          >
-                            <ExternalLink size={16} />
-                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                              Demo not available
-                            </div>
-                          </motion.div>
-                        )}
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <Github size={16} />
+                        </motion.a>
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <ExternalLink size={16} />
+                        </motion.a>
                       </div>
                     </div>
                     
@@ -302,48 +285,26 @@ const Projects = () => {
                     <div className="flex items-start justify-between mb-4">
                       <Folder className="text-neon-green" size={24} />
                       <div className="flex gap-2">
-                        {project.github ? (
-                          <motion.a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <Github size={18} />
-                          </motion.a>
-                        ) : (
-                          <motion.div
-                            className="relative text-gray-600 cursor-not-allowed group"
-                          >
-                            <Github size={18} />
-                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                              Files not uploaded
-                            </div>
-                          </motion.div>
-                        )}
-                        {project.live ? (
-                          <motion.a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <ExternalLink size={18} />
-                          </motion.a>
-                        ) : (
-                          <motion.div
-                            className="relative text-gray-600 cursor-not-allowed group"
-                          >
-                            <ExternalLink size={18} />
-                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
-                              Demo not available
-                            </div>
-                          </motion.div>
-                        )}
+                        <motion.a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <Github size={18} />
+                        </motion.a>
+                        <motion.a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          className="text-gray-400 hover:text-neon-green transition-colors"
+                        >
+                          <ExternalLink size={18} />
+                        </motion.a>
                       </div>
                     </div>
                     

@@ -1,8 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code } from 'lucide-react';
-import emailjs from '@emailjs/browser';
-import { emailjsConfig } from '../config/emailjs';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Clock, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -48,27 +46,15 @@ const Contact = () => {
     setSubmitStatus('idle');
     
     try {
-      // EmailJS configuration
-      const { serviceId, templateId, publicKey } = emailjsConfig;
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
-      // Template parameters for EmailJS
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        to_name: 'Samuvel Johnson',
-        reply_to: formData.email,
-      };
+      // In a real app, you would send the data to your backend
+      console.log('Form submitted:', formData);
       
-      // Send email using EmailJS
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
-      
-      console.log('Email sent successfully!');
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Failed to send email:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -118,11 +104,11 @@ const Contact = () => {
       username: '/in/samuvel-johnson'
     },
     {
-      icon: Code, // Using Code icon as LeetCode substitute since lucide-react doesn't have a specific LeetCode icon
-      label: 'LeetCode',
-      href: 'https://leetcode.com/u/Samuvel_Johnson/',
-      color: 'hover:text-yellow-400',
-      username: '/u/Samuvel_Johnson'
+      icon: Twitter,
+      label: 'Twitter',
+      href: 'https://samjportfolio.netlify.app/',
+      color: 'hover:text-neon-pink',
+      username: 'Portfolio Website'
     }
   ];
 

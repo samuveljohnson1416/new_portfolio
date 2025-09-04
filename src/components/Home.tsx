@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Terminal, Code, Zap, Github, Linkedin, Mail, Download, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -35,9 +35,9 @@ const Home = () => {
 
   const quickStats = [
     { label: 'Years Experience', value: '2+' },
-    { label: 'Projects Completed', value: '5+' },
-    { label: 'Technologies', value: '7+' },
-    { label: 'Code Commits', value: '3K+' }
+    { label: 'Projects Completed', value: '15+' },
+    { label: 'Technologies', value: '10+' },
+    { label: 'Code Commits', value: '1K+' }
   ];
 
   return (
@@ -289,35 +289,22 @@ const Home = () => {
           className="flex justify-center gap-6"
         >
           {[
-            { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub', external: true },
-            { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn', external: true },
-            { icon: Mail, href: '/contact', color: 'hover:text-neon-pink', label: 'Email', external: false },
+            { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn' },
+            { icon: Mail, href: 'src/components/Contact.tsx', color: 'hover:text-neon-pink', label: 'Email' },
           ].map((social, index) => (
-            social.external ? (
-              <motion.a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.3, y: -3 }}
-                whileTap={{ scale: 0.9 }}
-                className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
-                title={social.label}
-              >
-                <social.icon size={24} />
-              </motion.a>
-            ) : (
-              <motion.button
-                key={index}
-                onClick={() => navigate(social.href)}
-                whileHover={{ scale: 1.3, y: -3 }}
-                whileTap={{ scale: 0.9 }}
-                className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
-                title={social.label}
-              >
-                <social.icon size={24} />
-              </motion.button>
-            )
+            <motion.a
+              key={index}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.3, y: -3 }}
+              whileTap={{ scale: 0.9 }}
+              className={`text-gray-400 ${social.color} transition-all duration-300 p-3 rounded-lg hover:bg-gray-800/50`}
+              title={social.label}
+            >
+              <social.icon size={24} />
+            </motion.a>
           ))}
         </motion.div>
       </motion.div>

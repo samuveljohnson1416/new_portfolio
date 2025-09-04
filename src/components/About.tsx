@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { User, Code2, Lightbulb, Target, Coffee, Clock, Award, Heart } from 'lucide-react';
 
@@ -13,9 +14,9 @@ const About = () => {
 
   const stats = [
     { icon: Coffee, label: 'Coffee Cups', value: '700+', color: 'text-neon-green' },
-    { icon: Code2, label: 'Lines of Code', value: '3k+', color: 'text-neon-blue' },
+    { icon: Code2, label: 'Lines of Code', value: '30k+', color: 'text-neon-blue' },
     { icon: Clock, label: 'Hours Coding', value: '200+', color: 'text-neon-pink' },
-    { icon: Award, label: 'Projects Done', value: '5+', color: 'text-neon-green' },
+    { icon: Award, label: 'Projects Done', value: '7+', color: 'text-neon-green' },
   ];
 
   const interests = [
