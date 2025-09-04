@@ -151,11 +151,11 @@ const Resume = () => {
   ];
 
   const skills = {
-    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Bootstrap', 'Responsive Design'],
-    'Backend': ['Node.js', 'REST APIs', 'Authentication', 'Django', 'Angular', 'Python'],
+    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design','vibecoding','Tailwind CSS', 'Figma',"Canva"],
+    'Backend': ['Node.js', , 'Angular', 'Python'],
     'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL', 'SQL'],
-    'Tools': ['Git', 'GitHub', 'VS Code', 'Postman', 'npm', 'Webpack'],
-    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing']
+    'Tools': ['Git', 'GitHub', 'VS Code',, 'npm',"Ai tools"],
+    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing',"prompt engineering"]
   };
 
   const sections = [
