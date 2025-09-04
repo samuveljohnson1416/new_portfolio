@@ -217,8 +217,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Samuvel Johnson**
 - GitHub: [@samuveljohnson1416](https://github.com/samuveljohnson1416)
-- LinkedIn: [Samuvel Johnson](https://linkedin.com/in/samuveljohnson)
-- Email: samuveljohnson1417@gmail.com
+- LinkedIn: [Samuvel Johnson](https://linkedin.com/in/samuvel-johnson)
+- Email: samuveljohnson.cv@gmail.com
 
 ## 🙏 Acknowledgments
 
