@@ -13,15 +13,14 @@ const About = () => {
   ];
 
   const stats = [
-    { icon: Coffee, label: 'Coffee Cups', value: '700+', color: 'text-neon-green' },
-    { icon: Code2, label: 'Lines of Code', value: '30k+', color: 'text-neon-blue' },
-    { icon: Clock, label: 'Hours Coding', value: '200+', color: 'text-neon-pink' },
-    { icon: Award, label: 'Projects Done', value: '7+', color: 'text-neon-green' },
+    { icon: Coffee, label: 'Cups of Coffee', value: '100+', color: 'text-neon-pink' },
+    { icon: Code2, label: 'Lines of Code', value: '3k+', color: 'text-neon-blue' },
+    { icon: Clock, label: 'Hours Coding', value: '30+', color: 'text-neon-pink' },
+    { icon: Award, label: 'Projects Done', value: '6+', color: 'text-neon-green' },
   ];
 
   const interests = [
-    'Web Development',
-    'Mobile Development',
+    'Full Stack Web Development',
     'Problem Solving',
     'Learning New Tech',
     'Team Collaboration'

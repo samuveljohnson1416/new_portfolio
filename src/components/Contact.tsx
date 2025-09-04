@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, MessageCircle, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2 } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -104,11 +104,11 @@ const Contact = () => {
       username: '/in/samuvel-johnson'
     },
     {
-      icon: Twitter,
-      label: 'Twitter',
-      href: 'https://samjportfolio.netlify.app/',
+      icon: Code2,
+      label: 'LeetCode',
+      href: 'https://leetcode.com/u/Samuvel_Johnson/',
       color: 'hover:text-neon-pink',
-      username: 'Portfolio Website'
+      username: 'u/Samuvel_Johnson'
     }
   ];
 

@@ -81,7 +81,7 @@ const Resume = () => {
       issuer: 'MathWorks',
       date: '20 November 2023',
       credentialId: 'MATLAB-2023-001',
-      link: '#'
+      link: 'https://drive.google.com/file/d/1xfXdDyD1nTRxZEvRreGWD0aP_TZsy2AH/view?usp=sharing'
     },
     {
       name: 'Simulink Onramp',
@@ -95,7 +95,7 @@ const Resume = () => {
       issuer: 'SkillRack',
       date: '2023',
       credentialId: 'SkillRack-2023',
-      link: '#'
+      link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
     },
     
    
@@ -104,21 +104,21 @@ const Resume = () => {
       issuer: 'Infosys Springboard',
       date: '27 August 2024',
       credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://verify.onwingspan.com'
+      link: 'https://verify.onwhttps://drive.google.com/file/d/1XUI3Ilo8S2mMWPjAs-gH7IZQWzgIo_9e/view?usp=sharingingspan.com'
     },
     {
       name: 'Certificate of Appreciation - MAKE A DIFFERENCE CLUB',
       issuer: 'Loyola-ICAM College of Engineering and Technology (LICET)',
       date: '6th & 13th November 2024',
       credentialId: 'TECHATHON2K24',
-      link: '#'
+      link: 'https://drive.google.com/file/d/1io6RJoLGfMVjbwq8aQbfr6wYVMeQyOQz/view?usp=sharing'
     },
     {
       name: 'Two-day Drone Workshop',
       issuer: 'IIT-Madras in association with Entrench Electronics',
       date: '22nd & 23rd February 2025',
       credentialId: 'EWS250',
-      link: '#'
+      link: 'https://drive.google.com/file/d/190neDkMShh-cw1Zahd9g6IrpiGb0vhN2/view?usp=sharing'
     },
     {
       name: 'AngularJS for Beginners: Getting Started',
@@ -139,14 +139,14 @@ const Resume = () => {
       issuer: 'Infosys Springboard',
       date: '6 June 2025',
       credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://verify.onwingspan.com'
+      link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=sharing'
     },
     {
       name: 'Artificial Intelligence Primer Certification',
       issuer: 'Infosys Springboard',
       date: '17 June 2025',
       credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://verify.onwingspan.com'
+      link: 'https://drive.google.com/file/d/1yKHMTCdygU6ZaaHrQrRJ72zduy_J3_QV/view?usp=sharing'
     }
   ];
 
