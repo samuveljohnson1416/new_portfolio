@@ -6,6 +6,9 @@ import Projects from './components/Projects';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Navigation from './components/Navigation';
+import AdminLogin from './pages/AdminLogin';
+import AdminDashboard from './pages/AdminDashboard';
+import { AuthProvider } from './hooks/useAuth';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -18,6 +21,8 @@ function AnimatedRoutes() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/resume" element={<Resume />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
       </Routes>
     </AnimatePresence>
   );
@@ -25,12 +30,14 @@ function AnimatedRoutes() {
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-dark-bg text-white font-mono">
-        <Navigation />
-        <AnimatedRoutes />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen bg-dark-bg text-white font-mono">
+          <Navigation />
+          <AnimatedRoutes />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

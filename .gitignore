@@ -93,3 +93,9 @@ firebase-debug.log*
 
 # Local Netlify folder
 .netlify
+
+# Admin uploads (keep local only)
+uploads/
+
+# User data (keep in version control but sensitive info excluded)
+data/users.json
