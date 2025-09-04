@@ -121,7 +121,7 @@ const Contact = () => {
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Tamil Nadu, India',
+      value: 'Chennai,Tamil Nadu, India',
       href: '#',
       color: 'text-neon-pink',
       description: 'Open to remote opportunities'
