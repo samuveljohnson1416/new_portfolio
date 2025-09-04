@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -46,15 +47,54 @@ const Contact = () => {
     setSubmitStatus('idle');
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // In a real app, you would send the data to your backend
-      console.log('Form submitted:', formData);
-      
+      // EmailJS configuration
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      // Debug logging
+      console.log('EmailJS Config:', {
+        serviceId: serviceId ? 'Set' : 'Missing',
+        templateId: templateId ? 'Set' : 'Missing', 
+        publicKey: publicKey ? 'Set' : 'Missing'
+      });
+
+      // Check if environment variables are set
+      if (!serviceId || !templateId || !publicKey) {
+        console.error('EmailJS environment variables not configured');
+        console.error('Missing:', {
+          serviceId: !serviceId,
+          templateId: !templateId,
+          publicKey: !publicKey
+        });
+        setSubmitStatus('error');
+        return;
+      }
+
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_name: 'Samuvel Johnson', // Your name
+        },
+        publicKey
+      );
+
+      console.log('Email sent successfully:', result);
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
+      console.error('Failed to send email:', error);
+      console.error('Error details:', error);
+      // Log more specific error information
+      if (error instanceof Error) {
+        console.error('Error message:', error.message);
+      }
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
