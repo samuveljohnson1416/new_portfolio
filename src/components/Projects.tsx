@@ -15,7 +15,7 @@ const Projects = () => {
       tech: ['Html', 'CSS', 'JavaScript','Google Form'],
       github: 'https://github.com/samuveljohnson1416/my_Portfolio',
       live: 'https://samjportfolio.netlify.app',
-  image: '/assets/portfoliov1.png',
+      image: '/assets/portfoliov1.png',
       featured: true,
       category: 'fullstack',
       status: 'completed'
@@ -28,7 +28,7 @@ const Projects = () => {
       tech: ['React', 'JavaScript', 'CSS3', 'Local Storage', 'Responsive Design'],
       github: 'https://github.com/samuveljohnson1416/todo-app',
       live: 'https://samjportfolio.netlify.app',
-  image: '/assets/image.png',
+      image: '/assets/image.png',
       featured: true,
       category: 'fullstack',
       status: 'completed'
@@ -44,7 +44,7 @@ const Projects = () => {
       tech: ['Node.js', 'Express.js', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
       github: 'https://github.com/samuveljohnson1416/inventory-management',
       live: 'https://samjportfolio.netlify.app',
-  image: '/assets/INventory_management.png',
+      image: '/assets/INventory_management.png',
       featured: true,
       category: 'fullstack',
       status: 'completed'
@@ -70,7 +70,7 @@ const Projects = () => {
       tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Framer Motion'],
       github: 'https://github.com/samuveljohnson1416/new_portfolio',
       live: 'https://samjportfolio.netlify.app',
-  image: '/assets/portfoliov2.png',
+      image: '/assets/portfoliov2.png',
       featured: true,
       category: 'frontend',
       status: 'completed'
@@ -83,7 +83,20 @@ const Projects = () => {
       tech: ['JavaScript', 'HTML5', 'CSS3', 'Game Development', 'DOM Manipulation', 'Responsive Design'],
       github: 'https://github.com/samuveljohnson1416/connect4_game_deployment',
       live: 'https://www.figma.com/proto/SVg16X7PyJcCPhxQYQMcPF/connect4?node-id=4-2090&t=nGueBZEm7nvNWvyg-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A2090&show-proto-sidebar=1',
-  image: '/assets/c4.png',
+      image: '/assets/c4.png',
+      featured: true,
+      category: 'frontend',
+      status: 'completed'
+    },
+    {
+      id: 7,
+      title: 'Medify',
+      description: 'A UI/UX design application for hospital bed booking.',
+      longDescription: 'Medify is a modern UI/UX design for a hospital bed booking application, focusing on seamless user experience and clean interface.',
+      tech: ['UI/UX', 'Figma', 'Design'],
+      github: '',
+      live: '',
+      image: '/assets/medify.jpg',
       featured: true,
       category: 'frontend',
       status: 'completed'
@@ -204,11 +217,17 @@ const Projects = () => {
                     className="group bg-dark-card border border-neon-green/20 rounded-lg overflow-hidden hover:border-neon-green/40 transition-all duration-300"
                   >
                     <div className="relative overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
+                      {project.media ? (
+                        <div className="w-full h-48 flex items-center justify-center bg-black">
+                          {project.media}
+                        </div>
+                      ) : (
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 to-transparent" />
                       <div className="absolute top-4 right-4 flex gap-2">
                         <motion.a
