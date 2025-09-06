@@ -96,7 +96,11 @@ const Projects = () => {
       tech: ['UI/UX', 'Figma', 'Design'],
       github: '',
       live: '',
-      image: '/assets/medify.jpg',
+      media: (
+        <video src="/assets/Medify.mp4" controls width={320} height={240} poster="/assets/medify.jpg">
+          Your browser does not support the video tag.
+        </video>
+      ),
       featured: true,
       category: 'frontend',
       status: 'completed'
