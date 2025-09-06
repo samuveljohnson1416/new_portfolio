@@ -145,10 +145,10 @@ const Contact = () => {
     },
     {
       icon: Code2,
-      label: 'LeetCode',
-      href: 'https://leetcode.com/u/Samuvel_Johnson/',
+      label: 'Unstop',
+      href: 'https://unstop.com/u/samuveljohnson',
       color: 'hover:text-neon-pink',
-      username: 'u/Samuvel_Johnson'
+      username: 'samuveljohnson'
     }
   ];
 

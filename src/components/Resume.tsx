@@ -97,14 +97,12 @@ const Resume = () => {
       credentialId: 'SkillRack-2023',
       link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
     },
-    
-   
     {
       name: 'Fundamentals of Statistics and Visualization in Python',
       issuer: 'Infosys Springboard',
       date: '27 August 2024',
       credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://verify.onwhttps://drive.google.com/file/d/1XUI3Ilo8S2mMWPjAs-gH7IZQWzgIo_9e/view?usp=sharingingspan.com'
+      link: 'https://drive.google.com/file/d/1XUI3Ilo8S2mMWPjAs-gH7IZQWzgIo_9e/view?usp=sharing'
     },
     {
       name: 'Certificate of Appreciation - MAKE A DIFFERENCE CLUB',
@@ -151,11 +149,11 @@ const Resume = () => {
   ];
 
   const skills = {
-    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design','vibecoding','Tailwind CSS', 'Figma',"Canva"],
-    'Backend': ['Node.js', , 'Angular', 'Python'],
+    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design', 'vibecoding', 'Tailwind CSS', 'Figma', 'Canva'],
+    'Backend': ['Node.js', 'Angular', 'Python'],
     'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL', 'SQL'],
-    'Tools': ['Git', 'GitHub', 'VS Code',, 'npm',"Ai tools"],
-    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing',"prompt engineering"]
+    'Tools': ['Git', 'GitHub', 'VS Code', 'npm', 'Ai tools'],
+    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing', 'prompt engineering']
   };
 
   const sections = [
@@ -166,7 +164,6 @@ const Resume = () => {
   ];
 
   const downloadResume = () => {
-    // Download the actual resume PDF from public folder
     const link = document.createElement('a');
     link.href = '/SAMUVEL-JOHNSON_resume.pdf';
     link.download = 'SAMUVEL-JOHNSON_resume.pdf';
@@ -201,7 +198,6 @@ const Resume = () => {
           <p className="text-gray-400 mt-4 font-mono mb-8">
             My professional journey and qualifications
           </p>
-          
           <motion.button
             whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
             whileTap={{ scale: 0.95 }}
@@ -278,11 +274,9 @@ const Resume = () => {
                       </div>
                     </div>
                   </div>
-                  
                   <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
                     {job.description}
                   </p>
-
                   <div className="mb-4">
                     <h4 className="text-sm font-semibold text-neon-blue mb-2">Key Achievements:</h4>
                     <ul className="space-y-1">
@@ -294,7 +288,6 @@ const Resume = () => {
                       ))}
                     </ul>
                   </div>
-                  
                   <div className="flex flex-wrap gap-2">
                     {job.technologies.map((tech) => (
                       <span
@@ -346,11 +339,9 @@ const Resume = () => {
                       </div>
                     </div>
                   </div>
-                  
                   <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
                     {edu.description}
                   </p>
-
                   <div>
                     <h4 className="text-sm font-semibold text-neon-blue mb-2">Relevant Coursework:</h4>
                     <div className="flex flex-wrap gap-2">
@@ -433,15 +424,12 @@ const Resume = () => {
                       <ExternalLink size={16} />
                     </motion.a>
                   </div>
-                  
                   <h3 className="text-lg font-display font-semibold text-neon-green mb-2">
                     {cert.name}
                   </h3>
-                  
                   <p className="text-gray-300 font-mono text-sm mb-2">
                     {cert.issuer}
                   </p>
-                  
                   <div className="flex items-center justify-between text-xs text-gray-400 font-mono">
                     <span>Issued: {cert.date}</span>
                     <span>ID: {cert.credentialId}</span>

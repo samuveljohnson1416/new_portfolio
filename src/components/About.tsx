@@ -1,22 +1,25 @@
 import { motion } from 'framer-motion';
-import { User, Code2, Lightbulb, Target, Coffee, Clock, Award, Heart } from 'lucide-react';
+import { User, Code2, Lightbulb, Target, Heart } from 'lucide-react';
 
 const About = () => {
   const skills = [
-    { name: 'React.js', level: 70, color: 'from-neon-green to-neon-blue' },
-    { name: 'Java/JavaScript', level: 85, color: 'from-neon-blue to-neon-pink' },
-    { name: 'Node.js', level: 50, color: 'from-neon-pink to-neon-green' },
-    { name: 'MongoDB/MySQL', level: 90, color: 'from-neon-green to-neon-blue' },
-    { name: 'HTML/CSS', level: 97, color: 'from-neon-blue to-neon-pink' },
-    { name: 'Git/GitHub', level: 80, color: 'from-neon-pink to-neon-green' },
+    { name: 'React.js' },
+    { name: 'Java/JavaScript' },
+    { name: 'Node.js' },
+    { name: 'MongoDB/MySQL' },
+    { name: 'HTML/CSS' },
+    { name: 'Git/GitHub' },
   ];
 
-  const stats = [
-    { icon: Coffee, label: 'Cups of Coffee', value: '100+', color: 'text-neon-pink' },
-    { icon: Code2, label: 'Lines of Code', value: '3k+', color: 'text-neon-blue' },
-    { icon: Clock, label: 'Hours Coding', value: '30+', color: 'text-neon-pink' },
-    { icon: Award, label: 'Projects Done', value: '6+', color: 'text-neon-green' },
-  ];
+  // Stats section removed as requested
+
+  const leetcode = {
+    icon: Code2,
+    label: 'LeetCode',
+    href: 'https://leetcode.com/u/Samuvel_Johnson/',
+    color: 'hover:text-neon-pink',
+    username: 'u/Samuvel_Johnson'
+  };
 
   const interests = [
     'Full Stack Web Development',
@@ -86,7 +89,7 @@ const About = () => {
             <div className="bg-dark-card border border-neon-pink/20 rounded-lg p-6 hover:border-neon-pink/40 transition-all duration-300">
               <div className="flex items-center gap-3 mb-4">
                 <Target className="text-neon-pink" size={24} />
-                <h3 className="text-xl font-display font-semibold">My Goals</h3>
+                <h3 className="text-xl font-display font-semibold">My Vision</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
                 I’m currently focused on mastering Django, REST APIs, PostgreSQL, and advanced React techniques.
@@ -108,32 +111,19 @@ Every line of code is part of my journey to create impactful and reliable softwa
               <h3 className="text-xl font-display font-semibold mb-6 text-center">
                 Technical Skills
               </h3>
-              <div className="space-y-4">
+              <ul className="grid grid-cols-2 gap-2">
                 {skills.map((skill, index) => (
-                  <motion.div
+                  <motion.li
                     key={skill.name}
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-                    className="space-y-2"
+                    className="bg-neon-green/10 text-neon-green px-3 py-2 rounded-lg text-xs font-mono text-center border border-neon-green/20"
                   >
-                    <div className="flex justify-between items-center">
-                      <span className="font-mono text-sm">{skill.name}</span>
-                      <span className="font-mono text-xs text-neon-green">
-                        {skill.level}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${skill.level}%` }}
-                        transition={{ duration: 1.5, delay: 0.8 + index * 0.1 }}
-                        className={`bg-gradient-to-r ${skill.color} h-2 rounded-full`}
-                      />
-                    </div>
-                  </motion.div>
+                    {skill.name}
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
             </div>
 
             {/* Personal Interests */}
@@ -159,31 +149,27 @@ Every line of code is part of my journey to create impactful and reliable softwa
           </motion.div>
         </div>
 
-        {/* Stats Section */}
+  {/* Stats Section removed as requested */}
+
+        {/* LeetCode Profile Card */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+          transition={{ duration: 0.7, delay: 1.2 }}
+          className="max-w-xs mx-auto mb-12"
         >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1 + index * 0.1 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-dark-card border border-gray-700 rounded-lg p-6 text-center hover:border-neon-green/30 transition-all duration-300"
-            >
-              <stat.icon className={`${stat.color} mx-auto mb-3`} size={32} />
-              <div className="text-2xl font-display font-bold text-white mb-1">
-                {stat.value}
-              </div>
-              <div className="text-sm font-mono text-gray-400">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
+          <a
+            href={leetcode.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center gap-4 bg-dark-card border border-neon-pink/30 rounded-lg p-4 shadow-lg transition-colors duration-300 hover:border-neon-pink/60 ${leetcode.color}`}
+          >
+            <leetcode.icon size={32} className="text-neon-pink" />
+            <div>
+              <div className="font-display font-semibold text-lg text-neon-pink">{leetcode.label}</div>
+              <div className="font-mono text-xs text-gray-400">{leetcode.username}</div>
+            </div>
+          </a>
         </motion.div>
       </div>
     </div>
