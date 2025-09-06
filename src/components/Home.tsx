@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronDown, Terminal, Code, Zap, Github, Linkedin, Mail, Download, ArrowRight } from 'lucide-react';
+import { Terminal, Code, Zap, Github, Linkedin, Mail, Download, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -26,12 +26,7 @@ const Home = () => {
     }
   }, [currentIndex, fullText]);
 
-  const scrollToNext = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
-  };
+
 
   const quickStats = [
     { label: 'Years Experience', value: '2+' },
@@ -309,25 +304,7 @@ const Home = () => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.6 }}
-        onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-neon-green hover:text-neon-green/80 transition-colors group"
-      >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="text-xs font-mono opacity-0 group-hover:opacity-100 transition-opacity">
-            Scroll to explore
-          </span>
-          <ChevronDown size={32} />
-        </motion.div>
-      </motion.button>
+  {/* Scroll Indicator removed as requested */}
     </div>
   );
 };

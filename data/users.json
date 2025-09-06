@@ -1,0 +1,10 @@
+[
+  {
+    "id": "admin-1",
+    "username": "admin",
+    "email": "samuveljohnson1417@gmail.com",
+    "passwordHash": "$2b$10$b.0in7qOqOjrEyvxaObIFO2oSqfnP8rjjIrOd76sgzy6pF/FjdvBK",
+    "role": "admin",
+    "createdAt": "2025-09-04T20:45:28.426Z"
+  }
+]
