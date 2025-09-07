@@ -32,7 +32,7 @@ const Home = () => {
     { label: 'Years Experience', value: '2+' },
     { label: 'Projects Completed', value: '6+' },
     { label: 'Technologies', value: '15+' },
-    { label: 'Code Commits', value: '1K+' }
+    { label: 'Hackathons', value: '3+' }
   ];
 
   return (
@@ -178,7 +178,9 @@ const Home = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="text-xl md:text-2xl text-gray-300 font-mono max-w-3xl mx-auto leading-relaxed"
           >
-            Full Stack Developer crafting digital experiences with{' '}
+            <span className="text-neon-green">{'<'}</span>
+            <span className="text-neon-green">Full Stack Developer</span> 
+            <span className="text-neon-green">{'/>'}</span>  crafting digital experiences with{' '}
             <span className="text-neon-green">clean code</span> and{' '}
             <span className="text-neon-blue">creative solutions</span>
           </motion.p>
