@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Folder, Star, Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
 import { getAllProjects, ProjectData } from '../services/githubService';
+import AnimatedBackground from './AnimatedBackground';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -67,8 +68,9 @@ const Projects = () => {
   const otherProjects = filteredProjects.filter(project => !project.featured);
 
   return (
-    <div className="min-h-screen py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen py-20 px-4 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

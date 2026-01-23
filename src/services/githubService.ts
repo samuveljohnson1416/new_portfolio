@@ -37,7 +37,8 @@ export interface ProjectData {
   stars: number;
   forks: number;
   language: string;
-  lastUpdated: string;
+  lastUpdated: string; // formatted for display
+  lastUpdatedIso: string; // ISO string for sorting
 }
 
 const GITHUB_USERNAME = 'samuveljohnson1416';
@@ -170,6 +171,7 @@ export function transformRepoToProject(repo: GitHubRepo): ProjectData {
     forks: repo.forks_count,
     language: repo.language || 'Unknown',
     lastUpdated: new Date(repo.updated_at).toLocaleDateString(),
+    lastUpdatedIso: repo.updated_at,
   };
 }
 
@@ -188,7 +190,7 @@ export async function getAllProjects(): Promise<ProjectData[]> {
     if (a.stars !== b.stars) {
       return b.stars - a.stars;
     }
-    return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+    return new Date(b.lastUpdatedIso).getTime() - new Date(a.lastUpdatedIso).getTime();
   });
 }
 

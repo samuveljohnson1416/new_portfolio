@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import AnimatedBackground from './AnimatedBackground';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -163,8 +164,9 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen py-20 px-4 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Code, Zap, Github, Linkedin, Mail, Download, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import AnimatedBackground from './AnimatedBackground';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,55 +39,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
       {/* Animated Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-neon-green/5 to-transparent"></div>
-        
-        {/* Matrix-style falling code */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-neon-green/20 font-mono text-xs"
-            animate={{
-              y: [0, window.innerHeight + 100],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: Math.random() * 3 + 2,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear",
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: -100,
-            }}
-          >
-            {Math.random().toString(36).substring(2, 15)}
-          </motion.div>
-        ))}
-
-        {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-neon-green rounded-full opacity-30"
-            animate={{
-              x: [0, Math.random() * 200 - 100],
-              y: [0, Math.random() * 200 - 100],
-              opacity: [0.3, 0.8, 0.3],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      <AnimatedBackground />
 
       {/* Main Content */}
       <motion.div
@@ -288,7 +241,7 @@ const Home = () => {
           {[
             { icon: Github, href: 'https://github.com/samuveljohnson1416', color: 'hover:text-neon-green', label: 'GitHub' },
             { icon: Linkedin, href: 'https://www.linkedin.com/in/samuvel-johnson', color: 'hover:text-neon-blue', label: 'LinkedIn' },
-            { icon: Mail, href: 'src/components/Contact.tsx', color: 'hover:text-neon-pink', label: 'Email' },
+            { icon: Mail, href: 'mailto:samuveljohnson.cv@gmail.com', color: 'hover:text-neon-pink', label: 'Email' },
           ].map((social, index) => (
             <motion.a
               key={index}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import AnimatedBackground from './AnimatedBackground';
 
 const Resume = () => {
   const [activeSection, setActiveSection] = useState('experience');
@@ -174,8 +175,9 @@ const Resume = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark-bg py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-dark-bg py-20 px-4 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

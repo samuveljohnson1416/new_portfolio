@@ -124,16 +124,6 @@ The portfolio automatically fetches all your public repositories from GitHub.
   - Image placeholder generation
 
 ## 🏗️ Project Structure
-1. Create an account at [EmailJS](https://www.emailjs.com/)
-2. Create an email service (Gmail, Outlook, etc.)
-3. Create an email template with the following variables:
-   - `{{from_name}}` - Sender's name
-   - `{{from_email}}` - Sender's email
-   - `{{message}}` - Message content
-4. Get your Service ID, Template ID, and Public Key
-5. Add them to your `.env.local` file
-
-## 🏗️ Project Structure
 
 ```
 src/

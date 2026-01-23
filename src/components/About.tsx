@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { User, Code2, Lightbulb, Target, Heart } from 'lucide-react';
+import AnimatedBackground from './AnimatedBackground';
 
 const About = () => {
   const skills = [
@@ -29,8 +30,9 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen py-20 px-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen py-20 px-4 relative overflow-hidden">
+      <AnimatedBackground />
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}

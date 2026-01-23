@@ -1,10 +1,10 @@
 [
   {
-    "id": "admin-1",
+    "id": "placeholder-admin",
     "username": "admin",
-    "email": "samuveljohnson1417@gmail.com",
-    "passwordHash": "$2b$10$b.0in7qOqOjrEyvxaObIFO2oSqfnP8rjjIrOd76sgzy6pF/FjdvBK",
+    "email": "admin@example.com",
+    "passwordHash": "REPLACE_WITH_SECURE_HASH",
     "role": "admin",
-    "createdAt": "2025-09-04T20:45:28.426Z"
+    "createdAt": "2025-01-01T00:00:00.000Z"
   }
 ]
