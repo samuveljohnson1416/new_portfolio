@@ -11,7 +11,8 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 - **Smooth Animations**: Powered by Framer Motion for engaging user experience
 - **Theme Switching**: Dark and light mode support with system preference detection
 - **Contact Form**: Functional email integration using EmailJS
-- **Project Showcase**: Interactive project gallery with filtering capabilities
+- **Auto-Updated Projects**: Automatically fetches all public repositories from GitHub
+- **Project Showcase**: Interactive project gallery with filtering and search capabilities
 - **Resume Section**: Comprehensive professional experience and skills display
 - **SEO Optimized**: Proper meta tags and structured data
 
@@ -22,6 +23,7 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Email Service**: EmailJS
+- **API Integration**: GitHub REST API v3
 - **Build Tool**: Vite
 - **Deployment**: Vercel
 
@@ -50,24 +52,78 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
    cp .env.example .env.local
    ```
    
-   Then edit `.env.local` and add your EmailJS credentials:
+   Then edit `.env.local` and add your credentials:
+   
+   **EmailJS Configuration** (Required for contact form):
    ```env
    VITE_EMAILJS_SERVICE_ID=your_service_id_here
    VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
    VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
    ```
-
-4. **Start development server**
-   ```bash
-   npm run dev
+   
+   **GitHub Token** (Optional but recommended):
+   ```env
+   VITE_GITHUB_TOKEN=your_github_token_here
    ```
-
-5. **Open your browser** and navigate to `http://localhost:5173`
-
+   
 ## 📧 EmailJS Setup
 
 To enable the contact form functionality:
 
+1. Create an account at [EmailJS](https://www.emailjs.com/)
+2. Create an email service (Gmail, Outlook, etc.)
+3. Create an email template with the following variables:
+   - `{{from_name}}` - Sender's name
+   - `{{from_email}}` - Sender's email
+   - `{{message}}` - Message content
+4. Get your Service ID, Template ID, and Public Key
+5. Add them to your `.env.local` file
+
+## 🔗 GitHub API Setup
+
+The portfolio automatically fetches all your public repositories from GitHub.
+
+### Without Token (Basic)
+- **Rate Limit**: 60 requests/hour
+- **Setup**: None required, works out of the box
+- **Best for**: Testing and low-traffic sites
+
+### With Token (Recommended)
+- **Rate Limit**: 5000 requests/hour
+- **Setup**: 2 minutes
+- **Best for**: Production sites
+
+**How to create a GitHub token:**
+
+1. Go to [GitHub Settings → Tokens](https://github.com/settings/tokens)
+2. Click **"Generate new token (classic)"**
+3. Give it a name: `Portfolio Website`
+4. Set expiration: `No expiration` or your preference
+5. Select scopes:
+   - ✅ `public_repo` (read-only access to public repositories)
+6. Click **"Generate token"**
+7. Copy the token immediately (you won't see it again!)
+8. Add to `.env.local`:
+   ```env
+   VITE_GITHUB_TOKEN=ghp_your_token_here
+   ```
+
+**What gets automatically fetched:**
+- Repository names, descriptions, and URLs
+- GitHub topics → mapped to technology tags
+- Star and fork counts
+- Primary programming language
+- Last updated dates
+- Homepage/demo URLs
+
+**Customization:**
+- Edit `src/services/githubService.ts` to modify:
+  - Category auto-detection logic
+  - Featured project criteria
+  - Sorting/filtering rules
+  - Image placeholder generation
+
+## 🏗️ Project Structure
 1. Create an account at [EmailJS](https://www.emailjs.com/)
 2. Create an email service (Gmail, Outlook, etc.)
 3. Create an email template with the following variables:
@@ -86,8 +142,10 @@ src/
 │   ├── Contact.tsx     # Contact form
 │   ├── Home.tsx        # Hero section
 │   ├── Navigation.tsx  # Navigation bar
-│   ├── Projects.tsx    # Projects showcase
+│   ├── Projects.tsx    # Projects showcase (auto-fetches from GitHub)
 │   └── Resume.tsx      # Resume/CV section
+├── services/           # API and utility services
+│   └── githubService.ts # GitHub API integration
 ├── assets/             # Static assets
 │   ├── *.png          # Project screenshots
 │   ├── *.jpg          # Profile images

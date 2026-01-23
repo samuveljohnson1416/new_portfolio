@@ -1,124 +1,66 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Folder, Star, Filter, Search } from 'lucide-react';
+import { ExternalLink, Github, Folder, Star, Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
+import { getAllProjects, ProjectData } from '../services/githubService';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
+  const [languageFilter, setLanguageFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [projects, setProjects] = useState<ProjectData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const projects = [
-    {
-      id: 1,
-      title: 'MyPortfolio version 1.0',
-      description: 'A complete portfolio website built with HTML, CSS, and JavaScript.',
-      longDescription: 'Full-featured portfolio website with professional info, project browsing, and contact form.',
-      tech: ['Html', 'CSS', 'JavaScript','Google Form'],
-      github: 'https://github.com/samuveljohnson1416/my_Portfolio',
-      live: 'https://samjportfolio.netlify.app',
-      image: '/assets/portfoliov1.png',
-      featured: true,
-      category: 'fullstack',
-      status: 'completed'
-    },
-    {
-      id: 2,
-      title: 'Todo List Application',
-      description: 'A responsive todo list application with CRUD operations, local storage, and clean user interface. Built with React and modern CSS.',
-      longDescription: 'Interactive todo application featuring add, edit, delete, and mark complete functionality with persistent storage and responsive design.',
-      tech: ['React', 'JavaScript', 'CSS3', 'Local Storage', 'Responsive Design'],
-      github: 'https://github.com/samuveljohnson1416/todo-app',
-      live: 'https://samjportfolio.netlify.app',
-      image: '/assets/image.png',
-      featured: true,
-      category: 'fullstack',
-      status: 'completed'
-    },
-   
+  // Fetch projects from GitHub on component mount
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  const loadProjects = async () => {
+    setLoading(true);
+    setError(null);
     
-    
-    {
-      id: 3,
-      title: 'Inventory Management System',
-      description: 'A comprehensive inventory management system built with Node.js and MySQL for tracking inventory items with CRUD operations.',
-      longDescription: 'Full-featured inventory management system with add, edit, delete, and view functionality. Includes MySQL database integration with clean web interface for managing inventory items, categories, and pricing.',
-      tech: ['Node.js', 'Express.js', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
-      github: 'https://github.com/samuveljohnson1416/inventory-management',
-      live: 'https://samjportfolio.netlify.app',
-      image: '/assets/INventory_management.png',
-      featured: true,
-      category: 'fullstack',
-      status: 'completed'
-    },
-    {
-      id: 4,
-      title: 'Student Enrollment System',
-      description: 'A Java-based student enrollment system with JDBC connectivity for managing student records and course enrollments.',
-      longDescription: 'Academic project demonstrating JDBC connectivity with Java servlets. Features student registration, course enrollment, and database management using Eclipse IDE and Tomcat server.',
-      tech: ['Java', 'JDBC', 'Servlets', 'Tomcat', 'Eclipse IDE'],
-      github: 'https://github.com/samuveljohnson1416/StudentEnrollmentSystem',
-      live: 'https://samjportfolio.netlify.app',
-      image: 'https://images.pexels.com/photos/5212317/pexels-photo-5212317.jpeg?auto=compress&cs=tinysrgb&w=800',
-      featured: false,
-      category: 'backend',
-      status: 'completed'
-    },
-    {
-      id: 5,
-      title: 'Portfolio Website v2.0',
-      description: 'Modern portfolio website built with React, TypeScript and Tailwind CSS featuring animations and responsive design.',
-      longDescription: 'Current portfolio website showcasing projects, skills, and experience. Built with React, TypeScript, Vite, and Tailwind CSS with smooth animations using Framer Motion.',
-      tech: ['React', 'TypeScript', 'Tailwind CSS', 'Vite', 'Framer Motion'],
-      github: 'https://github.com/samuveljohnson1416/new_portfolio',
-      live: 'https://samjportfolio.netlify.app',
-      image: '/assets/portfoliov2.png',
-      featured: true,
-      category: 'frontend',
-      status: 'completed'
-    },
-    {
-      id: 6,
-      title: 'Connect4 Game',
-      description: 'Interactive Connect4 game built with vanilla JavaScript, HTML5, and CSS3 featuring game logic, player vs player mode, and responsive design.',
-      longDescription: 'Classic Connect4 game implementation with interactive gameplay, win detection algorithm, player turn management, and clean user interface. Deployed with modern web technologies.',
-      tech: ['JavaScript', 'HTML5', 'CSS3', 'Game Development', 'DOM Manipulation', 'Responsive Design'],
-      github: 'https://github.com/samuveljohnson1416/connect4_game_deployment',
-      live: 'https://www.figma.com/proto/SVg16X7PyJcCPhxQYQMcPF/connect4?node-id=4-2090&t=nGueBZEm7nvNWvyg-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=4%3A2090&show-proto-sidebar=1',
-      image: '/assets/c4.png',
-      featured: true,
-      category: 'frontend',
-      status: 'completed'
-    },
-    {
-      id: 7,
-      title: 'Medify',
-      description: 'A UI/UX design application for hospital bed booking.',
-      longDescription: 'Medify is a modern UI/UX design for a hospital bed booking application, focusing on seamless user experience and clean interface.',
-      tech: ['UI/UX', 'Figma', 'Design'],
-      github: '',
-      live: '',
-      media: (
-        <video src="/assets/Medify.mp4" controls width={320} height={240} poster="/assets/medify.jpg">
-          Your browser does not support the video tag.
-        </video>
-      ),
-      featured: true,
-      category: 'frontend',
-      status: 'completed'
+    try {
+      const fetchedProjects = await getAllProjects();
+      setProjects(fetchedProjects);
+    } catch (err) {
+      setError('Failed to load projects from GitHub. Please try again later.');
+      console.error('Error loading projects:', err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // Dynamically generate categories based on actual projects
+  const categories = [
+    { id: 'all', label: 'All Projects', count: projects.length },
+    ...Array.from(new Set(projects.map(p => p.category)))
+      .sort()
+      .map(cat => ({
+        id: cat,
+        label: cat.charAt(0).toUpperCase() + cat.slice(1),
+        count: projects.filter(p => p.category === cat).length
+      }))
   ];
 
-  const categories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'fullstack', label: 'Full Stack' },
-    { id: 'frontend', label: 'Frontend' },
-    { id: 'backend', label: 'Backend' },
+  // Dynamically generate language filters based on actual projects
+  const languages = [
+    { id: 'all', label: 'All Languages', count: projects.length },
+    ...Array.from(new Set(projects.map(p => p.language).filter(Boolean)))
+      .sort()
+      .map(lang => ({
+        id: lang,
+        label: lang,
+        count: projects.filter(p => p.language === lang).length
+      }))
   ];
 
   const filteredProjects = projects.filter(project => {
     const matchesFilter = filter === 'all' || project.category === filter;
+    const matchesLanguage = languageFilter === 'all' || project.language === languageFilter;
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.tech.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesFilter && matchesSearch;
+    return matchesFilter && matchesLanguage && matchesSearch;
   });
 
   const featuredProjects = filteredProjects.filter(project => project.featured);
@@ -147,8 +89,27 @@ const Projects = () => {
             <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            Some things I've built with passion and code
+            {loading 
+              ? 'Loading projects from GitHub...' 
+              : `${projects.length} projects from GitHub`}
           </p>
+          
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mt-4 flex items-center gap-2 text-red-400 text-sm font-mono"
+            >
+              <AlertCircle size={16} />
+              <span>{error}</span>
+              <button
+                onClick={loadProjects}
+                className="ml-2 text-neon-green hover:underline"
+              >
+                Retry
+              </button>
+            </motion.div>
+          )}
         </motion.div>
 
         {/* Filters and Search */}
@@ -156,48 +117,140 @@ const Projects = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-12"
+          className="mb-12 space-y-4"
         >
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            {/* Category Filters */}
-            <div className="flex items-center gap-2">
+          {/* Header with Clear Filters */}
+          {(filter !== 'all' || languageFilter !== 'all' || searchTerm) && (
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-mono text-gray-400">
+                Active filters applied
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  setFilter('all');
+                  setLanguageFilter('all');
+                  setSearchTerm('');
+                }}
+                className="text-xs font-mono text-neon-pink hover:underline"
+              >
+                Clear all filters
+              </motion.button>
+            </div>
+          )}
+          
+          {/* Category Filters */}
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <Filter className="text-neon-green" size={20} />
-              <div className="flex gap-2">
-                {categories.map((category) => (
+              <span className="text-gray-400 text-sm font-mono">Category:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <motion.button
+                  key={category.id}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setFilter(category.id)}
+                  className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
+                    filter === category.id
+                      ? 'bg-neon-green text-dark-bg'
+                      : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                  }`}
+                >
+                  {category.label}
+                  <span className={`ml-2 text-xs ${
+                    filter === category.id ? 'text-dark-bg/70' : 'text-gray-500'
+                  }`}>
+                    ({category.count})
+                  </span>
+                </motion.button>
+              ))}
+            </div>
+          </div>
+
+          {/* Language Filters */}
+          {languages.length > 1 && (
+            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Filter className="text-neon-blue" size={20} />
+                <span className="text-gray-400 text-sm font-mono">Language:</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {languages.map((lang) => (
                   <motion.button
-                    key={category.id}
+                    key={lang.id}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setFilter(category.id)}
-                    className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
-                      filter === category.id
-                        ? 'bg-neon-green text-dark-bg'
-                        : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                    onClick={() => setLanguageFilter(lang.id)}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-300 ${
+                      languageFilter === lang.id
+                        ? 'bg-neon-blue text-dark-bg'
+                        : 'bg-dark-card text-gray-400 hover:text-neon-blue border border-gray-700 hover:border-neon-blue/30'
                     }`}
                   >
-                    {category.label}
+                    {lang.label}
+                    <span className={`ml-1.5 text-xs ${
+                      languageFilter === lang.id ? 'text-dark-bg/70' : 'text-gray-500'
+                    }`}>
+                      ({lang.count})
+                    </span>
                   </motion.button>
                 ))}
               </div>
             </div>
+          )}
 
+          {/* Search and Refresh */}
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div className="text-sm font-mono text-gray-500">
+              Showing {filteredProjects.length} of {projects.length} projects
+            </div>
+            
             {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 pr-4 py-2 bg-dark-card border border-gray-700 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm w-64"
-              />
+            <div className="flex items-center gap-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 pr-4 py-2 bg-dark-card border border-gray-700 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm w-64"
+                />
+              </div>
+              
+              {/* Refresh button */}
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 180 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={loadProjects}
+                disabled={loading}
+                className="p-2 bg-dark-card border border-gray-700 rounded-lg hover:border-neon-green transition-colors disabled:opacity-50"
+                title="Refresh projects from GitHub"
+              >
+                <RefreshCw className={`text-neon-green ${loading ? 'animate-spin' : ''}`} size={16} />
+              </motion.button>
             </div>
           </div>
         </motion.div>
 
+        {/* Loading State */}
+        {loading && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+          >
+            <RefreshCw className="text-neon-green animate-spin mx-auto mb-4" size={48} />
+            <p className="text-gray-400 font-mono">Loading projects from GitHub...</p>
+          </motion.div>
+        )}
+
         {/* Featured Projects */}
         <AnimatePresence>
-          {featuredProjects.length > 0 && (
+          {!loading && featuredProjects.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -220,53 +273,55 @@ const Projects = () => {
                     whileHover={{ y: -10 }}
                     className="group bg-dark-card border border-neon-green/20 rounded-lg overflow-hidden hover:border-neon-green/40 transition-all duration-300"
                   >
-                    <div className="relative overflow-hidden">
-                      {project.media ? (
-                        <div className="w-full h-48 flex items-center justify-center bg-black">
-                          {project.media}
-                        </div>
-                      ) : (
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
-                        />
-                      )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 to-transparent" />
-                      <div className="absolute top-4 right-4 flex gap-2">
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
-                        >
-                          <Github size={16} />
-                        </motion.a>
-                        <motion.a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="p-2 bg-dark-bg/80 rounded-full text-gray-400 hover:text-neon-green transition-colors"
-                        >
-                          <ExternalLink size={16} />
-                        </motion.a>
-                      </div>
-                    </div>
-                    
                     <div className="p-6">
-                      <h3 className="text-xl font-display font-semibold mb-3 text-neon-green">
-                        {project.title}
-                      </h3>
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-3">
+                            <Folder className="text-neon-green" size={24} />
+                            {project.stars > 0 && (
+                              <div className="flex items-center gap-1 text-yellow-400 text-xs">
+                                <Star size={12} fill="currentColor" />
+                                <span>{project.stars}</span>
+                              </div>
+                            )}
+                          </div>
+                          <h3 className="text-xl font-display font-semibold text-neon-green mb-3">
+                            {project.title}
+                          </h3>
+                        </div>
+                        <div className="flex gap-2">
+                          {project.github && (
+                            <motion.a
+                              href={project.github}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="text-gray-400 hover:text-neon-green transition-colors"
+                            >
+                              <Github size={18} />
+                            </motion.a>
+                          )}
+                          {project.live && (
+                            <motion.a
+                              href={project.live}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="text-gray-400 hover:text-neon-green transition-colors"
+                            >
+                              <ExternalLink size={18} />
+                            </motion.a>
+                          )}
+                        </div>
+                      </div>
                       
                       <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
                         {project.description}
                       </p>
                       
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-2 mb-3">
                         {project.tech.map((tech) => (
                           <span
                             key={tech}
@@ -275,6 +330,10 @@ const Projects = () => {
                             {tech}
                           </span>
                         ))}
+                      </div>
+                      
+                      <div className="text-xs text-gray-500 font-mono">
+                        Last updated: {project.lastUpdated}
                       </div>
                     </div>
                   </motion.div>
@@ -286,7 +345,7 @@ const Projects = () => {
 
         {/* Other Projects */}
         <AnimatePresence>
-          {otherProjects.length > 0 && (
+          {!loading && otherProjects.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -308,38 +367,50 @@ const Projects = () => {
                     <div className="flex items-start justify-between mb-4">
                       <Folder className="text-neon-green" size={24} />
                       <div className="flex gap-2">
-                        <motion.a
-                          href={project.github}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="text-gray-400 hover:text-neon-green transition-colors"
-                        >
-                          <Github size={18} />
-                        </motion.a>
-                        <motion.a
-                          href={project.live}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="text-gray-400 hover:text-neon-green transition-colors"
-                        >
-                          <ExternalLink size={18} />
-                        </motion.a>
+                        {project.github && (
+                          <motion.a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="text-gray-400 hover:text-neon-green transition-colors"
+                          >
+                            <Github size={18} />
+                          </motion.a>
+                        )}
+                        {project.live && (
+                          <motion.a
+                            href={project.live}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="text-gray-400 hover:text-neon-green transition-colors"
+                          >
+                            <ExternalLink size={18} />
+                          </motion.a>
+                        )}
                       </div>
                     </div>
                     
-                    <h3 className="text-lg font-display font-semibold mb-2 text-white">
-                      {project.title}
-                    </h3>
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-lg font-display font-semibold text-white">
+                        {project.title}
+                      </h3>
+                      {project.stars > 0 && (
+                        <div className="flex items-center gap-1 text-yellow-400 text-xs">
+                          <Star size={12} fill="currentColor" />
+                          <span>{project.stars}</span>
+                        </div>
+                      )}
+                    </div>
                     
                     <p className="text-gray-400 text-sm font-mono leading-relaxed mb-4">
                       {project.description}
                     </p>
                     
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1 mb-2">
                       {project.tech.slice(0, 4).map((tech) => (
                         <span
                           key={tech}
@@ -354,6 +425,10 @@ const Projects = () => {
                         </span>
                       )}
                     </div>
+                    
+                    <div className="text-xs text-gray-600 font-mono">
+                      Updated: {project.lastUpdated}
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -362,12 +437,13 @@ const Projects = () => {
         </AnimatePresence>
 
         {/* No Results */}
-        {filteredProjects.length === 0 && (
+        {!loading && filteredProjects.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
+            <AlertCircle className="text-gray-500 mx-auto mb-4" size={48} />
             <p className="text-gray-400 font-mono text-lg">
               No projects found matching your criteria.
             </p>
