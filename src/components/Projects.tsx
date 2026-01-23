@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Folder, Star, Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
 import { getAllProjects, ProjectData } from '../services/githubService';
+import ProjectDNA from './ProjectDNA';
+import { usePersona } from '../context/PersonaContext';
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
@@ -10,6 +12,7 @@ const Projects = () => {
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { persona, getRecommendation } = usePersona();
 
   // Fetch projects from GitHub on component mount
   useEffect(() => {
@@ -19,7 +22,7 @@ const Projects = () => {
   const loadProjects = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const fetchedProjects = await getAllProjects();
       setProjects(fetchedProjects);
@@ -59,12 +62,28 @@ const Projects = () => {
     const matchesFilter = filter === 'all' || project.category === filter;
     const matchesLanguage = languageFilter === 'all' || project.language === languageFilter;
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         project.tech.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
+      project.tech.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
     return matchesFilter && matchesLanguage && matchesSearch;
   });
 
-  const featuredProjects = filteredProjects.filter(project => project.featured);
-  const otherProjects = filteredProjects.filter(project => !project.featured);
+  // Sort based on Persona
+  const sortedProjects = [...filteredProjects].sort((a, b) => {
+    if (persona === 'RECRUITER') {
+      // Recruiters see fullstack/complex projects first
+      const aScore = a.category === 'fullstack' ? 2 : a.category === 'backend' ? 1 : 0;
+      const bScore = b.category === 'fullstack' ? 2 : b.category === 'backend' ? 1 : 0;
+      return bScore - aScore;
+    }
+    if (persona === 'STUDENT') {
+      // Students see recent, accessible projects
+      return new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime();
+    }
+    // Clients see featured/polished first (default)
+    return (a.featured === b.featured) ? 0 : a.featured ? -1 : 1;
+  });
+
+  const featuredProjects = sortedProjects.filter(project => project.featured);
+  const otherProjects = sortedProjects.filter(project => !project.featured);
 
   return (
     <div className="min-h-screen py-20 px-4">
@@ -89,11 +108,11 @@ const Projects = () => {
             <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            {loading 
-              ? 'Loading projects from GitHub...' 
+            {loading
+              ? 'Loading projects from GitHub...'
               : `${projects.length} projects from GitHub`}
           </p>
-          
+
           {error && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -110,6 +129,17 @@ const Projects = () => {
               </button>
             </motion.div>
           )}
+
+
+          {/* Persona Recommendation Banner */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            key={persona}
+            className="mb-8 p-4 bg-neon-green/5 border border-neon-green/20 rounded-lg text-center font-mono text-sm text-gray-300"
+          >
+            <span className="text-neon-green font-bold">MODE: {persona}</span> — {getRecommendation()}
+          </motion.div>
         </motion.div>
 
         {/* Filters and Search */}
@@ -139,7 +169,7 @@ const Projects = () => {
               </motion.button>
             </div>
           )}
-          
+
           {/* Category Filters */}
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
             <div className="flex items-center gap-2 flex-shrink-0">
@@ -153,16 +183,14 @@ const Projects = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setFilter(category.id)}
-                  className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${
-                    filter === category.id
-                      ? 'bg-neon-green text-dark-bg'
-                      : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
-                  }`}
+                  className={`px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${filter === category.id
+                    ? 'bg-neon-green text-dark-bg'
+                    : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                    }`}
                 >
                   {category.label}
-                  <span className={`ml-2 text-xs ${
-                    filter === category.id ? 'text-dark-bg/70' : 'text-gray-500'
-                  }`}>
+                  <span className={`ml-2 text-xs ${filter === category.id ? 'text-dark-bg/70' : 'text-gray-500'
+                    }`}>
                     ({category.count})
                   </span>
                 </motion.button>
@@ -184,16 +212,14 @@ const Projects = () => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setLanguageFilter(lang.id)}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-300 ${
-                      languageFilter === lang.id
-                        ? 'bg-neon-blue text-dark-bg'
-                        : 'bg-dark-card text-gray-400 hover:text-neon-blue border border-gray-700 hover:border-neon-blue/30'
-                    }`}
+                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-300 ${languageFilter === lang.id
+                      ? 'bg-neon-blue text-dark-bg'
+                      : 'bg-dark-card text-gray-400 hover:text-neon-blue border border-gray-700 hover:border-neon-blue/30'
+                      }`}
                   >
                     {lang.label}
-                    <span className={`ml-1.5 text-xs ${
-                      languageFilter === lang.id ? 'text-dark-bg/70' : 'text-gray-500'
-                    }`}>
+                    <span className={`ml-1.5 text-xs ${languageFilter === lang.id ? 'text-dark-bg/70' : 'text-gray-500'
+                      }`}>
                       ({lang.count})
                     </span>
                   </motion.button>
@@ -207,7 +233,7 @@ const Projects = () => {
             <div className="text-sm font-mono text-gray-500">
               Showing {filteredProjects.length} of {projects.length} projects
             </div>
-            
+
             {/* Search */}
             <div className="flex items-center gap-2">
               <div className="relative">
@@ -220,7 +246,7 @@ const Projects = () => {
                   className="pl-10 pr-4 py-2 bg-dark-card border border-gray-700 rounded-lg focus:border-neon-green focus:outline-none transition-colors font-mono text-sm w-64"
                 />
               </div>
-              
+
               {/* Refresh button */}
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 180 }}
@@ -262,7 +288,7 @@ const Projects = () => {
                 <Star className="text-neon-green" size={24} />
                 <h2 className="text-2xl font-display font-semibold">Featured Projects</h2>
               </div>
-              
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredProjects.map((project, index) => (
                   <motion.div
@@ -316,11 +342,11 @@ const Projects = () => {
                           )}
                         </div>
                       </div>
-                      
+
                       <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
                         {project.description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-3">
                         {project.tech.map((tech) => (
                           <span
@@ -331,10 +357,16 @@ const Projects = () => {
                           </span>
                         ))}
                       </div>
-                      
+
                       <div className="text-xs text-gray-500 font-mono">
                         Last updated: {project.lastUpdated}
                       </div>
+
+                      {/* AI DNA Analysis */}
+                      <ProjectDNA
+                        projectDescription={project.description || ''}
+                        techStack={project.tech}
+                      />
                     </div>
                   </motion.div>
                 ))}
@@ -353,7 +385,7 @@ const Projects = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
-              
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {otherProjects.map((project, index) => (
                   <motion.div
@@ -393,7 +425,7 @@ const Projects = () => {
                         )}
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start justify-between mb-2">
                       <h3 className="text-lg font-display font-semibold text-white">
                         {project.title}
@@ -405,11 +437,11 @@ const Projects = () => {
                         </div>
                       )}
                     </div>
-                    
+
                     <p className="text-gray-400 text-sm font-mono leading-relaxed mb-4">
                       {project.description}
                     </p>
-                    
+
                     <div className="flex flex-wrap gap-1 mb-2">
                       {project.tech.slice(0, 4).map((tech) => (
                         <span
@@ -425,7 +457,7 @@ const Projects = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="text-xs text-gray-600 font-mono">
                       Updated: {project.lastUpdated}
                     </div>

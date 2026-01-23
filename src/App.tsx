@@ -6,10 +6,11 @@ import Projects from './components/Projects';
 import Resume from './components/Resume';
 import Contact from './components/Contact';
 import Navigation from './components/Navigation';
+import PortfolioChat from './components/PortfolioChat';
 
 function AnimatedRoutes() {
   const location = useLocation();
-  
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
@@ -29,6 +30,7 @@ function App() {
       <div className="min-h-screen bg-dark-bg text-white font-mono">
         <Navigation />
         <AnimatedRoutes />
+        <PortfolioChat />
       </div>
     </Router>
   );
