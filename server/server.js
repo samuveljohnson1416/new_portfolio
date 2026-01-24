@@ -63,7 +63,7 @@ app.post('/api/chat', async (req, res) => {
             return res.status(500).json({ error: 'Gemini API Key not configured on server' });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
         const chat = model.startChat({
             history: [
@@ -98,7 +98,7 @@ app.post('/api/analyze-project', async (req, res) => {
             return res.status(500).json({ error: 'Gemini API Key not configured' });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
         const prompt = `
       Analyze this software project. 
       Description: ${projectDescription}

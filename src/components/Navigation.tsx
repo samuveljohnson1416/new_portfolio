@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Home, User, Folder, FileText, Mail, Menu, X, Code } from 'lucide-react';
+import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap } from 'lucide-react';
 import { usePersona, UserPersona } from '../context/PersonaContext';
 
 const Navigation = () => {
@@ -107,20 +107,39 @@ const Navigation = () => {
             </motion.div>
 
             {/* Persona Toggles (Desktop) */}
-            <div className="hidden xl:flex items-center gap-1 bg-dark-card/50 p-1 rounded-lg border border-neon-green/20 ml-4">
-              {(['RECRUITER', 'CLIENT', 'STUDENT'] as UserPersona[]).map((p) => (
-                <button
-                  key={p}
-                  onClick={() => setPersona(p)}
-                  className={`px-3 py-1 rounded text-[10px] font-mono transition-colors ${persona === p
-                    ? 'bg-neon-green text-dark-bg font-bold'
-                    : 'text-gray-400 hover:text-white'
-                    }`}
+            {/* Persona Toggles (Desktop - Only on Projects Page) */}
+            <AnimatePresence>
+              {location.pathname === '/projects' && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  className="hidden xl:flex items-center gap-2 bg-dark-card/50 p-1.5 rounded-lg border border-neon-green/20 ml-4"
                 >
-                  {p}
-                </button>
-              ))}
-            </div>
+                  <div className="mr-2 text-[10px] font-mono text-gray-400 uppercase tracking-wider">Mode:</div>
+                  {[
+                    { id: 'RECRUITER', icon: Briefcase, label: 'Recruiter' },
+                    { id: 'CLIENT', icon: Users, label: 'Client' },
+                    { id: 'STUDENT', icon: GraduationCap, label: 'Student' }
+                  ].map((mode) => {
+                    const Icon = mode.icon;
+                    return (
+                      <button
+                        key={mode.id}
+                        onClick={() => setPersona(mode.id as UserPersona)}
+                        className={`p-2 rounded-md transition-all duration-300 relative group ${persona === mode.id
+                          ? 'bg-neon-green text-dark-bg shadow-[0_0_10px_rgba(0,255,136,0.3)]'
+                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                          }`}
+                        title={mode.label}
+                      >
+                        <Icon size={16} />
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-2">

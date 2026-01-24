@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink, Eye } from 'lucide-react';
 import resumeData from '../constants/resumeData.json';
 
 const Resume = () => {
@@ -23,6 +23,10 @@ const Resume = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const viewResume = () => {
+    window.open('/SAMUVEL-JOHNSON_resume.pdf', '_blank');
   };
 
   return (
@@ -50,15 +54,26 @@ const Resume = () => {
           <p className="text-gray-400 mt-4 font-mono mb-8">
             My professional journey and qualifications
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
-            whileTap={{ scale: 0.95 }}
-            onClick={downloadResume}
-            className="inline-flex items-center gap-3 bg-neon-green text-dark-bg px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300"
-          >
-            <Download size={20} />
-            Download Resume
-          </motion.button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={viewResume}
+              className="inline-flex items-center gap-3 bg-transparent border-2 border-neon-green text-neon-green px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green hover:text-dark-bg transition-all duration-300"
+            >
+              <Eye size={20} />
+              View Resume
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={downloadResume}
+              className="inline-flex items-center gap-3 bg-neon-green text-dark-bg px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300"
+            >
+              <Download size={20} />
+              Download Resume
+            </motion.button>
+          </div>
         </motion.div>
 
         {/* Section Navigation */}
@@ -77,8 +92,8 @@ const Resume = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveSection(section.id)}
                 className={`flex items-center gap-2 px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 ${activeSection === section.id
-                    ? 'bg-neon-green text-dark-bg'
-                    : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                  ? 'bg-neon-green text-dark-bg'
+                  : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
                   }`}
               >
                 <Icon size={16} />
