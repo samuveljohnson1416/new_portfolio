@@ -1,14 +1,25 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Code, Zap, Github, Linkedin, Mail, Download, ArrowRight } from 'lucide-react';
+import { Terminal, Code, Zap, Github, Linkedin, Mail, ArrowRight, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getProjectCount } from '../services/githubService';
 
 const Home = () => {
   const navigate = useNavigate();
   const [typedText, setTypedText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showCursor, setShowCursor] = useState(true);
+  const [projectCount, setProjectCount] = useState('6+');
   const fullText = "Let's build something amazing together!";
+
+  // Fetch project count from GitHub
+  useEffect(() => {
+    const fetchProjectCount = async () => {
+      const count = await getProjectCount();
+      setProjectCount(count);
+    };
+    fetchProjectCount();
+  }, []);
 
   useEffect(() => {
     if (currentIndex < fullText.length) {
@@ -30,7 +41,7 @@ const Home = () => {
 
   const quickStats = [
     { label: 'Years Experience', value: '2+' },
-    { label: 'Projects Completed', value: '6+' },
+    { label: 'Projects Completed', value: projectCount },
     { label: 'Technologies', value: '15+' },
     { label: 'Hackathons', value: '3+' }
   ];
@@ -40,7 +51,7 @@ const Home = () => {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-neon-green/5 to-transparent"></div>
-        
+
         {/* Matrix-style falling code */}
         {[...Array(15)].map((_, i) => (
           <motion.div
@@ -111,12 +122,12 @@ const Home = () => {
               <span className="text-xs font-mono text-gray-400">sj@portfolio:~$</span>
             </div>
           </div>
-          
+
           <div className="text-left font-mono text-sm space-y-2">
             <div className="text-neon-green">
               <span className="text-gray-400">$</span> whoami
             </div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
@@ -124,23 +135,23 @@ const Home = () => {
             >
               Full Stack Developer & Creative Problem Solver
             </motion.div>
-            
+
             <div className="text-neon-green">
               <span className="text-gray-400">$</span> cat specialties.txt
             </div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1 }}
               className="text-white"
             >
-              React • Java • Node.js • Python • MySQL • UI/UX  • Figma • Git 
+              React • Java • Node.js • Python • MySQL • UI/UX  • Figma • Git
             </motion.div>
-            
+
             <div className="text-neon-green">
               <span className="text-gray-400">$</span> echo "{typedText}"
             </div>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
@@ -171,7 +182,7 @@ const Home = () => {
             </motion.span>
             <span className="text-neon-green">{'/>'}</span>
           </h1>
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -179,7 +190,7 @@ const Home = () => {
             className="text-xl md:text-2xl text-gray-300 font-mono max-w-3xl mx-auto leading-relaxed"
           >
             <span className="text-neon-green">{'<'}</span>
-            <span className="text-neon-green">Full Stack Developer</span> 
+            <span className="text-neon-green">Full Stack Developer</span>
             <span className="text-neon-green">{'/>'}</span>  crafting digital experiences with{' '}
             <span className="text-neon-green">clean code</span> and{' '}
             <span className="text-neon-blue">creative solutions</span>
@@ -214,21 +225,21 @@ const Home = () => {
           transition={{ delay: 1.4, duration: 0.6 }}
           className="flex flex-wrap justify-center gap-4 mb-12"
         >
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-green/20 hover:border-neon-green/40 transition-all duration-300"
           >
             <Code className="text-neon-green" size={20} />
             <span className="text-sm font-mono">Frontend Magic</span>
           </motion.div>
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-blue/20 hover:border-neon-blue/40 transition-all duration-300"
           >
             <Terminal className="text-neon-blue" size={20} />
             <span className="text-sm font-mono">Backend Power</span>
           </motion.div>
-          <motion.div 
+          <motion.div
             whileHover={{ scale: 1.05, y: -2 }}
             className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-pink/20 hover:border-neon-pink/40 transition-all duration-300"
           >
@@ -245,8 +256,8 @@ const Home = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
           <motion.button
-            whileHover={{ 
-              scale: 1.05, 
+            whileHover={{
+              scale: 1.05,
               boxShadow: "0 0 30px rgba(0, 255, 136, 0.5)",
               y: -2
             }}
@@ -257,7 +268,7 @@ const Home = () => {
             View My Work
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </motion.button>
-          
+
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
@@ -266,14 +277,14 @@ const Home = () => {
           >
             Let's Talk
           </motion.button>
-          
+
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate('/resume')}
             className="bg-transparent border-2 border-neon-blue text-neon-blue px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-blue hover:text-dark-bg transition-all duration-300 flex items-center gap-2"
           >
-            <Download size={18} />
+            <Eye size={18} />
             Resume
           </motion.button>
         </motion.div>
@@ -306,7 +317,7 @@ const Home = () => {
         </motion.div>
       </motion.div>
 
-  {/* Scroll Indicator removed as requested */}
+      {/* Scroll Indicator removed as requested */}
     </div>
   );
 };
