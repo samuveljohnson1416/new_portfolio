@@ -1,161 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
-import AnimatedBackground from './AnimatedBackground';
 
 const Resume = () => {
   const [activeSection, setActiveSection] = useState('experience');
 
-  const experience = [
-    {
-      title: 'Software Developer Intern',
-      company: 'Bluestock Fintech',
-      period: '01-07-2025 to 31-08-2025',
-      location: 'virtual',
-      description: 'Developing full-stack IPO web applications using modern technologies. Creating responsive user interfaces and robust backend Rest APIs. Working with clients to deliver custom solutions.',
-      achievements: [
-        'Built responsive IPO web applications',
-        'Implemented RESTful APIs with Node.js and Python Django',
-        'Developed interactive UIs using React and modern CSS',
-        'Integrated databases with PostgreSQL',
-      ],
-      technologies: ['React', 'Node.js', 'Express', 'PostgreSQL', 'JavaScript', 'HTML/CSS']
-    },
-    {
-      title: 'Inplant Trainee',
-      company: 'Tamilnadu Co Operative Milk Producers Federation Ltd',
-      period: '15-07-2024 to 22-07-2024',
-      location: 'On-site',
-      description: 'Gained knowledge about how the industry works and practical knowledge about how dairy products are manufactured.',
-      achievements: [
-        'Learned about dairy production processes',
-        'Bridged theoretical knowledge with real-world production practices.',
-        'Gained comprehensive insight into the functioning of the dairy industry.'
-      ],
-      technologies: ['Manufacturing Processes', 'Quality Control', 'Industry Analysis']
-    }
-  ];
-
-  const education = [
-    {
-      degree: 'Bachelor of Engineering in Information Technology',
-      school: 'Loyola ICAM college of Engineering and Technology',
-      period: '2023 - 2027',
-      location: 'Nungambakkam,chennai,Tamil Nadu, India',
-      gpa: '8.6/10.0',
-      description: 'Focused on software engineering, web development, and computer programming. Completed various projects in full-stack development.',
-      coursework: [
-        'Data Structures & Algorithms',
-        'Software Engineering',
-        'Web Technologies',
-        'Object Oriented Programming',
-        'Operating Systems',
-        'Computer Networks',
-        'Database Management Systems',
-        'Operating Systems',
-        'OOPs',
-        'Theory of Computation',
-        'Artificial Intelligence and Machine Learning',
-      ]
-    },
-    {
-      degree: 'Higher Secondary Education',
-      school: "St.Antony's Matric Higher Sec School",
-      period: '2009 - 2023',
-      location: 'Neyveli',
-      gpa: '89%',
-      description: 'Completed higher secondary education with strong academic performance, building foundation in mathematics, science, and computer studies.',
-      coursework: [
-        'Mathematics',
-        'Physics',
-        'Chemistry',
-        'Biology',
-        'English',
-        'Tamil'
-      ]
-    }
-  ];
-
-  const certifications = [
-    {
-      name: 'MATLAB Onramp',
-      issuer: 'MathWorks',
-      date: '20 November 2023',
-      credentialId: 'MATLAB-2023-001',
-      link: 'https://drive.google.com/file/d/1xfXdDyD1nTRxZEvRreGWD0aP_TZsy2AH/view?usp=sharing'
-    },
-    {
-      name: 'Simulink Onramp',
-      issuer: 'MathWorks',
-      date: '14 March 2024',
-      credentialId: 'SIMULINK-2024-001',
-      link: '#'
-    },
-    {
-      name: 'Python Basics Program',
-      issuer: 'SkillRack',
-      date: '2023',
-      credentialId: 'SkillRack-2023',
-      link: 'https://drive.google.com/file/d/1cflZ3yDmwNkx6u9xpaHmfRppNCXCZZ1L/view?usp=sharing'
-    },
-    {
-      name: 'Fundamentals of Statistics and Visualization in Python',
-      issuer: 'Infosys Springboard',
-      date: '27 August 2024',
-      credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://drive.google.com/file/d/1XUI3Ilo8S2mMWPjAs-gH7IZQWzgIo_9e/view?usp=sharing'
-    },
-    {
-      name: 'Certificate of Appreciation - MAKE A DIFFERENCE CLUB',
-      issuer: 'Loyola-ICAM College of Engineering and Technology (LICET)',
-      date: '6th & 13th November 2024',
-      credentialId: 'TECHATHON2K24',
-      link: 'https://drive.google.com/file/d/1io6RJoLGfMVjbwq8aQbfr6wYVMeQyOQz/view?usp=sharing'
-    },
-    {
-      name: 'Two-day Drone Workshop',
-      issuer: 'IIT-Madras in association with Entrench Electronics',
-      date: '22nd & 23rd February 2025',
-      credentialId: 'EWS250',
-      link: 'https://drive.google.com/file/d/190neDkMShh-cw1Zahd9g6IrpiGb0vhN2/view?usp=sharing'
-    },
-    {
-      name: 'AngularJS for Beginners: Getting Started',
-      issuer: 'Coursera Project Network',
-      date: '3 June 2025',
-      credentialId: 'CNFVCT7X4KBZ',
-      link: 'https://coursera.org/verify/CNFVCT7X4KBZ'
-    },
-    {
-      name: 'GitHub Foundations Badge',
-      issuer: 'GitHub',
-      date: '1 June 2025',
-      credentialId: 'Valid until 1 June 2028',
-      link: 'https://credly.com/go/7hW9nuP3'
-    },
-    {
-      name: 'Prompt Engineering',
-      issuer: 'Infosys Springboard',
-      date: '6 June 2025',
-      credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://drive.google.com/file/d/1hGHBGxqxR9v2NIFBxJASDQirWoyZTURN/view?usp=sharing'
-    },
-    {
-      name: 'Artificial Intelligence Primer Certification',
-      issuer: 'Infosys Springboard',
-      date: '17 June 2025',
-      credentialId: 'Verify at verify.onwingspan.com',
-      link: 'https://drive.google.com/file/d/1yKHMTCdygU6ZaaHrQrRJ72zduy_J3_QV/view?usp=sharing'
-    }
-  ];
-
-  const skills = {
-    'Frontend': ['React', 'JavaScript', 'HTML', 'CSS', 'Responsive Design', 'vibecoding', 'Tailwind CSS', 'Figma', 'Canva'],
-    'Backend': ['Node.js', 'Angular', 'Python'],
-    'Database': ['MongoDB', 'MySQL', 'Database Design', 'PostgreSQL', 'SQL'],
-    'Tools': ['Git', 'GitHub', 'VS Code', 'npm', 'Ai tools'],
-    'Other': ['Problem Solving', 'Team Collaboration', 'Agile', 'Code Review', 'Testing', 'prompt engineering']
-  };
+  const { experience, education, certifications, skills } = resumeData;
 
   const sections = [
     { id: 'experience', label: 'Experience', icon: Briefcase },
@@ -172,6 +22,10 @@ const Resume = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const viewResume = () => {
+    window.open('/SAMUVEL-JOHNSON_resume.pdf', '_blank');
   };
 
   return (
@@ -200,15 +54,26 @@ const Resume = () => {
           <p className="text-gray-400 mt-4 font-mono mb-8">
             My professional journey and qualifications
           </p>
-          <motion.button
-            whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
-            whileTap={{ scale: 0.95 }}
-            onClick={downloadResume}
-            className="inline-flex items-center gap-3 bg-neon-green text-dark-bg px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300"
-          >
-            <Download size={20} />
-            Download Resume
-          </motion.button>
+          <div className="flex flex-wrap justify-center gap-4">
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={viewResume}
+              className="inline-flex items-center gap-3 bg-transparent border-2 border-neon-green text-neon-green px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green hover:text-dark-bg transition-all duration-300"
+            >
+              <Eye size={20} />
+              View Resume
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(0, 255, 136, 0.5)" }}
+              whileTap={{ scale: 0.95 }}
+              onClick={downloadResume}
+              className="inline-flex items-center gap-3 bg-neon-green text-dark-bg px-6 py-3 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300"
+            >
+              <Download size={20} />
+              Download Resume
+            </motion.button>
+          </div>
         </motion.div>
 
         {/* Section Navigation */}
@@ -226,11 +91,10 @@ const Resume = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveSection(section.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 ${
-                  activeSection === section.id
-                    ? 'bg-neon-green text-dark-bg'
-                    : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
-                }`}
+                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 ${activeSection === section.id
+                  ? 'bg-neon-green text-dark-bg'
+                  : 'bg-dark-card text-gray-400 hover:text-neon-green border border-gray-700 hover:border-neon-green/30'
+                  }`}
               >
                 <Icon size={16} />
                 {section.label}

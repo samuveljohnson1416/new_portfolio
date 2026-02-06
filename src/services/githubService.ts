@@ -71,9 +71,9 @@ export async function fetchGitHubRepositories(): Promise<GitHubRepo[]> {
     const repos: GitHubRepo[] = await response.json();
 
     // Filter: only public, non-archived, non-fork repositories
-    return repos.filter(repo => 
-      !repo.private && 
-      !repo.archived && 
+    return repos.filter(repo =>
+      !repo.private &&
+      !repo.archived &&
       !repo.fork
     );
   } catch (error) {
@@ -128,7 +128,7 @@ function shouldBeFeatured(repo: GitHubRepo): boolean {
   const hasHomepage = !!repo.homepage;
   const hasDescription = !!repo.description;
   const hasTopics = repo.topics.length > 0;
-  
+
   // Recent activity (updated within last year)
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -145,9 +145,9 @@ function shouldBeFeatured(repo: GitHubRepo): boolean {
  * Transform GitHub repository data to project data format
  */
 export function transformRepoToProject(repo: GitHubRepo): ProjectData {
-  const tech = repo.topics.length > 0 
+  const tech = repo.topics.length > 0
     ? repo.topics.map(t => t.charAt(0).toUpperCase() + t.slice(1))
-    : repo.language 
+    : repo.language
       ? [repo.language]
       : ['GitHub'];
 
@@ -181,7 +181,7 @@ export function transformRepoToProject(repo: GitHubRepo): ProjectData {
 export async function getAllProjects(): Promise<ProjectData[]> {
   const repos = await fetchGitHubRepositories();
   const projects = repos.map(transformRepoToProject);
-  
+
   // Sort by: featured first, then by stars, then by recent updates
   return projects.sort((a, b) => {
     if (a.featured !== b.featured) {
@@ -192,6 +192,19 @@ export async function getAllProjects(): Promise<ProjectData[]> {
     }
     return new Date(b.lastUpdatedIso).getTime() - new Date(a.lastUpdatedIso).getTime();
   });
+}
+
+/**
+ * Get the count of public repositories (for stats display)
+ */
+export async function getProjectCount(): Promise<string> {
+  try {
+    const repos = await fetchGitHubRepositories();
+    return `${repos.length}+`;
+  } catch (error) {
+    console.error('Error fetching project count:', error);
+    return '6+'; // Fallback value
+  }
 }
 
 /**
