@@ -18,8 +18,8 @@ const Resume = () => {
 
   const downloadResume = () => {
     const link = document.createElement('a');
-    link.href = '/SAMUVEL-JOHNSON_resume.pdf';
-    link.download = 'SAMUVEL-JOHNSON_resume.pdf';
+    link.href = '/samuvel-johnson.pdf';
+    link.download = 'samuvel-johnson.pdf';
     link.target = '_blank';
     document.body.appendChild(link);
     link.click();
@@ -27,7 +27,7 @@ const Resume = () => {
   };
 
   const viewResume = () => {
-    window.open('/SAMUVEL-JOHNSON_resume.pdf', '_blank');
+    window.open('/samuvel-johnson.pdf', '_blank');
   };
 
   return (
