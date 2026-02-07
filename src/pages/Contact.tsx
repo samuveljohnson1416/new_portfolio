@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2 } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2, Twitter } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import AnimatedBackground from './AnimatedBackground';
+import AnimatedBackground from '../components/shared/AnimatedBackground';
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ const Contact = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
@@ -28,7 +29,7 @@ const Contact = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     const rejectedEmail = 'samuveljohnson.cv@gmail.com';
-    
+
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
@@ -36,19 +37,19 @@ const Contact = () => {
     if (!formData.subject.trim()) newErrors.subject = 'Subject is required';
     if (!formData.message.trim()) newErrors.message = 'Message is required';
     else if (formData.message.length < 10) newErrors.message = 'Message must be at least 10 characters';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
-    
+
     try {
       // EmailJS configuration
       const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
@@ -58,7 +59,7 @@ const Contact = () => {
       // Debug logging
       console.log('EmailJS Config:', {
         serviceId: serviceId ? 'Set' : 'Missing',
-        templateId: templateId ? 'Set' : 'Missing', 
+        templateId: templateId ? 'Set' : 'Missing',
         publicKey: publicKey ? 'Set' : 'Missing'
       });
 
@@ -114,12 +115,12 @@ const Contact = () => {
       description: 'Best way to reach me'
     },
     {
-      icon: Phone,
-      label: 'Phone',
-      value: '+91 9489322076',
-      href: 'tel:+919489322076',
+      icon: Twitter,
+      label: 'X (Twitter)',
+      value: '@SamuvelJ12218',
+      href: 'https://x.com/SamuvelJ12218',
       color: 'text-neon-blue',
-      description: 'Available Mon-Fri, 9AM-6PM IST'
+      description: 'Follow my tech journey'
     },
     {
       icon: MapPin,
@@ -216,18 +217,17 @@ const Contact = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setFormData(prev => ({ ...prev, subject: topic }))}
-                      className={`px-3 py-1 text-xs font-mono rounded-full border transition-all duration-300 ${
-                        formData.subject === topic
-                          ? 'bg-neon-green/20 text-neon-green border-neon-green/40'
-                          : 'bg-gray-800 text-gray-400 border-gray-600 hover:border-neon-green/30'
-                      }`}
+                      className={`px-3 py-1 text-xs font-mono rounded-full border transition-all duration-300 ${formData.subject === topic
+                        ? 'bg-neon-green/20 text-neon-green border-neon-green/40'
+                        : 'bg-gray-800 text-gray-400 border-gray-600 hover:border-neon-green/30'
+                        }`}
                     >
                       {topic}
                     </motion.button>
                   ))}
                 </div>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
@@ -240,11 +240,10 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
-                        errors.name 
-                          ? 'border-red-500 focus:border-red-400' 
-                          : 'border-gray-600 focus:border-neon-green'
-                      }`}
+                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${errors.name
+                        ? 'border-red-500 focus:border-red-400'
+                        : 'border-gray-600 focus:border-neon-green'
+                        }`}
                       placeholder="Your name"
                     />
                     {errors.name && (
@@ -261,11 +260,10 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
-                        errors.email 
-                          ? 'border-red-500 focus:border-red-400' 
-                          : 'border-gray-600 focus:border-neon-green'
-                      }`}
+                      className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${errors.email
+                        ? 'border-red-500 focus:border-red-400'
+                        : 'border-gray-600 focus:border-neon-green'
+                        }`}
                       placeholder="your.email@example.com"
                     />
                     {errors.email && (
@@ -273,7 +271,7 @@ const Contact = () => {
                     )}
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-mono text-gray-300 mb-2">
                     Subject *
@@ -284,18 +282,17 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${
-                      errors.subject 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-gray-600 focus:border-neon-green'
-                    }`}
+                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm ${errors.subject
+                      ? 'border-red-500 focus:border-red-400'
+                      : 'border-gray-600 focus:border-neon-green'
+                      }`}
                     placeholder="What's this about?"
                   />
                   {errors.subject && (
                     <p className="text-red-400 text-xs font-mono mt-1">{errors.subject}</p>
                   )}
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-mono text-gray-300 mb-2">
                     Message *
@@ -306,11 +303,10 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     rows={6}
-                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm resize-none ${
-                      errors.message 
-                        ? 'border-red-500 focus:border-red-400' 
-                        : 'border-gray-600 focus:border-neon-green'
-                    }`}
+                    className={`w-full px-4 py-3 bg-dark-bg border rounded-lg focus:outline-none transition-colors font-mono text-sm resize-none ${errors.message
+                      ? 'border-red-500 focus:border-red-400'
+                      : 'border-gray-600 focus:border-neon-green'
+                      }`}
                     placeholder="Tell me about your project or idea..."
                   />
                   {errors.message && (
@@ -320,17 +316,16 @@ const Contact = () => {
                     {formData.message.length}/500 characters
                   </p>
                 </div>
-                
+
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
                   whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                  className={`w-full px-6 py-3 rounded-lg font-mono font-semibold transition-all duration-300 flex items-center justify-center gap-3 ${
-                    isSubmitting
-                      ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                      : 'bg-neon-green text-dark-bg hover:bg-neon-green/90'
-                  }`}
+                  className={`w-full px-6 py-3 rounded-lg font-mono font-semibold transition-all duration-300 flex items-center justify-center gap-3 ${isSubmitting
+                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                    : 'bg-neon-green text-dark-bg hover:bg-neon-green/90'
+                    }`}
                 >
                   {isSubmitting ? (
                     <>
@@ -362,7 +357,7 @@ const Contact = () => {
                       <span className="font-mono text-sm">Message sent successfully! I'll get back to you soon.</span>
                     </motion.div>
                   )}
-                  
+
                   {submitStatus === 'error' && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
@@ -391,7 +386,7 @@ const Contact = () => {
               <h2 className="text-2xl font-display font-semibold mb-6">
                 Get in touch
               </h2>
-              
+
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <motion.a
@@ -421,7 +416,7 @@ const Contact = () => {
               <h2 className="text-2xl font-display font-semibold mb-6">
                 Connect with me
               </h2>
-              
+
               <div className="space-y-4">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -458,10 +453,10 @@ const Contact = () => {
                 <h3 className="text-lg font-display font-semibold">Available for work</h3>
               </div>
               <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
-                I'm currently available for freelance projects and full-time opportunities. 
+                I'm currently available for freelance projects and full-time opportunities.
                 Let's discuss how we can work together to bring your ideas to life!
               </p>
-              
+
               <div className="flex items-center gap-2 text-sm font-mono text-gray-400">
                 <Clock size={16} />
                 <span>Usually responds within 24 hours</span>

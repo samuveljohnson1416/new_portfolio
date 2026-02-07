@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { User, Code2, Lightbulb, Target, Heart } from 'lucide-react';
-import AnimatedBackground from './AnimatedBackground';
+import AnimatedBackground from '../components/shared/AnimatedBackground';
 
 const About = () => {
   const skills = [
@@ -71,7 +71,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Journey</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I'm a passionate full-stack developer with over 2 years of hands-on experience building meaningful and scalable web applications. What began as a simple 'Hello World' quickly grew into a deep love for crafting real solutions that people actually use. I specialize in React and Node.js, and I’m driven by the idea of building efficient, user-friendly systems that make a difference. For me, it’s not just about writing code—it’s about building experiences that matter
+                I’m a motivated full-stack developer who enjoys turning ideas into functional web applications. My journey began with curiosity about how websites work, and over time it evolved into building complete applications using both frontend and backend technologies. I focus on writing clean, understandable code and continuously improving my development skills through hands-on projects and experimentation.
               </p>
             </div>
 
@@ -81,10 +81,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">What I Do</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I specialize in full-stack development using React, Node.js, Express, 
-                and MongoDB. I'm passionate about creating responsive, user-friendly 
-                applications and have experience with both frontend and backend development. 
-                I enjoy working with modern JavaScript frameworks and building efficient APIs.
+                I build full-stack web applications using modern technologies like React, JavaScript, Node.js, and databases such as MongoDB and MySQL. I enjoy designing responsive user interfaces, integrating APIs, and developing backend logic that supports real-world use cases. I’m comfortable working across the stack and enjoy learning new tools when a project demands it.
               </p>
             </div>
 
@@ -94,10 +91,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Vision</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I’m currently focused on mastering Django, REST APIs, PostgreSQL, and advanced React techniques.
-Exploring full-stack development through real-world fintech projects like IPO web applications.
-I’m passionate about building scalable, user-focused solutions with clean architecture and smart design.
-Every line of code is part of my journey to create impactful and reliable software.
+                I focus on exploring emerging AI technologies and understanding how they can be practically applied to software development. Rather than limiting myself to a fixed stack, I experiment with AI tools, models, and developer platforms to understand their strengths, limitations, and real-world impact. My goal is to build intelligent software systems that enhance productivity, automate workflows, and elevate how technology is used, not just how it is built. I believe meaningful progress comes from combining strong engineering fundamentals with thoughtful adoption of AI-driven solutions.
               </p>
             </div>
           </motion.div>
@@ -151,7 +145,7 @@ Every line of code is part of my journey to create impactful and reliable softwa
           </motion.div>
         </div>
 
-  {/* Stats Section removed as requested */}
+        {/* Stats Section removed as requested */}
 
         {/* LeetCode Profile Card */}
         <motion.div

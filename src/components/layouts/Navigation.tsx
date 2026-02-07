@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap } from 'lucide-react';
-import { usePersona, UserPersona } from '../context/PersonaContext';
+import { usePersona, UserPersona } from '../../context/PersonaContext';
+
 
 const Navigation = () => {
   const location = useLocation();

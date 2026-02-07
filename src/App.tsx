@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
-import Home from './components/Home';
-import About from './components/About';
-import Projects from './components/Projects';
-import Resume from './components/Resume';
-import Contact from './components/Contact';
-import Navigation from './components/Navigation';
-import PortfolioChat from './components/PortfolioChat';
+import Home from './pages/Home';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Resume from './pages/Resume';
+import Contact from './pages/Contact';
+import Navigation from './components/layouts/Navigation';
+
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -30,7 +30,6 @@ function App() {
       <div className="min-h-screen bg-dark-bg text-white font-mono">
         <Navigation />
         <AnimatedRoutes />
-        <PortfolioChat />
       </div>
     </Router>
   );

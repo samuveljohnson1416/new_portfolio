@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Code, Zap, Github, Linkedin, Mail, ArrowRight, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { getProjectCount } from '../services/githubService';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const Home = () => {
       {/* Animated Background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-neon-green/5 to-transparent"></div>
-        
+
         {/* Matrix-style falling code */}
         {[...Array(15)].map((_, i) => (
           <motion.div

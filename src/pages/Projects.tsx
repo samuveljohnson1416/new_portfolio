@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Folder, Star, Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
 import { getAllProjects, ProjectData } from '../services/githubService';
+import AnimatedBackground from '../components/shared/AnimatedBackground';
+import { usePersona } from '../context/PersonaContext';
+
 
 const Projects = () => {
   const [filter, setFilter] = useState('all');
-  const [languageFilter, setLanguageFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [projects, setProjects] = useState<ProjectData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,24 +46,11 @@ const Projects = () => {
       }))
   ];
 
-  // Dynamically generate language filters based on actual projects
-  const languages = [
-    { id: 'all', label: 'All Languages', count: projects.length },
-    ...Array.from(new Set(projects.map(p => p.language).filter(Boolean)))
-      .sort()
-      .map(lang => ({
-        id: lang,
-        label: lang,
-        count: projects.filter(p => p.language === lang).length
-      }))
-  ];
-
   const filteredProjects = projects.filter(project => {
     const matchesFilter = filter === 'all' || project.category === filter;
-    const matchesLanguage = languageFilter === 'all' || project.language === languageFilter;
     const matchesSearch = project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       project.tech.some(tech => tech.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesFilter && matchesLanguage && matchesSearch;
+    return matchesFilter && matchesSearch;
   });
 
   // Sort based on Persona
@@ -149,7 +138,7 @@ const Projects = () => {
           className="mb-12 space-y-4"
         >
           {/* Header with Clear Filters */}
-          {(filter !== 'all' || languageFilter !== 'all' || searchTerm) && (
+          {(filter !== 'all' || searchTerm) && (
             <div className="flex items-center justify-between">
               <div className="text-sm font-mono text-gray-400">
                 Active filters applied
@@ -159,7 +148,6 @@ const Projects = () => {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => {
                   setFilter('all');
-                  setLanguageFilter('all');
                   setSearchTerm('');
                 }}
                 className="text-xs font-mono text-neon-pink hover:underline"
@@ -196,36 +184,6 @@ const Projects = () => {
               ))}
             </div>
           </div>
-
-          {/* Language Filters */}
-          {languages.length > 1 && (
-            <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <Filter className="text-neon-blue" size={20} />
-                <span className="text-gray-400 text-sm font-mono">Language:</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {languages.map((lang) => (
-                  <motion.button
-                    key={lang.id}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setLanguageFilter(lang.id)}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-300 ${languageFilter === lang.id
-                      ? 'bg-neon-blue text-dark-bg'
-                      : 'bg-dark-card text-gray-400 hover:text-neon-blue border border-gray-700 hover:border-neon-blue/30'
-                      }`}
-                  >
-                    {lang.label}
-                    <span className={`ml-1.5 text-xs ${languageFilter === lang.id ? 'text-dark-bg/70' : 'text-gray-500'
-                      }`}>
-                      ({lang.count})
-                    </span>
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-          )}
 
           {/* Search and Refresh */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -361,11 +319,6 @@ const Projects = () => {
                         Last updated: {project.lastUpdated}
                       </div>
 
-                      {/* AI DNA Analysis */}
-                      <ProjectDNA
-                        projectDescription={project.description || ''}
-                        techStack={project.tech}
-                      />
                     </div>
                   </motion.div>
                 ))}

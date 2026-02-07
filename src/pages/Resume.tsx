@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { Download, FileText, Briefcase, GraduationCap, Award, Calendar, MapPin, ExternalLink, Eye } from 'lucide-react';
+import AnimatedBackground from '../components/shared/AnimatedBackground';
+import resumeData from '../constants/resumeData.json';
 
 const Resume = () => {
   const [activeSection, setActiveSection] = useState('experience');
