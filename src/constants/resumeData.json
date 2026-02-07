@@ -1,6 +1,28 @@
 {
     "experience": [
         {
+            "title": "AI Software Developer Intern (Project-Based)",
+            "company": "Multi-Model AI Agent – Automated Health Diagnostics",
+            "period": "13-12-2025 to 13-02-2026",
+            "location": "Virtual",
+            "description": "Developed an intelligent multi-model AI system for automated blood report analysis and personalized health recommendations. Designed end-to-end workflows to extract, validate, analyze, and synthesize medical data using multiple AI models, focusing on accuracy, interpretability, and real-world usability. AI_Design and Implementation of…",
+            "achievements": [
+                "Built a complete pipeline to ingest blood reports from PDF, image, and structured formats",
+                "Implemented parameter interpretation to classify medical values as normal, high, or low",
+                "Designed pattern recognition and risk assessment models for multi-parameter health analysis",
+                "Generated personalized, actionable health recommendations with medical disclaimers",
+                "Orchestrated multiple AI models into a unified, goal-oriented diagnostic workflow"
+            ],
+            "technologies": [
+                "Python",
+                "Machine Learning",
+                "LLMs",
+                "OCR (PDF/Image Parsing)",
+                "Data Validation & Standardization",
+                "AI Workflow Orchestration"
+            ]
+        },
+        {
             "title": "Software Developer Intern",
             "company": "Bluestock Fintech",
             "period": "01-07-2025 to 31-08-2025",
@@ -19,23 +41,6 @@
                 "PostgreSQL",
                 "JavaScript",
                 "HTML/CSS"
-            ]
-        },
-        {
-            "title": "Inplant Trainee",
-            "company": "Tamilnadu Co Operative Milk Producers Federation Ltd",
-            "period": "15-07-2024 to 22-07-2024",
-            "location": "On-site",
-            "description": "Gained knowledge about how the industry works and practical knowledge about how dairy products are manufactured.",
-            "achievements": [
-                "Learned about dairy production processes",
-                "Bridged theoretical knowledge with real-world production practices.",
-                "Gained comprehensive insight into the functioning of the dairy industry."
-            ],
-            "technologies": [
-                "Manufacturing Processes",
-                "Quality Control",
-                "Industry Analysis"
             ]
         }
     ],
