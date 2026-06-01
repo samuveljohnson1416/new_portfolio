@@ -43,7 +43,7 @@ const Home = () => {
     { label: 'Years Experience', value: '2+' },
     { label: 'Projects Completed', value: projectCount },
     { label: 'Technologies', value: '15+' },
-    { label: 'Hackathons', value: '3+' }
+    { label: 'Hackathons', value: '5+' }
   ];
 
   return (
