@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Code, Zap, Github, Linkedin, Mail, ArrowRight, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,40 @@ const Home = () => {
   const [showCursor, setShowCursor] = useState(true);
   const [projectCount, setProjectCount] = useState('6+');
   const fullText = "Let's build something amazing together!";
+
+  // Reactive window height — avoids raw window.innerHeight in JSX and handles resize
+  const [windowHeight, setWindowHeight] = useState(
+    typeof window !== 'undefined' ? window.innerHeight : 800
+  );
+  useEffect(() => {
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Pre-compute random values once so they don't re-randomize on every render
+  const matrixItems = useMemo(
+    () =>
+      [...Array(15)].map(() => ({
+        duration: Math.random() * 3 + 2,
+        delay: Math.random() * 5,
+        left: Math.random() * 100,
+        text: Math.random().toString(36).substring(2, 15),
+      })),
+    []
+  );
+
+  const particles = useMemo(
+    () =>
+      [...Array(20)].map(() => ({
+        dx: Math.random() * 200 - 100,
+        dy: Math.random() * 200 - 100,
+        duration: Math.random() * 10 + 10,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+      })),
+    []
+  );
 
   // Fetch project count from GitHub
   useEffect(() => {
@@ -52,48 +86,48 @@ const Home = () => {
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-neon-green/5 to-transparent"></div>
 
-        {/* Matrix-style falling code */}
-        {[...Array(15)].map((_, i) => (
+        {/* Matrix-style falling code — values memoized to prevent re-randomizing on re-render */}
+        {matrixItems.map((item, i) => (
           <motion.div
             key={i}
             className="absolute text-neon-green/20 font-mono text-xs"
             animate={{
-              y: [0, window.innerHeight + 100],
+              y: [0, windowHeight + 100],
               opacity: [0, 1, 0],
             }}
             transition={{
-              duration: Math.random() * 3 + 2,
+              duration: item.duration,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: item.delay,
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
+              left: `${item.left}%`,
               top: -100,
             }}
           >
-            {Math.random().toString(36).substring(2, 15)}
+            {item.text}
           </motion.div>
         ))}
 
-        {/* Floating particles */}
-        {[...Array(20)].map((_, i) => (
+        {/* Floating particles — values memoized to prevent re-randomizing on re-render */}
+        {particles.map((p, i) => (
           <motion.div
             key={i}
             className="absolute w-1 h-1 bg-neon-green rounded-full opacity-30"
             animate={{
-              x: [0, Math.random() * 200 - 100],
-              y: [0, Math.random() * 200 - 100],
+              x: [0, p.dx],
+              y: [0, p.dy],
               opacity: [0.3, 0.8, 0.3],
             }}
             transition={{
-              duration: Math.random() * 10 + 10,
+              duration: p.duration,
               repeat: Infinity,
               ease: "linear",
             }}
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${p.left}%`,
+              top: `${p.top}%`,
             }}
           />
         ))}
