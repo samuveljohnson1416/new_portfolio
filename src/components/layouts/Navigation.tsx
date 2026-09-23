@@ -1,16 +1,19 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { usePathname, useRouter } from 'next/navigation';
 import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap } from 'lucide-react';
 import { usePersona, UserPersona } from '../../context/PersonaContext';
+import { duration, stagger } from '../motion/motionConfig';
 
 
 const Navigation = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState<Date | null>(null);
   const { persona, setPersona } = usePersona();
 
   const navItems = [
@@ -26,9 +29,10 @@ const Navigation = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
+    // Clock starts after mount so the prerendered HTML never holds a stale build-time value.
+    const tick = () => setCurrentTime(new Date());
+    tick();
+    const timer = setInterval(tick, 1000);
 
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -37,19 +41,27 @@ const Navigation = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   const handleNavigation = (path: string) => {
-    navigate(path);
+    router.push(path);
     setIsOpen(false);
   };
 
-  const getPageTitle = () => {
-    const currentPage = navItems.find(item => item.path === location.pathname);
-    return currentPage ? currentPage.label : 'Portfolio';
-  };
+  // Command-style route label: "/" -> "~/", "/projects" -> "~/projects"
+  const routeLabel = `~${pathname === '/' ? '/' : pathname}`;
+  const clock = currentTime?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <>
@@ -66,29 +78,40 @@ const Navigation = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo with Animation */}
-            <motion.div
+            <motion.button
+              type="button"
               whileHover={{ scale: 1.05 }}
-              className="flex items-center gap-3 cursor-pointer"
+              className="flex items-center gap-3 rounded-lg text-left"
               onClick={() => handleNavigation('/')}
+              aria-label="Samuvel Johnson, home"
             >
-              <motion.div
+              <motion.span
                 className="w-10 h-10 bg-gradient-to-br from-neon-green to-neon-blue rounded-lg flex items-center justify-center"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
               >
                 <Code className="text-dark-bg" size={20} />
-              </motion.div>
-              <div className="hidden sm:block">
+              </motion.span>
+              <span className="hidden sm:block">
                 <span className="font-display font-bold text-lg">
                   <span className="text-neon-green">{'<'}</span>
                   SJ
                   <span className="text-neon-green">{'/>'}</span>
                 </span>
-                <div className="text-xs font-mono text-gray-400">
-                  {getPageTitle()}
-                </div>
-              </div>
-            </motion.div>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.span
+                    key={pathname}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: duration.fast / 2 }}
+                    className="block text-xs font-mono text-gray-400"
+                  >
+                    {routeLabel}
+                  </motion.span>
+                </AnimatePresence>
+              </span>
+            </motion.button>
 
             {/* Center - Current Time & Status */}
             <motion.div
@@ -103,14 +126,14 @@ const Navigation = () => {
               </div>
               <div className="w-px h-4 bg-gray-600"></div>
               <span className="text-xs font-mono text-neon-green">
-                {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {clock}
               </span>
             </motion.div>
 
             {/* Persona Toggles (Desktop) */}
             {/* Persona Toggles (Desktop - Only on Projects Page) */}
             <AnimatePresence>
-              {location.pathname === '/projects' && (
+              {pathname === '/projects' && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -145,7 +168,7 @@ const Navigation = () => {
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-2">
               {navItems.map((item, index) => {
-                const isActive = location.pathname === item.path;
+                const isActive = pathname === item.path;
                 const Icon = item.icon;
 
                 return (
@@ -157,7 +180,7 @@ const Navigation = () => {
                     onClick={() => handleNavigation(item.path)}
                     whileHover={{ y: -2, scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`relative flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm transition-all duration-300 ${isActive
+                    className={`relative flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm transition-colors duration-300 ${isActive
                       ? `${item.color} bg-gradient-to-r from-neon-green/10 to-neon-blue/10 border border-neon-green/30`
                       : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/5'
                       }`}
@@ -182,6 +205,8 @@ const Navigation = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleMenu}
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
               className="md:hidden p-2 text-gray-400 hover:text-neon-green transition-colors relative"
             >
               <AnimatePresence mode="wait">
@@ -223,6 +248,7 @@ const Navigation = () => {
           >
             <motion.div
               className="absolute inset-0 bg-dark-bg/95 backdrop-blur-md"
+              onClick={() => setIsOpen(false)}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -231,19 +257,19 @@ const Navigation = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
-              className="absolute right-0 top-0 h-full w-80 bg-dark-card border-l border-neon-green/20 p-6"
+              transition={{ type: 'tween', duration: duration.base }}
+              className="absolute right-0 top-0 h-full w-80 max-w-[85vw] bg-dark-card border-l border-neon-green/20 p-6"
             >
               <div className="flex items-center justify-between mb-8 mt-16">
                 <h2 className="text-xl font-display font-bold text-neon-green">Navigation</h2>
                 <div className="text-xs font-mono text-gray-400">
-                  {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  {clock}
                 </div>
               </div>
 
               <div className="space-y-2">
                 {navItems.map((item, index) => {
-                  const isActive = location.pathname === item.path;
+                  const isActive = pathname === item.path;
                   const Icon = item.icon;
 
                   return (
@@ -251,11 +277,11 @@ const Navigation = () => {
                       key={item.path}
                       initial={{ opacity: 0, x: 50 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
+                      transition={{ delay: index * stagger }}
                       onClick={() => handleNavigation(item.path)}
                       whileHover={{ x: 5, scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className={`w-full flex items-center gap-4 p-4 rounded-lg font-mono transition-all duration-300 ${isActive
+                      className={`w-full flex items-center gap-4 p-4 rounded-lg font-mono transition-colors duration-300 ${isActive
                         ? `${item.color} bg-gradient-to-r from-neon-green/10 to-neon-blue/10 border border-neon-green/20`
                         : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/5'
                         }`}
@@ -278,7 +304,7 @@ const Navigation = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: navItems.length * stagger }}
                 className="mt-8 p-4 bg-dark-bg rounded-lg border border-neon-green/20"
               >
                 <div className="flex items-center gap-2 mb-2">

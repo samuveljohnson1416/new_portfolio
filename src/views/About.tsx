@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { User, Code2, Lightbulb, Target, Heart } from 'lucide-react';
 import AnimatedBackground from '../components/shared/AnimatedBackground';

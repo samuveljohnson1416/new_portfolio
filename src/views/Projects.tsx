@@ -1,9 +1,12 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Folder, Star, Filter, Search, RefreshCw, AlertCircle } from 'lucide-react';
 import { getAllProjects, ProjectData } from '../services/githubService';
 import AnimatedBackground from '../components/shared/AnimatedBackground';
 import { usePersona } from '../context/PersonaContext';
+import { duration, listItem } from '../components/motion/motionConfig';
 
 
 const Projects = () => {
@@ -71,6 +74,17 @@ const Projects = () => {
 
   const featuredProjects = sortedProjects.filter(project => project.featured);
   const otherProjects = sortedProjects.filter(project => !project.featured);
+
+  // Terminal-style echo of the current query, e.g. `ls projects/ --category=web --grep="api" --sort=recruiter`
+  const command = [
+    'ls projects/',
+    filter !== 'all' && `--category=${filter}`,
+    searchTerm && `--grep="${searchTerm}"`,
+    `--sort=${persona.toLowerCase()}`,
+  ].filter(Boolean).join(' ');
+  // New key per query: the grid remounts and each card animates exactly once per update.
+  const gridKey = `${filter}|${searchTerm}|${persona}`;
+  const cardHover = 'transition-[border-color,box-shadow] duration-200 hover:shadow-[0_0_24px_rgba(0,255,136,0.18)]';
 
   return (
     <div className="min-h-screen py-20 px-4 relative overflow-hidden">
@@ -187,9 +201,12 @@ const Projects = () => {
 
           {/* Search and Refresh */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <div className="text-sm font-mono text-gray-500">
-              Showing {filteredProjects.length} of {projects.length} projects
-            </div>
+            <p className="text-sm font-mono text-gray-500 break-all">
+              <span className="text-neon-green">$</span> {command}{' '}
+              <span className="text-gray-600">
+                # {loading ? 'loading…' : `${filteredProjects.length} of ${projects.length} projects`}
+              </span>
+            </p>
 
             {/* Search */}
             <div className="flex items-center gap-2">
@@ -231,191 +248,187 @@ const Projects = () => {
           </motion.div>
         )}
 
-        {/* Featured Projects */}
-        <AnimatePresence>
-          {!loading && featuredProjects.length > 0 && (
+        {/* Project grids — keyed by query so filter changes replay one short stagger */}
+        <AnimatePresence mode="wait">
+          {!loading && (
             <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="mb-16"
+              key={gridKey}
+              initial="hidden"
+              animate="visible"
+              exit={{ opacity: 0, transition: { duration: duration.fast / 2 } }}
             >
-              <div className="flex items-center gap-3 mb-8">
-                <Star className="text-neon-green" size={24} />
-                <h2 className="text-2xl font-display font-semibold">Featured Projects</h2>
-              </div>
+              {featuredProjects.length > 0 && (
+                <div className="mb-16">
+                  <div className="flex items-center gap-3 mb-8">
+                    <Star className="text-neon-green" size={24} />
+                    <h2 className="text-2xl font-display font-semibold">Featured Projects</h2>
+                  </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.6 + index * 0.2 }}
-                    whileHover={{ y: -10 }}
-                    className="group bg-dark-card border border-neon-green/20 rounded-lg overflow-hidden hover:border-neon-green/40 transition-all duration-300"
-                  >
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-3">
-                            <Folder className="text-neon-green" size={24} />
-                            {project.stars > 0 && (
-                              <div className="flex items-center gap-1 text-yellow-400 text-xs">
-                                <Star size={12} fill="currentColor" />
-                                <span>{project.stars}</span>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {featuredProjects.map((project, index) => (
+                      <motion.div
+                        key={project.id}
+                        data-reveal=""
+                        variants={listItem}
+                        custom={index}
+                        whileHover={{ y: -10 }}
+                        className={`group bg-dark-card border border-neon-green/20 rounded-lg overflow-hidden hover:border-neon-green/60 ${cardHover}`}
+                      >
+                        <div className="p-6">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-3">
+                                <Folder className="text-neon-green" size={24} />
+                                {project.stars > 0 && (
+                                  <div className="flex items-center gap-1 text-yellow-400 text-xs">
+                                    <Star size={12} fill="currentColor" />
+                                    <span>{project.stars}</span>
+                                  </div>
+                                )}
                               </div>
+                              <h3 className="text-xl font-display font-semibold text-neon-green mb-3">
+                                {project.title}
+                              </h3>
+                            </div>
+                            <div className="flex gap-2">
+                              {project.github && (
+                                <motion.a
+                                  href={project.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  className="text-gray-400 hover:text-neon-green transition-colors"
+                                >
+                                  <Github size={18} />
+                                </motion.a>
+                              )}
+                              {project.live && (
+                                <motion.a
+                                  href={project.live}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  className="text-gray-400 hover:text-neon-green transition-colors"
+                                >
+                                  <ExternalLink size={18} />
+                                </motion.a>
+                              )}
+                            </div>
+                          </div>
+
+                          <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
+                            {project.description}
+                          </p>
+
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {project.tech.map((tech) => (
+                              <span
+                                key={tech}
+                                className="px-2 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded border border-neon-green/20"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+
+                          <div className="text-xs text-gray-500 font-mono">
+                            Last updated: {project.lastUpdated}
+                          </div>
+
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Other Projects */}
+              {otherProjects.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
+
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {otherProjects.map((project, index) => (
+                      <motion.div
+                        key={project.id}
+                        data-reveal=""
+                        variants={listItem}
+                        custom={index}
+                        whileHover={{ y: -5 }}
+                        className={`bg-dark-card border border-gray-700 rounded-lg p-6 hover:border-neon-green/50 ${cardHover}`}
+                      >
+                        <div className="flex items-start justify-between mb-4">
+                          <Folder className="text-neon-green" size={24} />
+                          <div className="flex gap-2">
+                            {project.github && (
+                              <motion.a
+                                href={project.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="text-gray-400 hover:text-neon-green transition-colors"
+                              >
+                                <Github size={18} />
+                              </motion.a>
+                            )}
+                            {project.live && (
+                              <motion.a
+                                href={project.live}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                className="text-gray-400 hover:text-neon-green transition-colors"
+                              >
+                                <ExternalLink size={18} />
+                              </motion.a>
                             )}
                           </div>
-                          <h3 className="text-xl font-display font-semibold text-neon-green mb-3">
+                        </div>
+
+                        <div className="flex items-start justify-between mb-2">
+                          <h3 className="text-lg font-display font-semibold text-white">
                             {project.title}
                           </h3>
-                        </div>
-                        <div className="flex gap-2">
-                          {project.github && (
-                            <motion.a
-                              href={project.github}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                              className="text-gray-400 hover:text-neon-green transition-colors"
-                            >
-                              <Github size={18} />
-                            </motion.a>
-                          )}
-                          {project.live && (
-                            <motion.a
-                              href={project.live}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              whileHover={{ scale: 1.1 }}
-                              whileTap={{ scale: 0.9 }}
-                              className="text-gray-400 hover:text-neon-green transition-colors"
-                            >
-                              <ExternalLink size={18} />
-                            </motion.a>
+                          {project.stars > 0 && (
+                            <div className="flex items-center gap-1 text-yellow-400 text-xs">
+                              <Star size={12} fill="currentColor" />
+                              <span>{project.stars}</span>
+                            </div>
                           )}
                         </div>
-                      </div>
 
-                      <p className="text-gray-300 text-sm font-mono leading-relaxed mb-4">
-                        {project.description}
-                      </p>
+                        <p className="text-gray-400 text-sm font-mono leading-relaxed mb-4">
+                          {project.description}
+                        </p>
 
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {project.tech.map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-2 py-1 bg-neon-green/10 text-neon-green text-xs font-mono rounded border border-neon-green/20"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="text-xs text-gray-500 font-mono">
-                        Last updated: {project.lastUpdated}
-                      </div>
-
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Other Projects */}
-        <AnimatePresence>
-          {!loading && otherProjects.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {otherProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                    whileHover={{ y: -5 }}
-                    className="bg-dark-card border border-gray-700 rounded-lg p-6 hover:border-neon-green/30 transition-all duration-300"
-                  >
-                    <div className="flex items-start justify-between mb-4">
-                      <Folder className="text-neon-green" size={24} />
-                      <div className="flex gap-2">
-                        {project.github && (
-                          <motion.a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <Github size={18} />
-                          </motion.a>
-                        )}
-                        {project.live && (
-                          <motion.a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            className="text-gray-400 hover:text-neon-green transition-colors"
-                          >
-                            <ExternalLink size={18} />
-                          </motion.a>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-display font-semibold text-white">
-                        {project.title}
-                      </h3>
-                      {project.stars > 0 && (
-                        <div className="flex items-center gap-1 text-yellow-400 text-xs">
-                          <Star size={12} fill="currentColor" />
-                          <span>{project.stars}</span>
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {project.tech.slice(0, 4).map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-1 text-xs font-mono text-gray-400"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {project.tech.length > 4 && (
+                            <span className="px-2 py-1 text-xs font-mono text-gray-500">
+                              +{project.tech.length - 4} more
+                            </span>
+                          )}
                         </div>
-                      )}
-                    </div>
 
-                    <p className="text-gray-400 text-sm font-mono leading-relaxed mb-4">
-                      {project.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-1 mb-2">
-                      {project.tech.slice(0, 4).map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2 py-1 text-xs font-mono text-gray-400"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.tech.length > 4 && (
-                        <span className="px-2 py-1 text-xs font-mono text-gray-500">
-                          +{project.tech.length - 4} more
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="text-xs text-gray-600 font-mono">
-                      Updated: {project.lastUpdated}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                        <div className="text-xs text-gray-600 font-mono">
+                          Updated: {project.lastUpdated}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

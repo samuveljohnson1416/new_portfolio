@@ -24,7 +24,7 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
 - **Icons**: Lucide React
 - **Email Service**: EmailJS
 - **API Integration**: GitHub REST API v3
-- **Build Tool**: Vite
+- **Framework**: Next.js 14 (App Router, static export)
 - **Deployment**: Vercel
 
 ## 🚀 Quick Start
@@ -56,14 +56,14 @@ A modern, responsive portfolio website built with React, TypeScript, and Tailwin
    
    **EmailJS Configuration** (Required for contact form):
    ```env
-   VITE_EMAILJS_SERVICE_ID=your_service_id_here
-   VITE_EMAILJS_TEMPLATE_ID=your_template_id_here
-   VITE_EMAILJS_PUBLIC_KEY=your_public_key_here
+   NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id_here
+   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id_here
+   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key_here
    ```
    
    **GitHub Token** (Optional but recommended):
    ```env
-   VITE_GITHUB_TOKEN=your_github_token_here
+   NEXT_PUBLIC_GITHUB_TOKEN=your_github_token_here
    ```
    
 ## 📧 EmailJS Setup
@@ -105,7 +105,7 @@ The portfolio automatically fetches all your public repositories from GitHub.
 7. Copy the token immediately (you won't see it again!)
 8. Add to `.env.local`:
    ```env
-   VITE_GITHUB_TOKEN=ghp_your_token_here
+   NEXT_PUBLIC_GITHUB_TOKEN=ghp_your_token_here
    ```
 
 **What gets automatically fetched:**
@@ -127,23 +127,16 @@ The portfolio automatically fetches all your public repositories from GitHub.
 
 ```
 src/
-├── components/          # React components
-│   ├── About.tsx       # About section
-│   ├── Contact.tsx     # Contact form
-│   ├── Home.tsx        # Hero section
-│   ├── Navigation.tsx  # Navigation bar
-│   ├── Projects.tsx    # Projects showcase (auto-fetches from GitHub)
-│   └── Resume.tsx      # Resume/CV section
-├── services/           # API and utility services
-│   └── githubService.ts # GitHub API integration
-├── assets/             # Static assets
-│   ├── *.png          # Project screenshots
-│   ├── *.jpg          # Profile images
-│   └── *.pdf          # Resume PDF
-├── App.tsx             # Main app component
-├── main.tsx           # App entry point
-├── index.css          # Global styles
-└── vite-env.d.ts      # TypeScript declarations
+├── app/                 # Next.js App Router: layout, providers, one page.tsx per route
+├── views/               # Page components (Home, About, Projects, Resume, Contact)
+├── components/
+│   ├── layouts/         # Navigation
+│   ├── motion/          # Motion tokens, reduced-motion hook, CountUp, MagneticButton
+│   └── shared/          # AnimatedBackground
+├── context/             # Persona context
+├── services/            # GitHub API integration
+├── constants/           # Resume data
+└── index.css            # Global styles
 ```
 
 ## 📱 Sections Overview
@@ -221,9 +214,9 @@ Update the content in each component file:
 
 3. **Environment Variables in Vercel**
    Go to Project Settings → Environment Variables and add:
-   - `VITE_EMAILJS_SERVICE_ID`
-   - `VITE_EMAILJS_TEMPLATE_ID`
-   - `VITE_EMAILJS_PUBLIC_KEY`
+   - `NEXT_PUBLIC_EMAILJS_SERVICE_ID`
+   - `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID`
+   - `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY`
 
 ### Other Platforms
 
@@ -233,13 +226,13 @@ The build output can be deployed to any static hosting service:
 npm run build
 ```
 
-Deploy the `dist` folder to your hosting provider.
+Deploy the `out` folder to your hosting provider.
 
 ## 🔧 Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm run preview` - Preview production build
+- `npm start` - Serve the static export in `out/`
 - `npm run lint` - Run ESLint for code quality
 
 ## 📊 Performance

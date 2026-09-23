@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
@@ -15,8 +14,8 @@ export default {
         'terminal-green': '#00ff00',
       },
       fontFamily: {
-        'mono': ['JetBrains Mono', 'monospace'],
-        'display': ['Space Grotesk', 'sans-serif'],
+        'mono': ['var(--font-jetbrains)', 'monospace'],
+        'display': ['var(--font-space)', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

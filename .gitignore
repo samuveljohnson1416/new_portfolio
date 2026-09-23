@@ -9,3 +9,6 @@ dist/
 data/users.json
 *.backup
 test-email.js
+out/
+next-env.d.ts
+*.tsbuildinfo

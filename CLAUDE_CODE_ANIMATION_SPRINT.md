@@ -8,9 +8,9 @@ This is a refinement sprint, not a redesign. Preserve the current dark palette, 
 
 ## Repository context
 
-- Stack: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, Lucide.
+- Stack: Next.js 14 (App Router, static export), React 18, TypeScript, Tailwind CSS, Framer Motion, Lucide.
 - Existing motion system: Framer Motion is already installed and used throughout. Do **not** add a new animation library.
-- Pages: `src/pages/Home.tsx`, `Projects.tsx`, `About.tsx`, `Resume.tsx`, `Contact.tsx`.
+- Pages: `src/views/Home.tsx`, `Projects.tsx`, `About.tsx`, `Resume.tsx`, `Contact.tsx`.
 - Shared components: `src/components/layouts/Navigation.tsx` and `src/components/shared/AnimatedBackground.tsx`.
 - Global styles and existing accessibility baseline: `src/index.css`.
 - Routes are wrapped in `AnimatePresence` in `src/App.tsx`.
@@ -69,7 +69,7 @@ Use `useInView(..., { once: true, amount: 0.35 })` from Framer Motion where usef
 
 ### 2. Refine the Home hero (P0)
 
-Modify `src/pages/Home.tsx` without changing its information architecture.
+Modify `src/views/Home.tsx` without changing its information architecture.
 
 **Terminal boot sequence**
 
@@ -88,7 +88,7 @@ Modify `src/pages/Home.tsx` without changing its information architecture.
 
 ### 3. Make project discovery feel terminal-native (P0)
 
-Modify `src/pages/Projects.tsx`.
+Modify `src/views/Projects.tsx`.
 
 - Add a visually subtle, accessible status line before project grids, for example: `$ ls projects/ --featured` or `$ find projects -category <selected>`.
 - The status must be ordinary visible text, not an ARIA-only announcement. Update it when category/search/persona changes.
@@ -121,8 +121,8 @@ Modify `src/pages/Projects.tsx`.
 | `src/components/motion/useMotionPreference.ts` | Add reduced-motion hook |
 | `src/components/motion/motionConfig.ts` | Add shared variants/timing tokens |
 | `src/components/shared/AnimatedBackground.tsx` | Make configurable, reduced-motion-aware, aria-hidden |
-| `src/pages/Home.tsx` | Use shared background/motion utilities; revise hero, stats, CTAs |
-| `src/pages/Projects.tsx` | Add command status line and restrained keyed grid/card transitions |
+| `src/views/Home.tsx` | Use shared background/motion utilities; revise hero, stats, CTAs |
+| `src/views/Projects.tsx` | Add command status line and restrained keyed grid/card transitions |
 | `src/components/layouts/Navigation.tsx` | Add command-style route label and tighten menu motion |
 | `src/index.css` | Only minimal CSS needed for the command cursor/status; preserve existing global a11y rules |
 
@@ -162,7 +162,7 @@ Manually inspect `/`, `/projects`, `/about`, `/resume`, and `/contact` at 390px 
 ## Copy-paste prompt for Claude Code
 
 ```text
-Implement the P0 portfolio motion upgrade described in CLAUDE_CODE_ANIMATION_SPRINT.md. This is a React 18 + TypeScript + Vite + Tailwind + Framer Motion project. Preserve the terminal/neon visual identity, existing routes, GitHub project fetching, and EmailJS flow. Do not add dependencies.
+Implement the P0 portfolio motion upgrade described in CLAUDE_CODE_ANIMATION_SPRINT.md. This is a Next.js 14 + React 18 + TypeScript + Tailwind + Framer Motion project. Preserve the terminal/neon visual identity, existing routes, GitHub project fetching, and EmailJS flow. Do not add dependencies.
 
 Create a reduced-motion-aware motion foundation, then update Home with a compact terminal reveal. The count-up stats and fine-pointer-only magnetic CTAs are already implemented; preserve them. Update Projects with a readable terminal-style result/status line and short staggered card transitions for initial data load and filter updates. Ensure `prefers-reduced-motion` disables all nonessential JS motion, not only CSS animation. Avoid scroll hijacking, custom cursors, canvas/WebGL, autoplay media, and long/continuous effects.
 

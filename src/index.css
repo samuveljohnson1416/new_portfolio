@@ -2,8 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 * {
   margin: 0;
@@ -12,18 +10,18 @@
 }
 
 body {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-jetbrains), monospace;
   background-color: #0a0a0a;
   color: #ffffff;
   overflow-x: hidden;
 }
 
 .font-display {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-space), sans-serif;
 }
 
 .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-jetbrains), monospace;
 }
 
 /* Custom scrollbar */
@@ -316,6 +314,11 @@ textarea:focus-visible {
   animation: blink 1s infinite;
 }
 
+/* Hero cursor waits until the terminal copy has been revealed */
+.terminal-cursor-delayed {
+  animation: blink 1s 1s infinite;
+}
+
 @keyframes blink {
   0%, 50% {
     opacity: 1;
@@ -453,6 +456,13 @@ textarea:focus-visible {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Entrance elements (see motionConfig.reveal) render final state immediately,
+     even before hydration, so content is never hidden behind an animation. */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 

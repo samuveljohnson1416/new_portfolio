@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Send, Github, Linkedin, MessageCircle, Clock, CheckCircle, AlertCircle, Code2, Twitter } from 'lucide-react';
@@ -52,9 +54,9 @@ const Contact = () => {
 
     try {
       // EmailJS configuration
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
       // Debug logging
       console.log('EmailJS Config:', {
@@ -188,7 +190,7 @@ const Contact = () => {
             <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            Let's build something amazing together
+            Let&apos;s build something amazing together
           </p>
         </motion.div>
 
@@ -208,7 +210,7 @@ const Contact = () => {
               {/* Quick Topic Selection */}
               <div className="mb-6">
                 <label className="block text-sm font-mono text-gray-300 mb-3">
-                  What's this about? (Optional)
+                  What&apos;s this about? (Optional)
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {quickTopics.map((topic) => (
@@ -354,7 +356,7 @@ const Contact = () => {
                       className="flex items-center gap-2 p-3 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400"
                     >
                       <CheckCircle size={16} />
-                      <span className="font-mono text-sm">Message sent successfully! I'll get back to you soon.</span>
+                      <span className="font-mono text-sm">Message sent successfully! I&apos;ll get back to you soon.</span>
                     </motion.div>
                   )}
 
@@ -453,8 +455,8 @@ const Contact = () => {
                 <h3 className="text-lg font-display font-semibold">Available for work</h3>
               </div>
               <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
-                I'm currently available for freelance projects and full-time opportunities.
-                Let's discuss how we can work together to bring your ideas to life!
+                I&apos;m currently available for freelance projects and full-time opportunities.
+                Let&apos;s discuss how we can work together to bring your ideas to life!
               </p>
 
               <div className="flex items-center gap-2 text-sm font-mono text-gray-400">

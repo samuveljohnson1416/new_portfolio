@@ -49,7 +49,7 @@ const GITHUB_API_BASE = 'https://api.github.com';
  */
 export async function fetchGitHubRepositories(): Promise<GitHubRepo[]> {
   try {
-    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     const headers: HeadersInit = {
       'Accept': 'application/vnd.github.v3+json',
     };
@@ -212,7 +212,7 @@ export async function getProjectCount(): Promise<string> {
  */
 export async function getRateLimit(): Promise<any> {
   try {
-    const token = import.meta.env.VITE_GITHUB_TOKEN;
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     const headers: HeadersInit = {
       'Accept': 'application/vnd.github.v3+json',
     };
