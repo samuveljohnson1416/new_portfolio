@@ -8,6 +8,7 @@ import { getProjectCount } from '../services/githubService';
 import CountUp from '../components/motion/CountUp';
 import MagneticButton from '../components/motion/MagneticButton';
 import AnimatedBackground from '../components/shared/AnimatedBackground';
+import Shell from '../components/terminal/Shell';
 import { duration, reveal, terminalChrome } from '../components/motion/motionConfig';
 
 // Hero timeline (seconds). Everything settles by ~1s; controls work from the first frame.
@@ -45,6 +46,34 @@ const Home = () => {
     { label: 'Hackathons', value: '5+' }
   ];
 
+  // Boot lines stay as the terminal intro; visitors can type below them.
+  const bootLines = (
+    <div className="space-y-2">
+      <motion.div {...reveal(HERO.whoami, undefined, duration.fast)}>
+        <div className="text-neon-green">
+          <span className="text-gray-400">$</span> whoami
+        </div>
+        <div className="text-white">Full Stack Developer & Creative Problem Solver</div>
+      </motion.div>
+
+      <motion.div {...reveal(HERO.specialties, undefined, duration.fast)}>
+        <div className="text-neon-green">
+          <span className="text-gray-400">$</span> cat specialties.txt
+        </div>
+        <div className="text-white">
+          React • Java • Node.js • Python • MySQL • UI/UX  • Figma • Git
+        </div>
+      </motion.div>
+
+      <motion.div {...reveal(HERO.message, undefined, duration.base)}>
+        <div className="text-neon-green">
+          <span className="text-gray-400">$</span> echo &quot;{message}&quot;
+        </div>
+        <div className="text-white">{message}</div>
+      </motion.div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center relative overflow-hidden">
       <AnimatedBackground />
@@ -66,33 +95,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="text-left font-mono text-sm space-y-2">
-            <motion.div {...reveal(HERO.whoami, undefined, duration.fast)}>
-              <div className="text-neon-green">
-                <span className="text-gray-400">$</span> whoami
-              </div>
-              <div className="text-white">Full Stack Developer & Creative Problem Solver</div>
-            </motion.div>
-
-            <motion.div {...reveal(HERO.specialties, undefined, duration.fast)}>
-              <div className="text-neon-green">
-                <span className="text-gray-400">$</span> cat specialties.txt
-              </div>
-              <div className="text-white">
-                React • Java • Node.js • Python • MySQL • UI/UX  • Figma • Git
-              </div>
-            </motion.div>
-
-            <motion.div {...reveal(HERO.message, undefined, duration.base)}>
-              <div className="text-neon-green">
-                <span className="text-gray-400">$</span> echo &quot;{message}&quot;
-              </div>
-              <div className="text-white">
-                {message}
-                <span className="terminal-cursor-delayed" aria-hidden="true">_</span>
-              </div>
-            </motion.div>
-          </div>
+          <Shell className="max-h-72" intro={bootLines} />
         </motion.div>
 
         {/* Hero Text */}

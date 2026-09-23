@@ -314,10 +314,6 @@ textarea:focus-visible {
   animation: blink 1s infinite;
 }
 
-/* Hero cursor waits until the terminal copy has been revealed */
-.terminal-cursor-delayed {
-  animation: blink 1s 1s infinite;
-}
 
 @keyframes blink {
   0%, 50% {

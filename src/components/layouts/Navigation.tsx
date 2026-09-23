@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap } from 'lucide-react';
+import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap, Terminal } from 'lucide-react';
 import { usePersona, UserPersona } from '../../context/PersonaContext';
 import { duration, stagger } from '../motion/motionConfig';
+import Shell from '../terminal/Shell';
 
 
 const Navigation = () => {
@@ -49,6 +50,26 @@ const Navigation = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen]);
+
+  // Command terminal: native <dialog> gives focus trapping, Escape-to-close and a backdrop for free.
+  const terminalRef = useRef<HTMLDialogElement>(null);
+  const closeTerminal = () => terminalRef.current?.close();
+  const openTerminal = () => {
+    setIsOpen(false);
+    terminalRef.current?.showModal();
+    terminalRef.current?.querySelector('input')?.focus();
+  };
+
+  useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() !== 'k' || !(event.ctrlKey || event.metaKey)) return;
+      event.preventDefault();
+      if (terminalRef.current?.open) closeTerminal();
+      else openTerminal();
+    };
+    window.addEventListener('keydown', handleShortcut);
+    return () => window.removeEventListener('keydown', handleShortcut);
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -165,6 +186,7 @@ const Navigation = () => {
               )}
             </AnimatePresence>
 
+            <div className="flex items-center gap-2">
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-2">
               {navItems.map((item, index) => {
@@ -200,6 +222,17 @@ const Navigation = () => {
               })}
             </div>
 
+            <button
+              type="button"
+              onClick={openTerminal}
+              aria-label="Open terminal"
+              aria-keyshortcuts="Control+K"
+              title="Terminal (Ctrl+K)"
+              className="p-2 rounded-lg text-gray-400 hover:text-neon-green hover:bg-neon-green/5 transition-colors"
+            >
+              <Terminal size={18} />
+            </button>
+
             {/* Mobile Menu Button */}
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -233,6 +266,7 @@ const Navigation = () => {
                 )}
               </AnimatePresence>
             </motion.button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -319,6 +353,34 @@ const Navigation = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <dialog
+        ref={terminalRef}
+        aria-label="Terminal"
+        onClick={(event) => event.target === event.currentTarget && closeTerminal()}
+        className="m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[80vh] p-0 rounded-lg bg-dark-card text-white border border-neon-green/30 shadow-2xl backdrop:bg-black/70 backdrop:backdrop-blur-sm"
+      >
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-neon-green/20">
+          <div className="w-3 h-3 rounded-full bg-red-500"></div>
+          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+          <span className="ml-3 text-xs font-mono text-gray-400">Esc to close</span>
+          <button
+            type="button"
+            onClick={closeTerminal}
+            aria-label="Close terminal"
+            className="ml-auto p-1 rounded text-gray-400 hover:text-neon-green transition-colors"
+          >
+            <X size={18} />
+          </button>
+        </div>
+        <Shell
+          className="h-[min(24rem,60vh)] p-4"
+          intro={<p className="text-gray-400">Type <span className="text-neon-green">help</span> to see what I can do.</p>}
+          onNavigate={closeTerminal}
+          onExit={closeTerminal}
+        />
+      </dialog>
 
       {/* Spacer for fixed navigation */}
       <div className="h-16" />
