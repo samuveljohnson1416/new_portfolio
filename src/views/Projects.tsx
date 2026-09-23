@@ -7,6 +7,8 @@ import { getAllProjects, ProjectData } from '../services/githubService';
 import AnimatedBackground from '../components/shared/AnimatedBackground';
 import { usePersona } from '../context/PersonaContext';
 import { duration, listItem } from '../components/motion/motionConfig';
+import { caseStudies } from '../constants/caseStudies';
+import Link from 'next/link';
 
 
 const Projects = () => {
@@ -143,6 +145,25 @@ const Projects = () => {
             <span className="text-neon-green font-bold">MODE: {persona}</span> — {getRecommendation()}
           </motion.div>
         </motion.div>
+
+        {/* Case studies: hand-written deep dives, shown before the auto-fetched repos */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-display font-semibold mb-6">Case studies</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {caseStudies.map((study) => (
+              <Link
+                key={study.slug}
+                href={`/projects/${study.slug}`}
+                className="group flex flex-col bg-dark-card border border-neon-green/20 rounded-lg p-6 hover:border-neon-green/60 hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-200 hover:shadow-[0_0_24px_rgba(0,255,136,0.18)]"
+              >
+                <h3 className="text-xl font-display font-semibold text-neon-green">{study.title}</h3>
+                <p className="mt-2 text-xs font-mono text-gray-500">{study.context}</p>
+                <p className="mt-3 text-sm text-gray-300 leading-relaxed flex-1">{study.summary}</p>
+                <span className="mt-4 text-sm font-mono text-neon-green group-hover:underline">Read case study</span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Filters and Search */}
         <motion.div

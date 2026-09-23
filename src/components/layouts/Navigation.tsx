@@ -168,7 +168,7 @@ const Navigation = () => {
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-2">
               {navItems.map((item, index) => {
-                const isActive = pathname === item.path;
+                const isActive = item.path === '/' ? pathname === '/' : pathname.startsWith(item.path);
                 const Icon = item.icon;
 
                 return (
@@ -269,7 +269,7 @@ const Navigation = () => {
 
               <div className="space-y-2">
                 {navItems.map((item, index) => {
-                  const isActive = pathname === item.path;
+                  const isActive = item.path === '/' ? pathname === '/' : pathname.startsWith(item.path);
                   const Icon = item.icon;
 
                   return (
