@@ -20,7 +20,7 @@ const CaseStudy = ({ study }: { study: CaseStudyData }) => (
         All projects
       </Link>
 
-      <p className="mt-10 text-sm font-mono text-gray-500 break-all">
+      <p className="mt-10 text-sm font-mono text-gray-400 break-all">
         <span className="text-neon-green">$</span> cat projects/{study.slug}/README.md
       </p>
       <h1 className="mt-3 text-4xl md:text-5xl font-display font-bold text-neon-green">{study.title}</h1>

@@ -76,6 +76,11 @@ const Projects = () => {
 
   const featuredProjects = sortedProjects.filter(project => project.featured);
   const otherProjects = sortedProjects.filter(project => !project.featured);
+  // Curate by default: a few repos, the rest one click away (or shown when filtering).
+  const [showAllRepos, setShowAllRepos] = useState(false);
+  const OTHER_LIMIT = 6;
+  const showEveryRepo = showAllRepos || filter !== 'all' || searchTerm !== '';
+  const visibleOtherProjects = showEveryRepo ? otherProjects : otherProjects.slice(0, OTHER_LIMIT);
 
   // Terminal-style echo of the current query, e.g. `ls projects/ --category=web --grep="api" --sort=recruiter`
   const command = [
@@ -157,7 +162,7 @@ const Projects = () => {
                 className="group flex flex-col bg-dark-card border border-neon-green/20 rounded-lg p-6 hover:border-neon-green/60 hover:-translate-y-1 transition-[border-color,box-shadow,transform] duration-200 hover:shadow-[0_0_24px_rgba(0,255,136,0.18)]"
               >
                 <h3 className="text-xl font-display font-semibold text-neon-green">{study.title}</h3>
-                <p className="mt-2 text-xs font-mono text-gray-500">{study.context}</p>
+                <p className="mt-2 text-xs font-mono text-gray-400">{study.context}</p>
                 <p className="mt-3 text-sm text-gray-300 leading-relaxed flex-1">{study.summary}</p>
                 <span className="mt-4 text-sm font-mono text-neon-green group-hover:underline">Read case study</span>
               </Link>
@@ -211,7 +216,7 @@ const Projects = () => {
                     }`}
                 >
                   {category.label}
-                  <span className={`ml-2 text-xs ${filter === category.id ? 'text-dark-bg/70' : 'text-gray-500'
+                  <span className={`ml-2 text-xs ${filter === category.id ? 'text-dark-bg/70' : 'text-gray-400'
                     }`}>
                     ({category.count})
                   </span>
@@ -222,9 +227,9 @@ const Projects = () => {
 
           {/* Search and Refresh */}
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <p className="text-sm font-mono text-gray-500 break-all">
+            <p className="text-sm font-mono text-gray-400 break-all">
               <span className="text-neon-green">$</span> {command}{' '}
-              <span className="text-gray-600">
+              <span className="text-gray-400">
                 # {loading ? 'loading…' : `${filteredProjects.length} of ${projects.length} projects`}
               </span>
             </p>
@@ -354,7 +359,7 @@ const Projects = () => {
                             ))}
                           </div>
 
-                          <div className="text-xs text-gray-500 font-mono">
+                          <div className="text-xs text-gray-400 font-mono">
                             Last updated: {project.lastUpdated}
                           </div>
 
@@ -371,7 +376,7 @@ const Projects = () => {
                   <h2 className="text-2xl font-display font-semibold mb-8">Other Projects</h2>
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {otherProjects.map((project, index) => (
+                    {visibleOtherProjects.map((project, index) => (
                       <motion.div
                         key={project.id}
                         data-reveal=""
@@ -436,18 +441,29 @@ const Projects = () => {
                             </span>
                           ))}
                           {project.tech.length > 4 && (
-                            <span className="px-2 py-1 text-xs font-mono text-gray-500">
+                            <span className="px-2 py-1 text-xs font-mono text-gray-400">
                               +{project.tech.length - 4} more
                             </span>
                           )}
                         </div>
 
-                        <div className="text-xs text-gray-600 font-mono">
+                        <div className="text-xs text-gray-400 font-mono">
                           Updated: {project.lastUpdated}
                         </div>
                       </motion.div>
                     ))}
                   </div>
+                  {!showEveryRepo && otherProjects.length > OTHER_LIMIT && (
+                    <div className="mt-8 text-center">
+                      <button
+                        type="button"
+                        onClick={() => setShowAllRepos(true)}
+                        className="px-5 py-2 rounded-lg border border-gray-700 font-mono text-sm text-gray-300 hover:border-neon-green hover:text-neon-green transition-colors"
+                      >
+                        Show all {otherProjects.length} repositories
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>

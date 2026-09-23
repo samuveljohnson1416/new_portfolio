@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, User, Folder, FileText, Mail, Menu, X, Code, Briefcase, Users, GraduationCap, Terminal } from 'lucide-react';
-import { usePersona, UserPersona } from '../../context/PersonaContext';
+import { Home, User, Folder, FileText, Mail, Menu, X, Code, Terminal } from 'lucide-react';
+import { usePersona, PERSONAS } from '../../context/PersonaContext';
 import { duration, stagger } from '../motion/motionConfig';
 import Shell from '../terminal/Shell';
 
@@ -162,21 +162,19 @@ const Navigation = () => {
                   className="hidden xl:flex items-center gap-2 bg-dark-card/50 p-1.5 rounded-lg border border-neon-green/20 ml-4"
                 >
                   <div className="mr-2 text-[10px] font-mono text-gray-400 uppercase tracking-wider">Mode:</div>
-                  {[
-                    { id: 'RECRUITER', icon: Briefcase, label: 'Recruiter' },
-                    { id: 'CLIENT', icon: Users, label: 'Client' },
-                    { id: 'STUDENT', icon: GraduationCap, label: 'Student' }
-                  ].map((mode) => {
+                  {PERSONAS.map((mode) => {
                     const Icon = mode.icon;
                     return (
                       <button
                         key={mode.id}
-                        onClick={() => setPersona(mode.id as UserPersona)}
+                        onClick={() => setPersona(mode.id)}
                         className={`p-2 rounded-md transition-all duration-300 relative group ${persona === mode.id
                           ? 'bg-neon-green text-dark-bg shadow-[0_0_10px_rgba(0,255,136,0.3)]'
                           : 'text-gray-400 hover:text-white hover:bg-white/5'
                           }`}
                         title={mode.label}
+                        aria-label={`${mode.label} mode`}
+                        aria-pressed={persona === mode.id}
                       >
                         <Icon size={16} />
                       </button>

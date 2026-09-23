@@ -1,8 +1,15 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { Briefcase, GraduationCap, Users } from 'lucide-react';
 
 export type UserPersona = 'RECRUITER' | 'CLIENT' | 'STUDENT';
+
+export const PERSONAS: { id: UserPersona; label: string; icon: typeof Briefcase }[] = [
+    { id: 'RECRUITER', label: 'Recruiter', icon: Briefcase },
+    { id: 'CLIENT', label: 'Client', icon: Users },
+    { id: 'STUDENT', label: 'Student', icon: GraduationCap },
+];
 
 interface PersonaContextType {
     persona: UserPersona;
@@ -18,11 +25,11 @@ export const PersonaProvider = ({ children }: { children: ReactNode }) => {
     const getRecommendation = () => {
         switch (persona) {
             case 'RECRUITER':
-                return "Focusing on enterprise-grade code, scalable architecture, and full-stack capabilities.";
+                return "Start with the resume and case studies: two internships, shipped projects and the stack behind them.";
             case 'CLIENT':
-                return "Highlighting delivered value, user experience, and business solutions.";
+                return "Start with the case studies: the problem each project solved and what shipped.";
             case 'STUDENT':
-                return "Showing learning journey, tutorials, and fundamental concepts.";
+                return "Start with the notes: real bugs, what I learned from them and the repos behind them.";
             default:
                 return "Welcome!";
         }

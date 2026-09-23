@@ -12,3 +12,4 @@ test-email.js
 out/
 next-env.d.ts
 *.tsbuildinfo
+.next-dev

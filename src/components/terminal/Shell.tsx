@@ -4,8 +4,9 @@ import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 
 import { usePathname, useRouter } from 'next/navigation';
 import resumeData from '../../constants/resumeData.json';
 import { caseStudies } from '../../constants/caseStudies';
+import { PERSONAS, usePersona } from '../../context/PersonaContext';
 
-const PAGES = ['about', 'projects', 'resume', 'contact'];
+const PAGES = ['about', 'projects', 'resume', 'contact', 'notes', 'colophon'];
 const EMAIL = 'samuveljohnson.cv@gmail.com';
 const SOCIALS = [
   { label: 'GitHub', href: 'https://github.com/samuveljohnson1416' },
@@ -25,6 +26,7 @@ const HELP: [string, string][] = [
   ['socials', 'where to find me'],
   ['email', 'how to reach me'],
   ['resume', 'open my resume'],
+  ['mode <who>', 'recruiter, client or student'],
   ['pwd', 'current page'],
   ['echo <text>', 'print text'],
   ['history', 'commands you ran'],
@@ -33,6 +35,7 @@ const HELP: [string, string][] = [
 const COMMANDS = [...HELP.map(([usage]) => usage.split(' ')[0]), 'exit'];
 const ARGUMENTS: Record<string, string[]> = {
   cd: PAGES,
+  mode: PERSONAS.map((item) => item.id.toLowerCase()),
   open: caseStudies.map((study) => study.slug),
 };
 
@@ -52,6 +55,7 @@ type ShellProps = {
 const Shell = ({ intro, className = '', onNavigate, onExit }: ShellProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { setPersona } = usePersona();
   const cwd = `~${pathname === '/' ? '' : pathname}`;
   const [entries, setEntries] = useState<Entry[]>([]);
   const [value, setValue] = useState('');
@@ -100,7 +104,7 @@ const Shell = ({ intro, className = '', onNavigate, onExit }: ShellProps) => {
                 </div>
               ))}
             </div>
-            <p className="mt-2 text-gray-500">
+            <p className="mt-2 text-gray-400">
               Tab completes, Up/Down recalls history, Ctrl+L clears, Ctrl+K opens this terminal on any page.
             </p>
           </div>
@@ -134,7 +138,7 @@ const Shell = ({ intro, className = '', onNavigate, onExit }: ShellProps) => {
                 <span className="text-gray-400"> {study.summary}</span>
               </div>
             ))}
-            <p className="text-gray-500">All GitHub repositories: {runButton('cd projects')}</p>
+            <p className="text-gray-400">All GitHub repositories: {runButton('cd projects')}</p>
           </div>
         );
       case 'open': {
@@ -197,6 +201,12 @@ const Shell = ({ intro, className = '', onNavigate, onExit }: ShellProps) => {
         );
       case 'resume':
         return go('/resume');
+      case 'mode': {
+        const match = PERSONAS.find((item) => item.id === arg.toUpperCase());
+        if (!match) return <span className="text-neon-pink">mode: choose recruiter, client or student</span>;
+        setPersona(match.id);
+        return `${match.label} mode on.`;
+      }
       case 'pwd':
         return cwd;
       case 'echo':
@@ -206,7 +216,7 @@ const Shell = ({ intro, className = '', onNavigate, onExit }: ShellProps) => {
           <ol>
             {pastCommands.map((command, index) => (
               <li key={index}>
-                <span className="text-gray-500">{index + 1}</span> {command}
+                <span className="text-gray-400">{index + 1}</span> {command}
               </li>
             ))}
           </ol>

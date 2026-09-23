@@ -55,7 +55,7 @@ const About = () => {
             <span className="text-neon-green">{'/>'}</span>
           </h1>
           <p className="text-gray-400 mt-4 font-mono">
-            Build not just with code, but with purpose—because every line you write can shape someone’s world.
+            I write code for the person on the other side of the screen.
           </p>
         </motion.div>
 
@@ -73,7 +73,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Journey</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I’m a motivated full-stack developer who enjoys turning ideas into functional web applications. My journey began with curiosity about how websites work, and over time it evolved into building complete applications using both frontend and backend technologies. I focus on writing clean, understandable code and continuously improving my development skills through hands-on projects and experimentation.
+                It started with one question: how does a website actually work? That curiosity grew into full-stack apps, two internships and a habit of building side projects just to see what breaks.
               </p>
             </div>
 
@@ -83,7 +83,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">What I Do</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I build full-stack web applications using modern technologies like React, JavaScript, Node.js, and databases such as MongoDB and MySQL. I enjoy designing responsive user interfaces, integrating APIs, and developing backend logic that supports real-world use cases. I’m comfortable working across the stack and enjoy learning new tools when a project demands it.
+                I build web apps end to end: React up front, Node.js and Java APIs in the middle, MongoDB and MySQL underneath. I care about the quiet details too: clean data, clear errors and screens that work on a phone.
               </p>
             </div>
 
@@ -93,7 +93,7 @@ const About = () => {
                 <h3 className="text-xl font-display font-semibold">My Vision</h3>
               </div>
               <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                I focus on exploring emerging AI technologies and understanding how they can be practically applied to software development. Rather than limiting myself to a fixed stack, I experiment with AI tools, models, and developer platforms to understand their strengths, limitations, and real-world impact. My goal is to build intelligent software systems that enhance productivity, automate workflows, and elevate how technology is used, not just how it is built. I believe meaningful progress comes from combining strong engineering fundamentals with thoughtful adoption of AI-driven solutions.
+                I use AI where it earns its place. I test models and agent tools to learn what they do well and where they fail, then pair them with solid engineering, like my health diagnostics agent, where the model explains the numbers but code computes them.
               </p>
             </div>
           </motion.div>

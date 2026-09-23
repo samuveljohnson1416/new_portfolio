@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, Code, Zap, Github, Linkedin, Mail, ArrowRight, Eye } from 'lucide-react';
+import { Terminal, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { getProjectCount } from '../services/githubService';
 import CountUp from '../components/motion/CountUp';
@@ -11,6 +11,31 @@ import AnimatedBackground from '../components/shared/AnimatedBackground';
 import Shell from '../components/terminal/Shell';
 import { useBooted } from '../components/shared/Preloader';
 import { duration, reveal, terminalChrome } from '../components/motion/motionConfig';
+import { PERSONAS, usePersona, type UserPersona } from '../context/PersonaContext';
+import resumeData from '../constants/resumeData.json';
+
+// Calls to action per visitor type; the first one is the primary button.
+const CTAS: Record<UserPersona, { label: string; path: string }[]> = {
+  RECRUITER: [
+    { label: 'View resume', path: '/resume' },
+    { label: 'Read case studies', path: '/projects' },
+    { label: 'Contact me', path: '/contact' },
+  ],
+  CLIENT: [
+    { label: 'See my work', path: '/projects' },
+    { label: 'Start a project', path: '/contact' },
+    { label: 'View resume', path: '/resume' },
+  ],
+  STUDENT: [
+    { label: 'Read my notes', path: '/notes' },
+    { label: 'Browse my repos', path: '/projects' },
+    { label: 'Say hello', path: '/contact' },
+  ],
+};
+const SECONDARY_CTA = [
+  'border-neon-green text-neon-green hover:bg-neon-green',
+  'border-neon-blue text-neon-blue hover:bg-neon-blue',
+];
 
 // Hero timeline (seconds). Everything settles by ~1s; controls work from the first frame.
 const HERO = {
@@ -21,7 +46,7 @@ const HERO = {
   heading: 0.1,
   tagline: 0.2,
   stats: 0.3,
-  stack: 0.35,
+  persona: 0.35,
   ctas: 0.4,
   socials: 0.45,
 };
@@ -29,6 +54,8 @@ const HERO = {
 const Home = () => {
   const router = useRouter();
   const booted = useBooted();
+  const { persona, setPersona, getRecommendation } = usePersona();
+  const [primaryCta, ...secondaryCtas] = CTAS[persona];
   const [projectCount, setProjectCount] = useState('6+');
   const message = "Let's build something amazing together!";
 
@@ -44,7 +71,7 @@ const Home = () => {
   const quickStats = [
     { label: 'Years Experience', value: '2+' },
     { label: 'Projects Completed', value: projectCount },
-    { label: 'Technologies', value: '15+' },
+    { label: 'Internships', value: String(resumeData.experience.length) },
     { label: 'Hackathons', value: '5+' }
   ];
 
@@ -148,32 +175,31 @@ const Home = () => {
           ))}
         </motion.div>
 
-        {/* Tech Stack */}
-        <motion.div
-          {...reveal(HERO.stack)}
-          className="flex flex-wrap justify-center gap-4 mb-12"
-        >
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-green/20 hover:border-neon-green/40 transition-colors duration-300"
+        {/* Persona picker: changes which calls to action lead */}
+        <motion.div {...reveal(HERO.persona)} className="mb-8">
+          <p id="persona-label" className="text-sm font-mono text-gray-400 mb-3">Who&apos;s visiting?</p>
+          <div
+            role="group"
+            aria-labelledby="persona-label"
+            className="inline-flex flex-wrap justify-center gap-1 bg-dark-card/60 p-1 rounded-lg border border-neon-green/20"
           >
-            <Code className="text-neon-green" size={20} />
-            <span className="text-sm font-mono">Frontend Magic</span>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-blue/20 hover:border-neon-blue/40 transition-colors duration-300"
-          >
-            <Terminal className="text-neon-blue" size={20} />
-            <span className="text-sm font-mono">Backend Power</span>
-          </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05, y: -2 }}
-            className="flex items-center gap-2 bg-dark-card px-4 py-3 rounded-lg border border-neon-pink/20 hover:border-neon-pink/40 transition-colors duration-300"
-          >
-            <Zap className="text-neon-pink" size={20} />
-            <span className="text-sm font-mono">API&apos;s</span>
-          </motion.div>
+            {PERSONAS.map(({ id, label, icon: Icon }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setPersona(id)}
+                aria-pressed={persona === id}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md font-mono text-sm transition-colors duration-200 ${persona === id
+                  ? 'bg-neon-green text-dark-bg'
+                  : 'text-gray-400 hover:text-neon-green hover:bg-neon-green/5'
+                  }`}
+              >
+                <Icon size={16} />
+                {label}
+              </button>
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-gray-300 max-w-xl mx-auto leading-relaxed">{getRecommendation()}</p>
         </motion.div>
 
         {/* CTA Buttons */}
@@ -182,27 +208,23 @@ const Home = () => {
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
           <MagneticButton
-            onClick={() => router.push('/projects')}
+            key={primaryCta.path}
+            onClick={() => router.push(primaryCta.path)}
             className="group bg-neon-green text-dark-bg px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-colors duration-300 flex items-center gap-3"
           >
-            View My Work
+            {primaryCta.label}
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
 
-          <MagneticButton
-            onClick={() => router.push('/contact')}
-            className="bg-transparent border-2 border-neon-green text-neon-green px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-green hover:text-dark-bg transition-colors duration-300"
-          >
-            Let&apos;s Talk
-          </MagneticButton>
-
-          <MagneticButton
-            onClick={() => router.push('/resume')}
-            className="bg-transparent border-2 border-neon-blue text-neon-blue px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-blue hover:text-dark-bg transition-colors duration-300 flex items-center gap-2"
-          >
-            <Eye size={18} />
-            Resume
-          </MagneticButton>
+          {secondaryCtas.map((cta, index) => (
+            <MagneticButton
+              key={cta.path}
+              onClick={() => router.push(cta.path)}
+              className={`bg-transparent border-2 px-8 py-4 rounded-lg font-mono font-semibold hover:text-dark-bg transition-colors duration-300 ${SECONDARY_CTA[index]}`}
+            >
+              {cta.label}
+            </MagneticButton>
+          ))}
         </motion.div>
 
         {/* Social Links */}

@@ -23,7 +23,7 @@ const withTimeout = <T,>(promise: Promise<T>) =>
   ]);
 
 const STATUS_LABEL: Record<Status, ReactNode> = {
-  wait: <span className="text-gray-500">[ .. ]</span>,
+  wait: <span className="text-gray-400">[ .. ]</span>,
   ok: <span className="text-neon-green">[ ok ]</span>,
   warn: <span className="text-yellow-400">[warn]</span>,
 };
