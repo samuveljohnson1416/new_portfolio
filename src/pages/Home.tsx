@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Terminal, Code, Zap, Github, Linkedin, Mail, ArrowRight, Eye } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getProjectCount } from '../services/githubService';
+import CountUp from '../components/motion/CountUp';
+import MagneticButton from '../components/motion/MagneticButton';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -246,7 +248,9 @@ const Home = () => {
               transition={{ delay: 1.2 + index * 0.1 }}
               className="bg-dark-card/50 border border-neon-green/20 rounded-lg p-4 backdrop-blur-sm"
             >
-              <div className="text-2xl font-bold text-neon-green">{stat.value}</div>
+              <div className="text-2xl font-bold text-neon-green">
+                <CountUp value={stat.value} />
+              </div>
               <div className="text-xs font-mono text-gray-400">{stat.label}</div>
             </motion.div>
           ))}
@@ -289,38 +293,28 @@ const Home = () => {
           transition={{ delay: 1.6, duration: 0.6 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
         >
-          <motion.button
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 0 30px rgba(0, 255, 136, 0.5)",
-              y: -2
-            }}
-            whileTap={{ scale: 0.95 }}
+          <MagneticButton
             onClick={() => navigate('/projects')}
             className="group bg-neon-green text-dark-bg px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-green/90 transition-all duration-300 flex items-center gap-3"
           >
             View My Work
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-          </motion.button>
+          </MagneticButton>
 
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+          <MagneticButton
             onClick={() => navigate('/contact')}
             className="bg-transparent border-2 border-neon-green text-neon-green px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-green hover:text-dark-bg transition-all duration-300"
           >
             Let's Talk
-          </motion.button>
+          </MagneticButton>
 
-          <motion.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
+          <MagneticButton
             onClick={() => navigate('/resume')}
             className="bg-transparent border-2 border-neon-blue text-neon-blue px-8 py-4 rounded-lg font-mono font-semibold hover:bg-neon-blue hover:text-dark-bg transition-all duration-300 flex items-center gap-2"
           >
             <Eye size={18} />
             Resume
-          </motion.button>
+          </MagneticButton>
         </motion.div>
 
         {/* Social Links */}
