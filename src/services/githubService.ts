@@ -44,10 +44,25 @@ export interface ProjectData {
 const GITHUB_USERNAME = 'samuveljohnson1416';
 const GITHUB_API_BASE = 'https://api.github.com';
 
+// One shared request per page load: the preloader, Home and Projects all reuse it.
+let reposRequest: Promise<GitHubRepo[]> | null = null;
+
 /**
- * Fetch all public repositories for the user
+ * Fetch all public repositories for the user. Pass `force` to bypass the shared request (refresh).
  */
-export async function fetchGitHubRepositories(): Promise<GitHubRepo[]> {
+export function fetchGitHubRepositories(force = false): Promise<GitHubRepo[]> {
+  if (force || !reposRequest) {
+    const request = requestGitHubRepositories();
+    reposRequest = request;
+    // Allow a retry after a failure, unless a newer request already replaced this one.
+    request.catch(() => {
+      if (reposRequest === request) reposRequest = null;
+    });
+  }
+  return reposRequest;
+}
+
+async function requestGitHubRepositories(): Promise<GitHubRepo[]> {
   try {
     const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
     const headers: HeadersInit = {
@@ -178,8 +193,8 @@ export function transformRepoToProject(repo: GitHubRepo): ProjectData {
 /**
  * Main function to get all projects
  */
-export async function getAllProjects(): Promise<ProjectData[]> {
-  const repos = await fetchGitHubRepositories();
+export async function getAllProjects(force = false): Promise<ProjectData[]> {
+  const repos = await fetchGitHubRepositories(force);
   const projects = repos.map(transformRepoToProject);
 
   // Sort by: featured first, then by stars, then by recent updates

@@ -24,12 +24,12 @@ const Projects = () => {
     loadProjects();
   }, []);
 
-  const loadProjects = async () => {
+  const loadProjects = async (force = false) => {
     setLoading(true);
     setError(null);
 
     try {
-      const fetchedProjects = await getAllProjects();
+      const fetchedProjects = await getAllProjects(force);
       setProjects(fetchedProjects);
     } catch (err) {
       setError('Failed to load projects from GitHub. Please try again later.');
@@ -126,7 +126,7 @@ const Projects = () => {
               <AlertCircle size={16} />
               <span>{error}</span>
               <button
-                onClick={loadProjects}
+                onClick={() => loadProjects(true)}
                 className="ml-2 text-neon-green hover:underline"
               >
                 Retry
@@ -246,7 +246,7 @@ const Projects = () => {
               <motion.button
                 whileHover={{ scale: 1.1, rotate: 180 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={loadProjects}
+                onClick={() => loadProjects(true)}
                 disabled={loading}
                 className="p-2 bg-dark-card border border-gray-700 rounded-lg hover:border-neon-green transition-colors disabled:opacity-50"
                 title="Refresh projects from GitHub"

@@ -17,13 +17,12 @@ export const terminalChrome: Variants = {
 };
 
 /**
- * One-shot entrance props. `data-reveal` lets CSS show the element in its final
- * state for reduced-motion visitors, even before hydration.
+ * Entrance props for a child of a parent with `initial="hidden"` and `animate="visible"`,
+ * so the parent decides when the whole sequence starts. `data-reveal` lets CSS show the
+ * element in its final state for reduced-motion visitors, even before hydration.
  */
 export const reveal = (delay = 0, variants: Variants = fadeUp, dur = duration.enter) => ({
   'data-reveal': '',
-  initial: 'hidden',
-  animate: 'visible',
   variants,
   transition: { duration: dur, ease, delay },
 });

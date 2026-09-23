@@ -314,6 +314,21 @@ textarea:focus-visible {
   animation: blink 1s infinite;
 }
 
+/* Boot overlay (Preloader.tsx). Hidden before paint for tabs that already saw it,
+   and after 6s no matter what, so a failed script can never trap the page. */
+.preloader {
+  animation: preloader-failsafe 0s linear 6s forwards;
+}
+
+:root[data-booted] .preloader {
+  display: none;
+}
+
+@keyframes preloader-failsafe {
+  to {
+    visibility: hidden;
+  }
+}
 
 @keyframes blink {
   0%, 50% {
@@ -459,6 +474,10 @@ textarea:focus-visible {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .preloader {
+    display: none;
   }
 }
 

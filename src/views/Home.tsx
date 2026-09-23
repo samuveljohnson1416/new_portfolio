@@ -9,6 +9,7 @@ import CountUp from '../components/motion/CountUp';
 import MagneticButton from '../components/motion/MagneticButton';
 import AnimatedBackground from '../components/shared/AnimatedBackground';
 import Shell from '../components/terminal/Shell';
+import { useBooted } from '../components/shared/Preloader';
 import { duration, reveal, terminalChrome } from '../components/motion/motionConfig';
 
 // Hero timeline (seconds). Everything settles by ~1s; controls work from the first frame.
@@ -27,6 +28,7 @@ const HERO = {
 
 const Home = () => {
   const router = useRouter();
+  const booted = useBooted();
   const [projectCount, setProjectCount] = useState('6+');
   const message = "Let's build something amazing together!";
 
@@ -79,7 +81,12 @@ const Home = () => {
       <AnimatedBackground />
 
       {/* Main Content */}
-      <div className="text-center z-10 px-4 max-w-5xl mx-auto">
+      {/* The hero sequence starts once the boot overlay leaves. */}
+      <motion.div
+        initial="hidden"
+        animate={booted ? 'visible' : 'hidden'}
+        className="text-center z-10 px-4 max-w-5xl mx-auto"
+      >
         {/* Terminal Window */}
         <motion.div
           {...reveal(HERO.chrome, terminalChrome, 0.25)}
@@ -223,7 +230,7 @@ const Home = () => {
             </motion.a>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 };
